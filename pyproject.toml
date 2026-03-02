@@ -5,5 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "myst-parser>=5.0.0",
     "sphinx>=9.0.4",
+    "sphinx-rtd-theme>=3.1.0",
 ]
