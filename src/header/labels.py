@@ -46,7 +46,7 @@ def build_computed_column_labels(
     include_pc = len(pos) > 1
 
     labels: List[str] = []
-    beam_independent = {"RMS", "BSLOPE", "FLAG"}
+    beam_independent = {"RMS", "BRMS","BSLOPE", "FLAG"}
 
     for p, s, col in product(pol, pos, cols):
         if col in beam_independent:
@@ -66,8 +66,6 @@ def build_computed_column_labels(
                     labels.append(f"{b}C{s}{p}{col}ERR")
             else:
                 labels.append(base)
-
-    # sys.exit()
 
     log.debug("Computed labels: %s", labels)
     return labels

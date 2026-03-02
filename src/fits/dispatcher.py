@@ -8,7 +8,6 @@
 # Library imports
 # --------------------------------------------------------------------------- #
 import logging
-import sqlite3
 from pathlib import Path
 from typing import Any, Dict, List
 import os
@@ -59,10 +58,12 @@ def process_fits_path(
         raise ValueError("root_path is None")
 
     if resolved.is_file():
-        return _process_single_file(resolved, paths, log,args)
+        _process_single_file(resolved, paths, log,args)
+        return
 
     if resolved.is_dir():
-        return _process_directory(resolved, log,paths, args)
+        _process_directory(resolved, log,paths, args)
+        return 
 
     raise ValueError(f"Invalid path type: {resolved}")
 
@@ -190,8 +191,10 @@ def _process_single_file(
         file_mtime=file_mtime,
     )
     clear_diagnostics_dir(paths.diagnostics_dir, log)
+    del row
+    del scan
     
-    return scan
+    # return scan
 
 
 def _process_directory(root_dir: Path, 
@@ -282,9 +285,11 @@ def _process_directory(root_dir: Path,
                         clear_diagnostics_dir(paths.diagnostics_dir, log)
                         
                         del row
+                        del scan
                 else:
                     log.info(f"Directory {base} has {len(paths_to_process)} files, skipping process")
             else:
                 log.info(f"Directory {base} has no `    fits files, skipping process")
             
-    return results
+    
+    return #results

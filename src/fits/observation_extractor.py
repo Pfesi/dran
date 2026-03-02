@@ -8,6 +8,7 @@
 # Library imports
 # --------------------------------------------------------------------------- #
 import logging
+import sys
 from pathlib import Path
 from typing import Any, Dict, List
 import numpy as np
@@ -113,17 +114,10 @@ def _extract_headers(reader: LazyFITSReader,
 
     hdr0 = reader.get_header(0)
     hdr2 = reader.get_header(2)
-    # print(hdr2)
-    # print(hdr2.get("CENTFRQ1"))
 
     srcname = str(hdr0.get("OBJECT"))
-    # try:
     centfreq = hdr2.get("CENTFREQ")
-    # except Exception as e:
-    #     print('except, ',e)
-    #     centfreq = hdr2.get("CENTFRQ1")
-        
-    # print('--',centfreq)
+
 
     if centfreq is None:
         centfreq = hdr2.get("CENTFRQ1")
@@ -277,7 +271,7 @@ def _extract_single_scan(
     header_name = hdu_name.split("_")[-1] if hdu_name else str(index)
 
     # support for older file systems from 2004
-    # print('header_name: ',header_name, hdus);sys.exit()
+    # print('header_name: ',header_name)#, hdus)#;sys.exit()
     if header_name=='Drift':
         if index==3:
             header_name='HPNZ'
@@ -297,7 +291,7 @@ def _extract_single_scan(
     if header_name=="HPSA":
         header_name="HPSZ"
 
-    log.debug(f"Extracting scan data from HDU {index} ({header_name})")
+    log.debug(f"Extracting scan data from HDU {index} ({header_name})")#;sys.exit()
 
     scans = reader.get_data(index)
     names = None

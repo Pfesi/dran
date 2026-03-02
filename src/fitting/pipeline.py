@@ -685,6 +685,10 @@ def fit_scan_db(
     clean = clean_data(x, y, log)
     result.clean_rms = clean.rms
 
+    from matplotlib import pyplot as plt
+    # plt.plot(clean.x,clean.y)
+    # plt.show()
+    # sys.exit()
     # Derivative step masking (kept from your flow, packaged here)
     dy = np.diff(clean.y)
     std = float(np.std(dy)) if dy.size else 0.0

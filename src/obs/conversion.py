@@ -35,6 +35,7 @@ def counts_to_kelvin(counts: np.ndarray, hz_per_k: Any) -> np.ndarray:
         Converted array in Kelvin, or a safe zero fallback.
     """
     counts = np.asarray(counts)
+    # print('---',counts)
 
     # Safe fallback for empty input.
     if counts.size == 0:
@@ -42,8 +43,13 @@ def counts_to_kelvin(counts: np.ndarray, hz_per_k: Any) -> np.ndarray:
 
     try:
         scale = float(hz_per_k)
+    except:
+        scale = float(hz_per_k[0])
+    
+    try:
         if scale == 0.0:
             raise ZeroDivisionError("hz_per_k scale is zero.")
+        
         return (counts.astype(float) - float(counts[0])) / scale
     except Exception:
         return np.zeros(counts.size, dtype=float)

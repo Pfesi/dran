@@ -8,6 +8,7 @@
 # Library imports
 # --------------------------------------------------------------------------- #
 import logging
+import sys
 from typing import Any, List, MutableMapping
 import numpy as np
 from src.obs.conversion import counts_to_kelvin
@@ -86,6 +87,7 @@ def populate_scan_arrays(
     if not column_names:
         log.warning("No column names found for HDU %s (%s).", hdu_index, header_name)
         column_names = []
+    # print(header_name)
     # print(scans_table)
     if 'ZC' in header_name:
         n = None
@@ -134,15 +136,24 @@ def populate_scan_arrays(
         _store_on_obs(obs,'OFFSET',offset)
 
     else:
-        # print('--- ',header_name)
+        # print('--- ',header_name);sys.exit()
         pass
 
     # get obs
+    # print(scans_table)
+    # print(scans_table);sys.exit()
     lcp_counts = _get_col(scans_table,"Count1",log)
     rcp_counts = _get_col(scans_table,"Count2",log)
-
+    
+    
+    # print( _get_col(obs, "HZPERK1",log), _get_col(obs, "HZPERK2",log))
     lcp = counts_to_kelvin(lcp_counts, _get_col(obs, "HZPERK1",log))
     rcp = counts_to_kelvin(rcp_counts, _get_col(obs, "HZPERK2",log))
+    
+    # import matplotlib.pyplot as plt
+    # plt.plot(lcp)
+    # plt.show()
+    # sys.exit()
 
     _store_on_obs(obs, f"{header_name}_lcpdata",lcp)
     _store_on_obs(obs, f"{header_name}_rcpdata",rcp)

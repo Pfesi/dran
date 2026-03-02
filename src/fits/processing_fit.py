@@ -132,9 +132,11 @@ def _populate_fit_fields(
         if current is not None:
             continue
 
+        # print(current);sys.exit()
         # Dual beam fields for C/X.
         if band in {"C", "X"}:
-            # print('-->',field,current, pol_key)
+            # print(f"{pol_key}BRMS", scan.baseline_rms, field)
+            # print('==>',field,current, pol_key)#; sys.exit()
             if field == f"{pol_key}RMS":
                 row[field] = scan.clean_rms
             elif field == f"{pol_key}BSLOPE":
@@ -218,15 +220,6 @@ def _populate_fit_fields(
             qc={'ok':scan.qc.ok, 'flag':scan.qc.flag, 'message':scan.qc.message, 'metrics':scan.qc.metrics}
             row[field] = json.dumps(to_jsonable(qc), ensure_ascii=False)
 
-        
-    # # if(args.saveplotstodb):
-    # for r in row:
-    #     if 'UISER_LONG' in r: # or "DATA" in r:
-    #         print(r,row[r])
-    # #             row[r]=np.array([])
-    
-    # # sys.exit()
-    
 
 def _populate_pointing_single_beam(row: Dict[str, Any], log: logging.Logger) -> None:
     """
@@ -330,7 +323,7 @@ def populate_row(
     
     # print('In')
     band = band.upper()
-    # print('In-')
+    # print('In-',band)
     for row in file_data:
         if row.get("SCAN_ERROR") is not None:
             # Skip fitting if scan extraction failed; keep header-level fields only.
@@ -364,11 +357,14 @@ def populate_row(
             fname_stub = f"{row['FILENAME'][:18]}_{pol_key}"
             src = str(row.get("OBJECT") or "UNKNOWN").replace(" ", "")#;sys.exit()
             out_path = _plot_base_path(row, src, fname_stub, paths)
+            # print(row)
             # print('here'); sys.exit()
 
             scan = _fit_one_scan(row, value, band, out_path, paths, log)#;print('here')
-            # print(scan)
+            # print(row);sys.exit()
             _populate_fit_fields(row=row, scan=scan, pol_key=pol_key, band=band, log=log,args=args)
+            
+            del scan
 
     # print('In>')
     # print(row)
