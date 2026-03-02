@@ -10,3 +10,4 @@ wheels/
 .venv
 
 # my stuff
+semantic_version_changelog.py

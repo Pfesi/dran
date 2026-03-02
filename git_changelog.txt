@@ -1,0 +1,4 @@
+- 2026-03-02 11:45:27 +0200 *  (6410795)  (HEAD -> main)   added src path to docs so docs can find code
+- 2026-03-02 11:40:02 +0200 *  (277db25)    added rtd theme and myst parser
+- 2026-03-02 11:31:50 +0200 *  (128a116)    added sphinx docs and some modules for program startup
+- 2026-03-02 11:08:05 +0200 *  (84a2163)    used uv to initialize new dran program
