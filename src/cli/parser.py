@@ -15,6 +15,27 @@ from src.utils.paths import resolve_existing_path_without_logger
 
 
 def _positive_int(value: str) -> int:
+    """
+    Parse and validate a positive integer for argparse input.
+
+    Converts the provided string to an integer and ensures the value
+    is strictly greater than zero.
+
+    Args:
+        value (str): The input string received from the command line.
+
+    Returns:
+        int: The validated positive integer.
+
+    Raises:
+        argparse.ArgumentTypeError:
+            - If the value cannot be converted to an integer.
+            - If the parsed integer is less than or equal to zero.
+
+    Notes:
+        Designed for use as the `type` argument in argparse.add_argument(),
+        enforcing positive integer constraints at parse time.
+    """
     try:
         parsed = int(value)
     except ValueError as exc:
@@ -26,10 +47,37 @@ def _positive_int(value: str) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Create and configure the command-line argument parser.
-    Defines all supported CLI options, defaults, and validation rules for 
-    running DRAN in different operating modes.
     """
+    Construct and return the DRAN command-line interface parser.
+
+    This parser defines all supported CLI options for running the DRAN
+    (Drift-scan Reduction and Analysis) system. It configures processing
+    inputs, runtime behavior, operating modes, threading, logging,
+    database interaction, and web serving parameters.
+
+    Supported capabilities include:
+
+    - FITS file or directory ingestion via --path
+    - Debug logging control
+    - Optional persistence of plot/lightcurve data to the database
+    - Multiple operating modes:
+        auto   : Automatically process data
+        gui    : Launch desktop GUI interface
+        web    : Launch web interface
+        anal   : Run analysis-only mode
+        docs   : Generate or serve documentation
+        serve  : Start backend service
+    - Thread pool configuration
+    - Web server port configuration
+    - Custom working/results directory
+    - Version reporting
+
+    Returns
+    -------
+    argparse.ArgumentParser
+        A fully configured parser ready for argument parsing.
+    """
+    
     parser = argparse.ArgumentParser(
         prog="DRAN",
         description="Begin processing HartRAO drift-scan data from the Hart 26m telescope.",
@@ -113,6 +161,33 @@ def normalize_args(args: argparse.Namespace) -> argparse.Namespace:
 
 
 def validate_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+    """
+    Validate command-line arguments and enforce required constraints.
+
+    This function ensures that:
+    1. When mode is set to "auto", a path argument is provided.
+    2. If a path is supplied, it exists on the filesystem.
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed command-line arguments.
+    parser : argparse.ArgumentParser
+        Argument parser instance used to raise user-friendly CLI errors.
+
+    Raises
+    ------
+    SystemExit
+        Triggered via parser.error() if:
+        - mode="auto" and no path is provided.
+        - The provided path does not exist.
+
+    Notes
+    -----
+    - Expands user home shortcuts (e.g. "~") before checking existence.
+    - Validation errors terminate execution with a clear CLI message.
+    """
+    
     if args.mode == "auto" and args.path is None:
         parser.error("Missing required argument: -path/--path (required for mode=auto)")
 

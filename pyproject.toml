@@ -1,11 +1,20 @@
 [project]
 name = "dran"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.3.2"
+description = "Data reduction and analysis program."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "astropy>=7.2.0",
+    "dotenv>=0.9.9",
+    "matplotlib>=3.10.8",
     "myst-parser>=5.0.0",
+    "numpy>=2.4.2",
+    "pandas>=3.0.1",
+    "paramiko>=4.0.0",
+    "scikit-learn>=1.8.0",
     "sphinx>=9.0.4",
+    "sphinx-autobuild>=2025.8.25",
+    "sphinx-book-theme>=1.1.4",
     "sphinx-rtd-theme>=3.1.0",
 ]

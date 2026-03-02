@@ -13,11 +13,11 @@ copyright = '2026, pfesesani van zyl'
 author = 'pfesesani van zyl'
 release = '0.1.0'
 
-VERSION: str = "0.1.0"
+VERSION: str = "0.3.2"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-_ROOT = Path(__file__).resolve().parents[2]
+_ROOT = Path(__file__).resolve().parents[3]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 print('\n*** Added ROOT path for src files: ', _ROOT,'\n')
@@ -28,8 +28,10 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     
     'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx.ext.todo',
+    'sphinx_book_theme',
     
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
@@ -39,7 +41,6 @@ extensions = [
     'sphinx.ext.mathjax',
     
     'sphinx.ext.githubpages',
-    'sphinx.ext.napoleon',
     'myst_parser',
     'sphinx.ext.duration',
     # 'nbsphinx'
@@ -54,7 +55,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme' #'alabaster'
+
 html_static_path = ['_static']
+html_css_files = ['css/custom.css'] # relative to _static path
+html_js_files = ['js/custom.js']
 
 source_suffix = {
     '.rst': 'restructuredtext',

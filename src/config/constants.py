@@ -16,8 +16,8 @@ from typing import Dict, Tuple
 
 # App configuration
 PROJECT_NAME: Final[str] = "DRAN"
-VERSION: str = "1.1.4"
-# RELEASE: str = "1.0"
+VERSION: str = "0.3.2"
+RELEASE: str = "1.0"
 YEAR: str = str(datetime.now().year)
 
 AUTHOR: Final[str] = "Pfesesani V. van Zyl"

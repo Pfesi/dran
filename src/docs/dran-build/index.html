@@ -6,20 +6,24 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dran documentation &mdash; dran 0.1.0 documentation</title>
+  <title>Welcome to DRAN’s documentation! &mdash; dran 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
-      <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=2f430ca1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=2f430ca1" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/documentation_options.js?v=a1637f0b"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/scripts/sphinx-book-theme.js"></script>
+      <script src="_static/js/custom.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="extras/getting-started/installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,11 +45,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">dran documentation</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extras/getting-started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/getting-started/quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras/interface/gui.html#view-plots">View plots</a></li>
 </ul>
-</div>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extras/CHANGELOG.html">CURRENT VERSION (0.3.2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/modules.html">src</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -60,9 +76,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">dran documentation</li>
+      <li class="breadcrumb-item active">Welcome to DRAN’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/index.rst" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -70,19 +86,93 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="dran-documentation">
-<h1>dran documentation<a class="headerlink" href="#dran-documentation" title="Link to this heading"></a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
+  <section id="welcome-to-dran-s-documentation">
+<h1>Welcome to DRAN’s documentation!<a class="headerlink" href="#welcome-to-dran-s-documentation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p><strong>DRAN</strong> is a data reduction and analysis software package designed for systematic
+processing of drift scan data collected by <a class="reference external" href="http://www.hartrao.ac.za/hh26m_factsfile.html">HartRAO’s 26m telescope</a>.
+It was developed to replace the legacy <a class="reference external" href="http://www.hartrao.ac.za/hh26m_factsfile.html">LINES</a> software previously
+used at the <a class="reference external" href="http://www.hartrao.ac.za/">Hartebeesthoek Radio Astronomy Observatory</a>.</p>
+<p>The package is implemented in <a class="reference external" href="https://www.python.org/downloads/">Python 3.11</a> and provides
+tools for end-to-end drift scan analysis, including:</p>
+<ul class="simple">
+<li><p>Data extraction and preperation,</p></li>
+<li><p>Baseline modelling and beam fitting</p></li>
+<li><p>Statistical analysis and visualisation</p></li>
+</ul>
+<p><strong>DRAN</strong>  is intended for both calibrator and target source analysis, with an emphasis on reproducibility,
+automation, and traceability of results.</p>
+</section>
+<section id="how-dran-works">
+<h2>How DRAN works<a class="headerlink" href="#how-dran-works" title="Link to this heading"></a></h2>
+<p>DRAN follows a simple, deterministic workflow.</p>
+<p>When a data file is loaded/opened in <strong>DRAN</strong>, observed parameters are extracted and passed through a
+sequence of processing stages:</p>
+<ul class="simple">
+<li><p>Radio frequency interference detection and filtering</p></li>
+<li><p>Baseline and drift correction to remove instrumental effects</p></li>
+<li><p>Beam fitting using the upper portion of the signal, typically 30 to 50 percent of the <a class="reference internal" href="extras/fitting/peak_fit.html"><span class="doc">Peak fitting</span></a> region, selected based
+on signal quality and sidelobe behaviour</p></li>
+</ul>
+<p>Final fit parameters, diagnostics, and derived statistics are written to a database for later analysis.
+All plots generated during processing are saved to a plots directory created in the current working directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Results are stored in an SQLite database by default. Export to CSV is supported if required.
+<strong>ensure csv conversion is implemented</strong></p>
+</div>
+</section>
+<section id="interfaces">
+<h2>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading"></a></h2>
+<p>DRAN supports two primary interfaces:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="extras/interface/cli.html"><span class="doc">The command line interface (CLI)</span></a>, intended for automated and batch processing.</p></li>
+<li><p><a class="reference internal" href="extras/interface/gui.html"><span class="doc">The graphical user interface (GUI)</span></a>, intended for interactive inspection, fitting,
+and time-series analysis of individual observations.</p></li>
+</ul>
+</section>
+<section id="what-to-read-next">
+<h2>What to read next<a class="headerlink" href="#what-to-read-next" title="Link to this heading"></a></h2>
+<p>To understand the workflow in practice, start with the tutorials in <span class="xref std std-doc">extras/tuts/tutorials</span>.</p>
+<p>Installation instructions are provided in <a class="reference internal" href="extras/getting-started/installation.html"><span class="doc">Installation</span></a>.
+A concise overview for first-time users is available in <a class="reference internal" href="extras/getting-started/quickstart.html"><span class="doc">Quickstart Guide</span></a>.</p>
+<p>Before performing scientific analysis, users are strongly encouraged to review <span class="xref std std-doc">extras/caveats</span>, which outlines
+assumptions, limitations, and known constraints.</p>
+</section>
+<section id="acknowledging-dran">
+<h2>Acknowledging DRAN<a class="headerlink" href="#acknowledging-dran" title="Link to this heading"></a></h2>
+<p>If you use DRAN in a publication, please cite <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2023arXiv230600764V/abstract">van Zyl P. 2023</a>.</p>
+</section>
+<section id="contacts">
+<h2>CONTACTS<a class="headerlink" href="#contacts" title="Link to this heading"></a></h2>
+<p>If you have any problems, questions, feature requests or suggestions, please
+<a class="reference external" href="https://github.com/Pfesi/dran/issues">OPEN AN ISSUE</a> <strong>confirm this is the correct path</strong></p>
 <div class="toctree-wrapper compound">
 </div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="extras/getting-started/installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

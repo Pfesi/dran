@@ -1,3 +1,6 @@
 {
-    "docs/modules": 0.012
+    "docs/src.cli": 0.094,
+    "extras/getting-started/quickstart": 0.005,
+    "extras/interface/gui": 0.012,
+    "index": 0.008
 }
