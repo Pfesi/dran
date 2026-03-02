@@ -11,3 +11,4 @@ wheels/
 
 # my stuff
 semantic_version_changelog.py
+git_changelog.txt
