@@ -6,6 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 from pathlib import Path
+import sys
 
 project = 'dran'
 copyright = '2026, pfesesani van zyl'
@@ -16,8 +17,10 @@ VERSION: str = "0.1.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-_ROOT = Path(__file__).resolve().parent
-print('ROOT: ', _ROOT)
+_ROOT = Path(__file__).resolve().parents[2]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+print('\n*** Added ROOT path for src files: ', _ROOT,'\n')
 
 extensions = [
     # 'recommonmark', # create .md files
