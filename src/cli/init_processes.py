@@ -74,7 +74,7 @@ def run(
     if args.mode == "auto":
         load_prog(PROJECT_NAME, log)
     if args.mode == "gui":
-        raise NotImplementedError("GUI processing not implemented yet")
+        pass
     if args.mode == "web":
         raise NotImplementedError("WEB processing not implemented yet")
     if args.mode == "anal":

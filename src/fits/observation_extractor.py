@@ -196,6 +196,8 @@ def _populate_header_fields(
             for key in keys_for_hdu:
                 if key in header:
                     val = header.get(key)
+                    # print(key,val)
+                    
                     # Do not clobber existing valid values with None.
                     if val is None and obs.get(key) is not None:
                         continue
@@ -271,7 +273,8 @@ def _extract_single_scan(
     header_name = hdu_name.split("_")[-1] if hdu_name else str(index)
 
     # support for older file systems from 2004
-    # print('header_name: ',header_name)#, hdus)#;sys.exit()
+    # print('^^^^^^^^^^')
+    # print('header_name: ',header_name, index)#;sys.exit()
     if header_name=='Drift':
         if index==3:
             header_name='HPNZ'
@@ -291,8 +294,9 @@ def _extract_single_scan(
     if header_name=="HPSA":
         header_name="HPSZ"
 
-    log.debug(f"Extracting scan data from HDU {index} ({header_name})")#;sys.exit()
-
+    # print(f"Extracting scan data from HDU {index} ({header_name})")
+    log.info(f"Extracting scan data from HDU {index} ({header_name})")#;sys.exit()
+# 
     scans = reader.get_data(index)
     names = None
     try:

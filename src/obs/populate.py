@@ -140,20 +140,48 @@ def populate_scan_arrays(
         pass
 
     # get obs
-    # print(scans_table)
+    # print(obs)
     # print(scans_table);sys.exit()
     lcp_counts = _get_col(scans_table,"Count1",log)
     rcp_counts = _get_col(scans_table,"Count2",log)
     
+    lcp_zeros=False
+    rcp_zeros=False
+    if not np.any(lcp_counts): # or np.all(arr == 0)
+        print("Array has only zeros.")
+        lcp_zeros=True
+        
+    if not np.any(rcp_counts): # or np.all(arr == 0)
+        print("Array has only zeros.")
+        rcp_zeros=True
     
-    # print( _get_col(obs, "HZPERK1",log), _get_col(obs, "HZPERK2",log))
-    lcp = counts_to_kelvin(lcp_counts, _get_col(obs, "HZPERK1",log))
-    rcp = counts_to_kelvin(rcp_counts, _get_col(obs, "HZPERK2",log))
+    if lcp_zeros:
+        _store_on_obs(obs, f"{header_name}_lcpdata",lcp_counts)
+    else:
+        try:
+            conv_factor_lcp= _get_col(obs, "HZPERK1",log)
+            lcp = counts_to_kelvin(lcp_counts, conv_factor_lcp)
+            _store_on_obs(obs, f"{header_name}_lcpdata",lcp)
+        except:
+            _store_on_obs(obs, f"{header_name}_lcpdata",lcp_counts)
+            
+        
+    if rcp_zeros:
+        _store_on_obs(obs, f"{header_name}_rcpdata",rcp_counts)
+    else:
+        try:
+            conv_factor_rcp= _get_col(obs, "HZPERK2",log)
+            rcp = counts_to_kelvin(rcp_counts,conv_factor_rcp)
+            _store_on_obs(obs, f"{header_name}_rcpdata",rcp)
+        except:
+            _store_on_obs(obs, f"{header_name}_rcpdata",rcp_counts)
+        
+        
     
     # import matplotlib.pyplot as plt
     # plt.plot(lcp)
     # plt.show()
     # sys.exit()
 
-    _store_on_obs(obs, f"{header_name}_lcpdata",lcp)
-    _store_on_obs(obs, f"{header_name}_rcpdata",rcp)
+    # _store_on_obs(obs, f"{header_name}_lcpdata",lcp)
+    # _store_on_obs(obs, f"{header_name}_rcpdata",rcp)

@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.3.2)
+# CURRENT VERSION (0.4.1)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,8 @@
 
 ## MINOR REVISION
 
+- v0.4.1 (7ddb447) [2026-03-02] first working version, end to end
+- v0.4.0 (9eb1b20) [2026-03-02] semantic versioning works, plus added more modules
 - v0.3.2 (f72e383) [2026-03-02] testing changelog
 - v0.3.1 (f071b1d) [2026-03-02] we now have a changelog tracker
 - v0.3.0 (6410795) [2026-03-02] added src path to docs so docs can find code

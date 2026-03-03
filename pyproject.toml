@@ -1,6 +1,6 @@
 [project]
 name = "dran"
-version = "0.3.2"
+version = "0.4.1"
 description = "Data reduction and analysis program."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -12,6 +12,9 @@ dependencies = [
     "numpy>=2.4.2",
     "pandas>=3.0.1",
     "paramiko>=4.0.0",
+    "pyqt5>=5.15.11",
+    "pyqt6>=6.10.2",
+    "rich>=14.3.3",
     "scikit-learn>=1.8.0",
     "sphinx>=9.0.4",
     "sphinx-autobuild>=2025.8.25",

@@ -13,6 +13,12 @@ wheels/
 # my stuff
 semantic_version_changelog.py
 git_changelog.txt
-src/pipelines/server_processing.py
 DRAN_RESULTS
 src/docs/
+
+# server accessrelated files
+src/pipelines/server_processing.py
+test_proc_from_server.ipynb
+all_paths.txt
+fetch_file_paths_from_server.py
+server
