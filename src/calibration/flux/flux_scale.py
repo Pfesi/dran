@@ -28,6 +28,10 @@ _OTT_1994 = {
     "NGC7027": {"range_from": 10550, "range_to": 43200, "a": 1.322, "b": -0.134, "c": 0.0},
 }
 
+_REYNOLDS_1994 = {
+    "PKS1934-368": {"range_from": 10550, "range_to": 43200, "a": 1.322, "b": -0.134, "c": 0.0}
+}
+
 _ALIAS = {
     "HYDRA A": "HYDRAA",
     "3C218": "HYDRAA",

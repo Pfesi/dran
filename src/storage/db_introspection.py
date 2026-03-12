@@ -184,6 +184,7 @@ def _ensure_and_insert(
     # print('****',paths, paths.db_path,)
     conn = get_connection(paths.db_path, log)
     ensure_table_from_dict(conn, table_name, row)
+    row_id = insert_dict(conn, table_name, row)
     try:
         row_id = insert_dict(conn, table_name, row)
         log.debug("Inserted id=%s into %s", row_id, table_name)

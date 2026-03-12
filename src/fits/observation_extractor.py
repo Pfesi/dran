@@ -174,6 +174,7 @@ def _populate_header_fields(
     index, plus an extra final entry for derived or optional fields.
     """
 
+    
     for row, keys_for_hdu in header_keys.items():
         row=int(row)
 
@@ -186,6 +187,7 @@ def _populate_header_fields(
                     hzperk=['HZPERK1','HZKERR1','HZPERK2','HZKERR2']
                     keys_for_hdu+=hzperk
             else:
+                # print(row,hdu_len-1)
                 if row==hdu_len-1:
                     log.debug('Using high noise diode data')
                     hzperk=['HZPERK1','HZKERR1','HZPERK2','HZKERR2']
@@ -221,6 +223,9 @@ def _populate_header_fields(
                 if key not in obs or obs.get(key) is None:
                     obs[key] = None
 
+    # for k,v in obs.items():
+    #     print(k,v)
+    # print('here');sys.exit()
     log.debug("Header fields populated into observation record.")
 
 

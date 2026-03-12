@@ -1,0 +1,450 @@
+<div class="kanban-modal-overlay">
+  <div class="kanban-modal">
+
+    <!-- HEADER -->
+    <header class="kanban-modal__header">
+      <div class="kanban-modal__header-top">
+        <button class="kanban-modal__status-btn">
+          Mark complete
+        </button>
+
+        <div class="kanban-modal__header-actions">
+          <button class="icon-btn" aria-label="Cover image"></button>
+          <button class="icon-btn" aria-label="More options"></button>
+          <button class="icon-btn" aria-label="Close modal"></button>
+        </div>
+      </div>
+
+      <div class="kanban-modal__header-title-wrap">
+        <h1 class="kanban-modal__title">
+          Active participation in FERMI-LAT Collaboration, flare advocate reporting
+        </h1>
+      </div>
+    </header>
+
+    <!-- BODY GRID -->
+    <div class="kanban-modal__body">
+
+      <!-- LEFT COLUMN -->
+      <main class="kanban-modal__main">
+
+        <!-- LABELS -->
+        <section class="kanban-modal__labels">
+          <span class="label label--violet">calibration</span>
+          <span class="label label--green">continuum</span>
+          <span class="label label--amber">documentation</span>
+          <span class="label label--sky">training</span>
+        </section>
+
+        <!-- TITLE -->
+        <section class="kanban-modal__card-title-section">
+          <h2 class="kanban-modal__card-title">
+            Active participation in FERMI-LAT Collaboration, flare advocate reporting
+          </h2>
+        </section>
+
+        <!-- TOOLBAR -->
+        <section class="kanban-modal__toolbar">
+          <button class="toolbar-btn">
+            <span class="toolbar-btn__icon"></span>
+            <span>Attach file</span>
+          </button>
+
+          <button class="toolbar-btn">
+            <span class="toolbar-btn__icon"></span>
+            <span>Attach card</span>
+          </button>
+
+          <div class="toolbar-dropdown-group">
+            <button class="toolbar-btn">
+              <span class="toolbar-btn__icon"></span>
+              <span>Dates</span>
+            </button>
+
+            <div class="popover popover--dates">
+              <div class="popover__title">Dates</div>
+
+              <div class="form-group">
+                <label>Start date</label>
+                <input type="date" />
+              </div>
+
+              <div class="form-group">
+                <label>Due date</label>
+                <input type="date" />
+              </div>
+
+              <button class="btn btn--primary">Done</button>
+            </div>
+          </div>
+
+          <button class="toolbar-btn">
+            <span class="toolbar-btn__icon"></span>
+            <span>Checklist (2)</span>
+          </button>
+
+          <div class="toolbar-dropdown-group">
+            <button class="toolbar-btn">
+              <span class="toolbar-btn__icon"></span>
+              <span>Members</span>a
+            </button>
+
+            <div class="popover popover--members">
+              <div class="popover__header">
+                <div class="popover__title">Members</div>
+                <button class="icon-btn" aria-label="Close"></button>
+              </div>
+
+              <input type="text" placeholder="Search members..." />
+
+              <div class="picker-list">
+                <button class="picker-list__item">
+                  <span class="avatar avatar--sm">PF</span>
+                  <span>Pfesi</span>
+                  <span class="picker-list__check"></span>
+                </button>
+
+                <button class="picker-list__item">
+                  <span class="avatar avatar--sm">JO</span>
+                  <span>John Ouma</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar-dropdown-group">
+            <button class="toolbar-btn">
+              <span class="toolbar-btn__icon"></span>
+              <span>Labels</span>
+            </button>
+
+            <div class="popover popover--labels">
+              <div class="popover__header">
+                <div class="popover__title">Labels</div>
+                <button class="icon-btn" aria-label="Close"></button>
+              </div>
+
+              <input type="text" placeholder="Search labels..." />
+
+              <div class="picker-list">
+                <button class="picker-list__item">
+                  <span class="label-dot label-dot--violet"></span>
+                  <span>calibration</span>
+                  <span class="picker-list__check"></span>
+                </button>
+
+                <button class="picker-list__item">
+                  <span class="label-dot label-dot--green"></span>
+                  <span>continuum</span>
+                  <span class="picker-list__check"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DATES + MEMBERS ROW -->
+        <section class="kanban-modal__meta-row">
+          <div class="meta-card">
+            <div class="meta-card__label">Start date</div>
+            <div class="meta-card__value">2026-02-03</div>
+          </div>
+
+          <div class="meta-card">
+            <div class="meta-card__label">Due date</div>
+            <div class="meta-card__value meta-card__value--with-badge">
+              <span>2026-02-09</span>
+              <span class="badge badge--danger">Overdue</span>
+            </div>
+          </div>
+
+          <div class="meta-card">
+            <div class="meta-card__label">Members</div>
+            <div class="avatar-stack">
+              <span class="avatar">PF</span>
+              <span class="avatar">JO</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- DESCRIPTION -->
+        <section class="kanban-section kanban-section--description">
+          <div class="kanban-section__header">
+            <div class="kanban-section__title-group">
+              <span class="kanban-section__icon"></span>
+              <h3 class="kanban-section__title">Description</h3>
+            </div>
+            <button class="kanban-section__action">Edit</button>
+          </div>
+
+          <div class="kanban-section__content">
+            <div class="richtext-display">
+              Flare advocate on duty February 3 to 9. Produced 1 ATel and found 1 possible new source detection. Report and meeting notes are linked below.
+            </div>
+
+            <!-- edit mode -->
+            <div class="richtext-editor is-hidden">
+              <div class="richtext-editor__toolbar">
+                <button>B</button>
+                <button>I</button>
+                <button>• List</button>
+                <button>Link</button>
+              </div>
+
+              <div class="richtext-editor__body" contenteditable="true">
+                Flare advocate on duty February 3 to 9. Produced 1 ATel and found 1 possible new source detection. Report and meeting notes are linked below.
+              </div>
+
+              <div class="richtext-editor__actions">
+                <button class="btn btn--primary">Save</button>
+                <button class="btn btn--secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOTES -->
+        <section class="kanban-section kanban-section--notes">
+          <div class="kanban-section__header">
+            <div class="kanban-section__title-group">
+              <span class="kanban-section__icon"></span>
+              <h3 class="kanban-section__title">Notes</h3>
+            </div>
+            <button class="kanban-section__action">Edit</button>
+          </div>
+
+          <div class="kanban-section__content">
+            <div class="notes-display">
+              Add working notes, follow-ups, decisions, meeting outcomes, and reminders for this card.
+            </div>
+
+            <!-- edit mode -->
+            <div class="richtext-editor is-hidden">
+              <div class="richtext-editor__toolbar">
+                <button>B</button>
+                <button>I</button>
+                <button>• List</button>
+                <button>Link</button>
+              </div>
+
+              <div class="richtext-editor__body" contenteditable="true">
+                Add working notes, follow-ups, decisions, meeting outcomes, and reminders for this card.
+              </div>
+
+              <div class="richtext-editor__actions">
+                <button class="btn btn--primary">Save</button>
+                <button class="btn btn--secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHECKLIST -->
+        <section class="kanban-section kanban-section--checklist">
+          <div class="kanban-section__header">
+            <div class="kanban-section__title-group">
+              <span class="kanban-section__icon"></span>
+              <h3 class="kanban-section__title">Checklist</h3>
+            </div>
+            <button class="kanban-section__action">Add checklist</button>
+          </div>
+
+          <div class="checklist-summary">
+            <span>2 of 5 complete</span>
+            <span>40%</span>
+          </div>
+
+          <div class="checklist-progress">
+            <div class="checklist-progress__bar" style="width:40%"></div>
+          </div>
+
+          <div class="checklist-tabs">
+            <button class="checklist-tab checklist-tab--active">Observations (3)</button>
+            <button class="checklist-tab">Follow-up (2)</button>
+          </div>
+
+          <div class="checklist-create">
+            <input type="text" placeholder="Add another checklist..." />
+            <button class="btn btn--secondary">Add checklist</button>
+          </div>
+
+          <div class="checklist-card">
+            <div class="checklist-card__header">
+              <div class="checklist-card__title-wrap">
+                <button class="checklist-card__title">Observations</button>
+              </div>
+              <button class="checklist-card__rename">Rename</button>
+            </div>
+
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <button class="checklist-item__drag"></button>
+                <input type="checkbox" checked />
+                <span class="checklist-item__text checklist-item__text--done">Review flare report</span>
+                <button class="checklist-item__delete"></button>
+              </div>
+
+              <div class="checklist-item">
+                <button class="checklist-item__drag"></button>
+                <input type="checkbox" />
+                <span class="checklist-item__text">Confirm source detection</span>
+                <button class="checklist-item__delete"></button>
+              </div>
+            </div>
+
+            <div class="checklist-add-item">
+              <input type="text" placeholder="Add item to Observations..." />
+              <button class="btn btn--primary">Add</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ATTACHMENTS -->
+        <section class="kanban-section kanban-section--attachments">
+          <div class="kanban-section__header">
+            <div class="kanban-section__title-group">
+              <span class="kanban-section__icon"></span>
+              <h3 class="kanban-section__title">Attachments</h3>
+            </div>
+          </div>
+
+          <!-- FILES -->
+          <div class="attachments-subsection">
+            <div class="attachments-subsection__header">
+              <h4>Files</h4>
+              <button class="kanban-section__action">Attach file</button>
+            </div>
+
+            <div class="file-dropzone">
+              <div>
+                <div class="file-dropzone__title">Drag and drop files here</div>
+                <div class="file-dropzone__meta">PDF, DOCX, PNG and other files</div>
+              </div>
+              <button class="btn btn--secondary">Browse</button>
+            </div>
+
+            <div class="file-attachment-list">
+              <article class="file-attachment">
+                <div class="file-attachment__left">
+                  <div class="file-attachment__thumb"></div>
+                  <div class="file-attachment__info">
+                    <div class="file-attachment__name">flare_report.pdf</div>
+                    <div class="file-attachment__meta">2.1 MB</div>
+                    <div class="file-attachment__added">Added 2 hours ago</div>
+                  </div>
+                </div>
+                <div class="file-attachment__actions">
+                  <button>Open</button>
+                  <button>Download</button>
+                  <button>Delete</button>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- CARD ATTACHMENTS -->
+          <div class="attachments-subsection">
+            <div class="attachments-subsection__header">
+              <h4>Cards</h4>
+              <button class="kanban-section__action">Attach card</button>
+            </div>
+
+            <div class="card-attachment-list">
+              <article class="card-attachment">
+                <div class="card-attachment__top">
+                  <div class="card-attachment__main">
+                    <div class="card-attachment__list-pill">IN YOUR INBOX</div>
+                    <div class="card-attachment__title">[FLARE-AD] FA-GSW report: DOY 64 (March 5, 2026)</div>
+                    <div class="card-attachment__meta">Linked card · To Do</div>
+                  </div>
+
+                  <div class="card-attachment__actions">
+                    <button>Open card</button>
+                    <button>Copy link</button>
+                    <button>Detach</button>
+                  </div>
+                </div>
+
+                <div class="card-attachment__indicators">
+                  <span class="indicator">
+                    <span class="indicator__icon"></span>
+                    <span>Description</span>
+                  </span>
+
+                  <span class="indicator indicator--checklist">
+                    <span class="indicator__icon"></span>
+                    <span>0/1</span>
+                  </span>
+
+                  <span class="indicator">
+                    <span class="indicator__icon"></span>
+                    <span>0</span>
+                  </span>
+
+                  <span class="indicator">
+                    <span class="indicator__icon"></span>
+                    <span>1</span>
+                  </span>
+                </div>
+              </article>
+            </div>
+
+            <div class="attachments-reorder-hint">
+              Drag to reorder attachments
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- RIGHT SIDEBAR -->
+      <aside class="kanban-modal__sidebar">
+
+        <!-- COMMENTS -->
+        <section class="kanban-sidebar-section kanban-sidebar-section--comments">
+          <h3 class="kanban-sidebar-section__title">Comments</h3>
+
+          <div class="comment-composer">
+            <textarea placeholder="Write a comment..."></textarea>
+            <div class="comment-composer__actions">
+              <button class="btn btn--primary">Comment</button>
+            </div>
+          </div>
+
+          <div class="comment-list">
+            <article class="comment-item">
+              <div class="comment-item__avatar">PF</div>
+              <div class="comment-item__bubble">
+                <div class="comment-item__text">
+                  the step changes need to follow the noise diode change then you worry about other effects next
+                </div>
+                <div class="comment-item__meta">
+                  Pfesi · Apr 7, 2021
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ACTIVITY -->
+        <section class="kanban-sidebar-section kanban-sidebar-section--activity">
+          <div class="kanban-sidebar-section__header">
+            <h3 class="kanban-sidebar-section__title">Activity</h3>
+            <button class="btn btn--secondary">Show</button>
+          </div>
+
+          <div class="activity-list is-hidden">
+            <article class="activity-item">
+              <div class="activity-item__avatar">PF</div>
+              <div class="activity-item__content">
+                <div class="activity-item__text">
+                  <strong>Pfesi</strong> Updated description
+                </div>
+                <div class="activity-item__meta">4 minutes ago</div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>

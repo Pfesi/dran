@@ -109,6 +109,8 @@ If you have any problems, questions, feature requests or suggestions, please
 
    extras/commands.rst
 
+   extras/calibration/calibration.rst
+
 .. toctree::
    :hidden:
    :maxdepth: 2

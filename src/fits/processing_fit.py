@@ -329,6 +329,7 @@ def populate_row(
             # Skip fitting if scan extraction failed; keep header-level fields only.
             log.warning("Skipping fitting due to SCAN_ERROR: %s", row["SCAN_ERROR"])
             continue
+        
         # accommodate the new QC feature
         if band=="C" or band == "X":
             for b in ["A","B"]:
@@ -344,6 +345,7 @@ def populate_row(
                     for p in ["L","R"]:
                         row[f'{s}{p}QC']=None
                     
+        # print(row)
         # process data 
         data_keys = [k for k in row.keys() if "DATA" in k]
         for key in data_keys:
@@ -374,6 +376,10 @@ def populate_row(
 
     if band in {"X", "C"}:
         _populate_pointing_dual_beam(row, log)
+        
+    # print(row.get("SCAN_ERROR"))
+    # if band in {"L","S"}:
+    #     _populate_fit_fields(row,log)
     # print('In*')
     # cleanup
     # clear_diagnostics_dir(DIAGNOSTICS_DIRNAME,log)

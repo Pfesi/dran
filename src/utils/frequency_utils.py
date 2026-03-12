@@ -35,6 +35,14 @@ def get_band_from_frequency(frequency: float | int, log: logging.Logger) -> str:
     """
 
     log.debug('Getting frequency band from frequency in MHz')
+    print(frequency)
+    # some files need a helper
+    if frequency==13:
+        frequency=2270
+    if frequency==35:
+        frequency=8280
+    if frequency==6:
+        frequency=4800
 
     # Validate input type
     if not isinstance(frequency, (int, float)):

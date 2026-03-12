@@ -14,7 +14,7 @@ import sys
 from .invalid_path_registry import record_invalid_path_once
 from src.config.paths import ProjectPaths
 from .frequency_utils import get_band_from_frequency
-from src.fits.path_resolver import parse_observation_path
+from src.fits.path_resolver import parse_observation_path, parse_observation_path_if_folder
 # =========================================================================== #
 
     
@@ -96,7 +96,9 @@ def parse_source_frequency_band_from_path_if_file(
     print(path_obj)
     x=parse_observation_path(path_obj)
     print('\n>>>>',x.category,x.source,x.frequency,x.filename,x.full_path)
+    # log.debug('what')
     log.debug("Parsing source, frequency, band from path: %s", path_obj)
+    # sys.exit()
    
     try:
         source_name = x.source
@@ -135,11 +137,18 @@ def parse_source_frequency_band_from_path_if_folder(
     path_obj = Path(path)
     log.debug("Parsing source, frequency, band from path: %s", path_obj)
 
+    x=parse_observation_path_if_folder(path_obj)
+    # print(x)
+    # print('\n>>>>',x.source, x.frequency, x.band_folder)#;sys.exit()
+    
+    
+        
 
     try:
-        source_name:str = path_obj.parents[0].name.upper()
-        frequency_mhz:int = int(path_obj.name)
-        band:str = get_band_from_frequency(frequency_mhz, log)
+        source_name:str = x.source.upper() #path_obj.parents[0].name.upper()
+        frequency_mhz:int = x.frequency #int(path_obj.name)
+        band:str = get_band_from_frequency(x.frequency, log)
+        # print(source_name, frequency_mhz,band);sys.exit()
 
         return source_name, frequency_mhz, band
     except (IndexError, ValueError, AttributeError) as exc:

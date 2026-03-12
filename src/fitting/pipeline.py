@@ -544,7 +544,7 @@ def fit_scan(
         result.flag = 23
         result.message = "Peak fit relative error too high"
         plot_fail(x, y, paths,result.message, log, save, flag=result.flag, fmt="r")
-        
+        # result.qc={}
         return result
 
     result.peak_coeffs = peak_coeffs

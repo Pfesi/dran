@@ -28,6 +28,9 @@ def insert_dict(
 
     vals = [normalize_for_storage(item[k]) for k in keys]
 
+    cur=conn.execute(f'PRAGMA table_info("{table}")')
+    existing_keys=[row[1] for row in cur.fetchall()]
+    print(existing_keys, keys,len(existing_keys),len(keys))
     cursor = conn.execute(
         f'INSERT INTO "{table}" ({col_list}) VALUES ({placeholders});',
         vals,

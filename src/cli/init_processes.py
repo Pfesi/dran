@@ -23,7 +23,7 @@ from src.pipelines.gui_processing import run_gui_processing
 from src.pipelines.web_processing import run_web_processing
 from src.pipelines.docs_processing import run_docs_processing
 from src.pipelines.analysis_processing import run_analysis_processing
-from src.pipelines.server_processing import run_server_side_processing
+from src.server.server_processing import run_server_side_processing
 # =|========================================================================= #
 
 
