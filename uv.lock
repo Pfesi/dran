@@ -525,8 +525,8 @@ wheels = [
 
 [[package]]
 name = "dran"
-version = "0.6.0"
-source = { virtual = "." }
+version = "0.7.0"
+source = { editable = "." }
 dependencies = [
     { name = "astropy" },
     { name = "dotenv" },
@@ -539,12 +539,16 @@ dependencies = [
     { name = "pydata-sphinx-theme" },
     { name = "pyqt5" },
     { name = "pyqt6" },
-    { name = "rich" },
     { name = "scikit-learn" },
     { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "sphinx-autobuild" },
     { name = "sphinx-book-theme" },
+]
+
+[package.optional-dependencies]
+cli = [
+    { name = "rich" },
     { name = "sphinx-rtd-theme" },
 ]
 
@@ -561,13 +565,14 @@ requires-dist = [
     { name = "pydata-sphinx-theme", specifier = ">=0.15.4" },
     { name = "pyqt5", specifier = ">=5.15.11" },
     { name = "pyqt6", specifier = ">=6.10.2" },
-    { name = "rich", specifier = ">=14.3.3" },
+    { name = "rich", marker = "extra == 'cli'", specifier = ">=14.3.3" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
     { name = "sphinx", specifier = ">=9.0.4" },
     { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
     { name = "sphinx-book-theme", specifier = ">=1.1.4" },
-    { name = "sphinx-rtd-theme", specifier = ">=3.1.0" },
+    { name = "sphinx-rtd-theme", marker = "extra == 'cli'", specifier = ">=3.1.0" },
 ]
+provides-extras = ["cli"]
 
 [[package]]
 name = "fonttools"

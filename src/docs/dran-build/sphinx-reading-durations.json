@@ -1,22 +1,4 @@
 {
-    "docs/modules": 0.01,
-    "docs/src": 0.005,
-    "docs/src.calibration": 0.25,
-    "docs/src.calibration.atmosphere": 0.041,
-    "docs/src.calibration.ephemeris": 0.009,
-    "docs/src.calibration.flux": 0.044,
-    "docs/src.calibration.planets": 0.087,
-    "docs/src.cli": 0.087,
-    "docs/src.config": 0.149,
-    "docs/src.fits": 0.314,
-    "docs/src.fitting": 0.484,
-    "docs/src.gui": 0.53,
-    "docs/src.header": 0.04,
-    "docs/src.obs": 0.023,
-    "docs/src.pipelines": 0.02,
-    "docs/src.predefs": 0.002,
-    "docs/src.storage": 0.075,
-    "docs/src.utils": 0.194,
-    "extras/interface/gui": 0.011,
+    "extras/interface/gui": 0.019,
     "index": 0.01
 }
