@@ -1,0 +1,70 @@
+# Project package management
+# Pfesi van Zyl - pfesi24@gmail.com
+# =================================================================
+
+
+[build-system]
+requires = ["uv_build >= 0.10.7, <0.11.0"]
+build-backend = "uv_build"
+
+
+[project]
+name = "dran"
+authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
+maintainers = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
+version = "0.7.0"
+license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
+description = "Data reduction and analysis of HartRAO 26m telescope drift scans."
+keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators"]
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.11"
+dependencies = [
+    "astropy>=7.2.0",
+    "dotenv>=0.9.9",
+    "matplotlib>=3.10.8",
+    "myst>=1.0.4",
+    "myst-parser>=5.0.0",
+    "numpy>=2.4.2",
+    "pandas>=3.0.1",
+    "paramiko>=4.0.0",
+    "pydata-sphinx-theme>=0.15.4",
+    "pyqt5>=5.15.11",
+    "pyqt6>=6.10.2",
+    # "rich>=14.3.3",
+    "scikit-learn>=1.8.0",
+    "sphinx>=9.0.4",
+    "sphinx-autobuild>=2025.8.25",
+    "sphinx-book-theme>=1.1.4",
+    
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    'Intended Audience :: End Users/Desktop',
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Operating System :: OS Independent"
+]
+
+[project.optional-dependencies]
+# gui = ["PyQt5"]
+cli = [
+  "rich>=14.3.3",
+  "sphinx-rtd-theme>=3.1.0",
+#   "click",
+]
+
+[project.scripts]
+dran = "main:main"
+# dran-docs = "src.dran2._docs:main"
+
+# [project.gui-scripts]
+# dran-gui = "dran2._gui:main"
+
+[project.urls]
+# Homepage = "https://example.com"
+# DOWNLOAD = "https://example.com/abc.tar.gz"
+Documentation = "https://dran.readthedocs.io/en/latest/"
+Changelog= "https://dran.readthedocs.io/en/latest/extras/changelog.html"
+Issues = "https://github.com/Pfesi/dran/issues"
+Repository = "https://github.com/Pfesi/dran"
