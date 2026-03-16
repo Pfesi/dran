@@ -149,7 +149,7 @@ def record_exists(
             (key_value,),
         )
     except:
-        print('>>>> Failed')
+        print('>>>> Failed to insert record')
         # check if table exists
         # names=get_table_names
         query: str = """

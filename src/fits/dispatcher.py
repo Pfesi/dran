@@ -269,7 +269,11 @@ def _process_directory(root_dir: Path,
                                                      "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  # example
                         row = {k: v for k, v in row.items() if k not in disallowed_keys}
 
-                        # print(row);sys.exit()
+                        # print(row['OBJECT'].replace(' ','')); sys.exit()
+                        try:
+                            src=row['OBJECT'].replace(' ','')
+                        except:
+                            pass
                         table_name=f'{src}_{int(_freq_mhz)}'
                         _ensure_and_insert(table_name,row,paths,log)
                         _record_processed_file(

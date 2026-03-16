@@ -1,6 +1,6 @@
 [project]
 name = "dran"
-version = "0.4.1"
+version = "0.6.0"
 description = "Data reduction and analysis program."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -8,10 +8,12 @@ dependencies = [
     "astropy>=7.2.0",
     "dotenv>=0.9.9",
     "matplotlib>=3.10.8",
+    "myst>=1.0.4",
     "myst-parser>=5.0.0",
     "numpy>=2.4.2",
     "pandas>=3.0.1",
     "paramiko>=4.0.0",
+    "pydata-sphinx-theme>=0.15.4",
     "pyqt5>=5.15.11",
     "pyqt6>=6.10.2",
     "rich>=14.3.3",

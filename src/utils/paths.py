@@ -147,7 +147,7 @@ def parse_source_frequency_band_from_path_if_folder(
     try:
         source_name:str = x.source.upper() #path_obj.parents[0].name.upper()
         frequency_mhz:int = x.frequency #int(path_obj.name)
-        band:str = get_band_from_frequency(x.frequency, log)
+        band:str = get_band_from_frequency(frequency_mhz, log)
         # print(source_name, frequency_mhz,band);sys.exit()
 
         return source_name, frequency_mhz, band
