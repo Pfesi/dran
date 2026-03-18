@@ -7,36 +7,83 @@
 requires = ["uv_build >= 0.10.7, <0.11.0"]
 build-backend = "uv_build"
 
+[tool.uv.build-backend]
+module-name = "src"
+module-root = "dran"
+
+source-exclude = [
+  "dran/src/dev/**",
+  "dran/src/experiments/**",
+  "dran/src/tmp/**",
+  "dran/src/**/*.bak",
+
+  "dran/src/server",
+  "dran/src/docs/readme_first.txt",
+  "dran/src/docs/runMeToBuildDocs.py",
+  "dran/src/docs/source",
+  "dran/src/docs/build",
+  "dran/src/docs/make.bat",
+  "dran/src/docs/Makefile",
+  "dran/src/analysis",
+  "dran/unassigned",
+
+  "dran/src/tmp/**",
+  "dran/src/**/.venv",
+  "dran/src/**/.venv/**",
+]
+
+wheel-exclude = [
+  "dran/src/dev/**",
+  "dran/src/experiments/**",
+  "dran/src/tmp/**",
+
+  "dran/src/server",
+  "dran/src/docs/readme_first.txt",
+  "dran/src/docs/runMeToBuildDocs.py",
+  "dran/src/docs/source",
+  "dran/src/docs/build",
+  "dran/src/docs/make.bat",
+  "dran/src/docs/Makefile",
+  "dran/src/analysis",
+  "dran/unassigned",
+
+  "dran/src/tmp/**",
+  "dran/src/**/.venv",
+  "dran/src/**/.venv/**",
+]
 
 [project]
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
 maintainers = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
-version = "0.7.0"
-license = "MIT AND (Apache-2.0 OR BSD-2-Clause)"
+version = "0.7.3"
+license = "MIT"
 description = "Data reduction and analysis of HartRAO 26m telescope drift scans."
 keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators"]
-readme = {file = "README.md", content-type = "text/markdown"}
+readme = {file = "dran/README.md", content-type = "text/markdown"}
 requires-python = ">=3.11"
 dependencies = [
     "astropy>=7.2.0",
     "dotenv>=0.9.9",
     "matplotlib>=3.10.8",
-    "myst>=1.0.4",
-    "myst-parser>=5.0.0",
     "numpy>=2.4.2",
     "pandas>=3.0.1",
     "paramiko>=4.0.0",
-    "pydata-sphinx-theme>=0.15.4",
     "pyqt5>=5.15.11",
-    "pyqt6>=6.10.2",
-    # "rich>=14.3.3",
+    "rich>=14.3.3",
     "scikit-learn>=1.8.0",
-    "sphinx>=9.0.4",
-    "sphinx-autobuild>=2025.8.25",
-    "sphinx-book-theme>=1.1.4",
-    
+
 ]
+
+docs = [
+      "myst>=1.0.4",
+      "myst-parser>=5.0.0",
+      "pydata-sphinx-theme>=0.15.4",
+      "sphinx>=9.0.4",
+      "sphinx-autobuild>=2025.8.25",
+      "sphinx-book-theme>=1.1.4",
+]
+
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     'Intended Audience :: End Users/Desktop',
@@ -49,17 +96,17 @@ classifiers = [
 [project.optional-dependencies]
 # gui = ["PyQt5"]
 cli = [
-  "rich>=14.3.3",
+#   "rich>=14.3.3",
   "sphinx-rtd-theme>=3.1.0",
 #   "click",
 ]
 
 [project.scripts]
-dran = "main:main"
-# dran-docs = "src.dran2._docs:main"
+dran = "dran.main:main"
+dran-docs = "dran.src.pipelines.docs_processing:main"
 
-# [project.gui-scripts]
-# dran-gui = "dran2._gui:main"
+[project.gui-scripts]
+dran-gui = "dran.src.pipelines.gui_processing:main"
 
 [project.urls]
 # Homepage = "https://example.com"
@@ -68,3 +115,12 @@ Documentation = "https://dran.readthedocs.io/en/latest/"
 Changelog= "https://dran.readthedocs.io/en/latest/extras/changelog.html"
 Issues = "https://github.com/Pfesi/dran/issues"
 Repository = "https://github.com/Pfesi/dran"
+
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = [
+    "build>=1.2.2",
+]

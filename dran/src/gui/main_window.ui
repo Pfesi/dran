@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>633</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>TeX Gyre Adventor</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>DRAN v1.0</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/3d bar chart.png</normaloff>../icons/3d bar chart.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="main_window_buttons_hLayout">
+      <item>
+       <widget class="QPushButton" name="btn_edit_driftscan">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string extracomment="Edit a driftscan file"/>
+        </property>
+        <property name="statusTip">
+         <string extracomment="Edit a driftscan file"/>
+        </property>
+        <property name="text">
+         <string>Edit Driftscan</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_edit_timeseries">
+        <property name="text">
+         <string>Edit Time series</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_view_plots">
+        <property name="text">
+         <string>View Plots</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
