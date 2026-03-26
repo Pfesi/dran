@@ -1,0 +1,101 @@
+dran.fitting package
+====================
+
+Submodules
+----------
+
+dran.fitting.baseline\_correction module
+----------------------------------------
+
+.. automodule:: dran.fitting.baseline_correction
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.baseline\_windows module
+-------------------------------------
+
+.. automodule:: dran.fitting.baseline_windows
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.gaussian\_fit module
+---------------------------------
+
+.. automodule:: dran.fitting.gaussian_fit
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.models module
+--------------------------
+
+.. automodule:: dran.fitting.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.peak\_fitting module
+---------------------------------
+
+.. automodule:: dran.fitting.peak_fitting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.pipeline module
+----------------------------
+
+.. automodule:: dran.fitting.pipeline
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.plot\_qc module
+----------------------------
+
+.. automodule:: dran.fitting.plot_qc
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.plotting module
+----------------------------
+
+.. automodule:: dran.fitting.plotting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.rfi\_cleaning module
+---------------------------------
+
+.. automodule:: dran.fitting.rfi_cleaning
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.spline\_models module
+----------------------------------
+
+.. automodule:: dran.fitting.spline_models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.validation module
+------------------------------
+
+.. automodule:: dran.fitting.validation
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: dran.fitting
+   :members:
+   :show-inheritance:
+   :undoc-members:
