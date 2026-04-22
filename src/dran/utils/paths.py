@@ -137,7 +137,8 @@ def parse_source_frequency_band_from_path_if_folder(
     # print('\n>>>>',x.source, x.frequency, x.band_folder)#;sys.exit()
     
     
-        
+    if x.source==None:
+        return x.source, x.frequency, x.band_folder
 
     try:
         source_name:str = x.source.upper() #path_obj.parents[0].name.upper()

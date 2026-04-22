@@ -12,7 +12,10 @@ from pathlib import Path
 import re
 from typing import Optional
 import sys
+import numpy as np
+from astropy.io import fits
 from dran.config.constants import FREQ_ALIASES
+from dran.utils.frequency_utils import get_band_from_frequency
 # =========================================================================== #
 
 
@@ -109,6 +112,60 @@ def _resolve_band_to_frequency_mhz(band: str, source_freq_folder: str, p: Path) 
     )
 
 
+class ObservationPathError(Exception):
+    """Raised when an observation path cannot be parsed."""
+
+def _read_frequency_from_fits_header(path: Path) -> tuple[str, str, str]:
+    """
+    Read observing frequency from the FITS header and convert it to the
+    frequency, wavelength, and beam fields expected by DRAN.
+
+    Returns:
+        tuple[str, str, str]:
+            frequency_mhz, wavelength_cm, beam
+    """
+    try:
+        with fits.open(path) as hdul:
+            header = hdul[2].header
+
+            # Try the most likely header keys first.
+            freq_mhz = (
+                header.get("CENTFREQ")
+                or header.get("FREQ")
+                or header.get("RESTFREQ")
+                # or header.get("CRVAL3")
+            )
+
+            if freq_mhz is None:
+                raise ObservationPathError(
+                    f"Could not determine frequency from FITS header: {path}"
+                )
+
+            # Convert to MHz if the value looks like Hz.
+            freq_mhz = float(freq_mhz)
+
+            wavelength_cm = header.get("CENTFREQ")[:-1]
+
+            # You can refine beam logic if your project has exact rules.
+            if freq_mhz<4000:
+                beam = "SB"
+            elif freq_mhz>=4000 and freq_mhz<=8000:
+                beam="DB"
+            else:
+                beam="NB"
+
+            return (
+                freq_mhz,
+                wavelength_cm,
+                beam
+            )
+
+    except Exception as exc:
+        raise ObservationPathError(
+            f"Failed to read FITS header frequency from {path}: {exc}"
+        ) from exc
+
+
 def parse_observation_path(path_str: str) -> ObservationPathParts:
     """
     Parse observation file paths for DRAN.
@@ -120,18 +177,19 @@ def parse_observation_path(path_str: str) -> ObservationPathParts:
     data/calibration/3C123_13NB_dichroic_on/file.fits
     data/calibration/3C123_35/file.fits
     data/calibration/3C123_3.5NB/file.fits
+    data/calibration/Jup/file.fits
     """
     p = Path(path_str).expanduser().resolve()
     parts = p.parts
-    # print(parts)
+
     if "data" not in parts:
         raise ObservationPathError(f"Missing 'data' directory in path: {p}")
 
     data_idx = parts.index("data")
     rel = parts[data_idx + 1 :]
-    # print(rel)
-    if len(rel) < 3:
-        raise ObservationPathError(f"Invalid observation path structure: {p}")
+
+    # if len(rel) < 3:
+    #     raise ObservationPathError(f"Invalid observation path structure: {p}")
 
     category = rel[0]
     filename = rel[-1]
@@ -198,7 +256,24 @@ def parse_observation_path(path_str: str) -> ObservationPathParts:
                 )
                               
         else:
-            raise ObservationPathError(f"Missing source_<band> pattern: {p}")
+            try:
+                source = rel[1]
+                freq_mhz, wavelength_cm, beam = _read_frequency_from_fits_header(p)
+                
+                return ObservationPathParts(
+                    root_data_dir=Path(*parts[: data_idx + 1]),
+                    category=category,
+                    source=source,
+                    frequency=freq_mhz,
+                    filename=filename,
+                    full_path=p,
+                    wavelength_cm=wavelength_cm,
+                    beam=beam,
+                    band_folder="header_inferred",
+                )
+            except:
+                print('***',source_freq_folder)
+                raise ObservationPathError(f"Missing source_<band> pattern: {p}")
 
     sf_tokens = [t for t in source_freq_folder.split("_") if t]
     if len(sf_tokens) < 2:
@@ -224,8 +299,19 @@ def parse_observation_path(path_str: str) -> ObservationPathParts:
             break
 
     if band_token is None:
-        raise ObservationPathError(
-            f"Unrecognized band folder in '{source_freq_folder}': {p}"
+        # raise ObservationPathError(
+        #     f"Unrecognized band folder in '{source_freq_folder}': {p}"
+        # )
+        return ObservationPathParts(
+            root_data_dir=Path(*parts[: data_idx + 1]),
+            category=category,
+            source=source,
+            frequency=np.nan,
+            filename=filename,
+            full_path=p,
+            wavelength_cm=None,
+            beam="",
+            band_folder=None,
         )
 
     freq_mhz, wavelength_cm, beam = _resolve_band_to_frequency_mhz(
@@ -258,24 +344,40 @@ def parse_observation_path_if_folder(path_str: str) -> ObservationPathPartsFolde
     data/calibration/3C123_35/
     data/calibration/3C123_3.5NB/
     data/calibration/3C123/
+    data/calibration/Jup/
     """
     
-    # print(path_str,'\n')
+    print(path_str,'\n')
     
     p = Path(path_str).expanduser().resolve()
     parts = p.parts
+    # print(parts)
     if "data" not in parts:
         raise ObservationPathError(f"Missing 'data' directory in path: {p}")
 
     data_idx = parts.index("data")
     rel = parts[data_idx + 1 :]
-    # print(rel,'\n')
-    if len(rel) < 2:
-        raise ObservationPathError(f"Invalid observation path structure: {p}")
+    print(rel,'\n')
+    # if len(rel) < 2:
+    #     raise ObservationPathError(f"Invalid observation path structure: {p}")
 
     category = rel[0]
     foldername = rel[-1]
 
+    if rel[0]==rel[-1]:
+        # print('out',Path(*parts[: data_idx + 1]),category,source,freq_mhz,foldername,p,wavelength_cm,beam,band_token)
+        return ObservationPathPartsFolder(
+            root_data_dir=Path(*parts[: data_idx + 1]),
+            category=category,
+            source=None,
+            frequency=None,
+            foldername=foldername,
+            full_path=p,
+            wavelength_cm=None,
+            beam=None,
+            band_folder=None,
+        )
+    
     # Layout A: data/category/source/frequency/
     # print(category,foldername,rel,'\n')
     if len(rel) >= 3:
@@ -302,8 +404,10 @@ def parse_observation_path_if_folder(path_str: str) -> ObservationPathPartsFolde
 
     # Layout B/C: data/category/source_band[_extra_tokens]/
     source_freq_folder = rel[1]
-    # print(source_freq_folder)
+    print(source_freq_folder)
     if "_" not in source_freq_folder:
+        
+            
         raise ObservationPathError(f"Missing source_<band> pattern: {p}")
 
     sf_tokens = [t for t in source_freq_folder.split("_") if t]

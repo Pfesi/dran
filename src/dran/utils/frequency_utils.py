@@ -79,7 +79,7 @@ def get_frequency_range_from_band(band: str, log: logging.Logger) -> tuple[int, 
     Return the frequency range in MHz for a given band identifier.
 
     Args:
-        band: Band identifier such as L, S, C, X, Ku.
+        band: Band identifier such as 'L', 'S', 'C', 'CM', 'X', 'Ku', 'K', 'Ka'.
         log: Logger instance.
 
     Returns:

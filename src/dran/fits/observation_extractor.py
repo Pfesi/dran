@@ -8,6 +8,7 @@
 # Library imports
 # --------------------------------------------------------------------------- #
 import logging
+import sys
 from pathlib import Path
 from typing import Any, Dict, List
 import numpy as np
@@ -67,27 +68,33 @@ def extract_observation(path: Path,
                 f"HDU_LEN={hdu_len}, band(path)={band}, band(header)={derived_band}"
             )
             log.warning(msg)
-            log.info('Stopped processing')
-            record_invalid_path_once(path, paths, log, msg)
+            # log.info('Stopped processing')
+            
+            
+            # if derived_band in {'L','S'}:
+            # _extract_scans(reader=reader, obs=obs, log=log)
+                # print(obs);sys.exit()
+                # for pol in {"L","R"}:
+                #     obs[f'ZC_{pol}CPDATA'] = np.array([])
+            # else:
+            #     for pos in {"N","S","O"}:
+            #         for pol in {"L","R"}:
+            #             if pos=="O":
+            #                 obs[f'ZC_{pol}CPDATA'] =np.array([])
+            #             else:
+            #                 obs[f'HP{pos}Z_{pol}CPDATA'] =np.array([])
+                
+            # obs['OFFSET']=np.array([])
+            
+            # record_invalid_path_once(path, paths, log, msg)
+            # sys.exit()
             obs["SCAN_ERROR"] = msg
             
-            if derived_band in {'L','S'}:
-                for pol in {"L","R"}:
-                    obs[f'ZC_{pol}CPDATA'] = np.array([])
-            else:
-                for pos in {"N","S","O"}:
-                    for pol in {"L","R"}:
-                        if pos=="O":
-                            obs[f'ZC_{pol}CPDATA'] =np.array([])
-                        else:
-                            obs[f'HP{pos}Z_{pol}CPDATA'] =np.array([])
-                
-            obs['OFFSET']=np.array([])
-            return obs
+            # return obs
         
         _extract_scans(reader=reader, obs=obs, log=log)
-        if obs.get("SCAN_ERROR") is None:
-            _apply_weather(obs=obs, log=log)
+        # if obs.get("SCAN_ERROR") is None:
+        _apply_weather(obs=obs, log=log)
 
         return obs
 
@@ -188,7 +195,13 @@ def _populate_header_fields(
                     keys_for_hdu+=hzperk
             else:
                 # print(row,hdu_len-1)
-                if row==hdu_len-1:
+                
+                if (band=="S" or band=="L") and hdu_len>5:
+                    if row==2:
+                        log.debug('Using high noise diode data')
+                        hzperk=['HZPERK1','HZKERR1','HZPERK2','HZKERR2']
+                        keys_for_hdu+=hzperk
+                elif row==hdu_len-1:
                     log.debug('Using high noise diode data')
                     hzperk=['HZPERK1','HZKERR1','HZPERK2','HZKERR2']
                     keys_for_hdu+=hzperk
@@ -196,9 +209,10 @@ def _populate_header_fields(
                     pass
 
             for key in keys_for_hdu:
+                # print(key,header);sys.exit()
                 if key in header:
                     val = header.get(key)
-                    
+                    # print(key)
                     # Do not clobber existing valid values with None.
                     if val is None and obs.get(key) is not None:
                         continue
@@ -215,6 +229,9 @@ def _populate_header_fields(
                 else:
                     if key not in obs or obs.get(key) is None:
                         obs[key] = None
+                        
+                        # print(key)
+            # sys.exit()
         else:
             for key in keys_for_hdu:
                 if key in {"HUMIDITY", "TAMBIENT"}:
@@ -222,11 +239,13 @@ def _populate_header_fields(
                 if key not in obs or obs.get(key) is None:
                     obs[key] = None
 
+    # sys.exit()
     log.debug("Header fields populated into observation record.")
 
 
 def _extract_scans(reader: LazyFITSReader, 
-                   obs: ObsRecord, log: logging.Logger) -> None:
+                   obs: ObsRecord, 
+                   log: logging.Logger) -> None:
     
     """Extract scan data from configured FITS HDUs into the observation record.
     Validates HDU length metadata, resolves the scan HDU indices, and 
@@ -247,9 +266,9 @@ def _extract_scans(reader: LazyFITSReader,
         return
 
     for i in indices:
-        if obs.get("SCAN_ERROR") is not None:
-            # Stop further scan extraction if a fatal scan error is recorded.
-            return
+        # if obs.get("SCAN_ERROR") is not None:
+        #     # Stop further scan extraction if a fatal scan error is recorded.
+        #     return
         _extract_single_scan(reader=reader, obs=obs, hdus=hdus, index=i, log=log)
 
 
@@ -295,6 +314,24 @@ def _extract_single_scan(
 
     log.info(f"Extracting scan data from HDU {index} ({header_name})")
     
+    # print(obs);sys.exit()
+    
+    if (obs['BAND']=="S" or obs['BAND']=="L") and obs['HDULEN']>5:
+        if header_name == "ZC":
+            scans = reader.get_data(index)
+            names = None
+            try:
+                names = getattr(scans, "names", None)
+                if names is None and hasattr(scans, "dtype"):
+                    names = scans.dtype.names
+                log.debug(f"HDU {index} table columns: {names}")
+            except Exception:
+                log.debug(f"HDU {index} table columns: unknown")
+
+            populate_scan_arrays(obs, scans, index, header_name, names,log)
+        else:
+            return
+        
     scans = reader.get_data(index)
     names = None
     try:

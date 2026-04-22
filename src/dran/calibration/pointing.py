@@ -83,8 +83,13 @@ def calc_pointing_correction(hps_ta, hps_err,
         # calculate the derivatives
         on_der = pc * 2.0 * expo * (1.0/on_ta)
         hpn_der = pc * 2.0 * expo * (-1.0/hpn_ta)
-        err_ta_corrected = np.sqrt((on_err**2)*(on_der**2) + (hpn_err**2)*(hpn_der**2))
-
+        try:
+            err_ta_corrected = np.sqrt((on_err**2)*(on_der**2) + (hpn_err**2)*(hpn_der**2))
+        except:
+            
+            print('Errors are too high, setting errors to 99')
+            print('Err ON: ', on_der,', Err HPN: ', hpn_der)
+            err_ta_corrected = 99
     else:
         d=lnS-lnN
         denom = 16.0 * float(np.log(2.0))

@@ -9,6 +9,7 @@
 # --------------------------------------------------------------------------- #
 import logging
 import sys
+import numpy as np
 from pathlib import Path
 from typing import Any, Dict, List
 import os
@@ -149,65 +150,126 @@ def _process_single_file(
         record_invalid_path_once(fits_path,paths, log, "empty file")
         return []
     
+
+                        
     p=parse_observation_path(fits_path)
-
-    # print('p: ',p);sys.exit()
-    src=p.source
-    freq_mhz=int(p.frequency)
-    # print(freq_mhz)
-    # sys.exit()
-    band=get_band_from_frequency(freq_mhz,log)
-    band=band.upper()
-    table_name = f"{src}_{freq_mhz}".upper()
-
-    # print(table_name)
-    conn = get_connection(paths.db_path, log)
     
-    already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
-    conn.close()
+    # print(p,p.band_folder) 
 
-    # print('out', already_done)
-    if already_done:
-        log.debug("Skipping already processed file: %s", fits_path)
-        return []
+    if p.band_folder==None:
+        print(">> ",fits_path, paths, p.band_folder)
 
-    skip, file_hash, file_size, file_mtime = _should_skip_by_registry(
-        fits_path, paths, log
-    )
-    
-    # print("skip: ", skip)
-    if skip:
-        log.debug("Skipping duplicate file by registry: %s", fits_path)
-        return []
-    
-    # print(">> ",fits_path, paths, band)
+        record = extract_observation(fits_path, paths, p.band_folder, log)
+        print(record)
+        
+        src=record["OBJECT"]
+        band=record["BAND"]
+        freq_mhz=int(record["CENTFREQ"])
+        table_name = f"{src}_{freq_mhz}".upper()
+                  
+        conn = get_connection(paths.db_path, log)
+        
+        already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
+        conn.close()
+        
+        if already_done:
+            log.debug("Skipping already processed file: %s", fits_path)
+            return []
 
-    record = extract_observation(fits_path, paths, band, log)
-    # print('here')
-    scan = [record]
-    row = populate_row(scan, band, paths, log,args)
-    # print('here*')
-    disallowed_keys: set[str] = {"UISER_LONG", 
-                                "GAIN1", "GAIN2",
-                                "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
-    row = {k: v for k, v in row.items() if k not in disallowed_keys}
+        skip, file_hash, file_size, file_mtime = _should_skip_by_registry(
+            fits_path, paths, log
+        )
+        
+        # print("skip: ", skip)
+        if skip:
+            log.debug("Skipping duplicate file by registry: %s", fits_path)
+            return []
+        
+        
+        record = extract_observation(fits_path, paths, band, log)
+        # print(record);sys.exit()
+                  
+        scan = [record]
+        row = populate_row(scan, band, paths, log,args)
+        # print('here*')
+        disallowed_keys: set[str] = {"UISER_LONG", 
+                                    "GAIN1", "GAIN2",
+                                    "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
+        row = {k: v for k, v in row.items() if k not in disallowed_keys}
 
-    # print('here')
-    _ensure_and_insert(table_name,row,paths,log)
-    _record_processed_file(
-        fits_path,
-        paths,
-        log,
-        args,
-        file_hash=file_hash,
-        file_size=file_size,
-        file_mtime=file_mtime,
-    )
-    clear_diagnostics_dir(paths.diagnostics_dir, log)
-    del row
-    del scan
-    
-    # return scan
+        # print('here')
+        _ensure_and_insert(table_name,row,paths,log)
+        _record_processed_file(
+            fits_path,
+            paths,
+            log,
+            args,
+            file_hash=file_hash,
+            file_size=file_size,
+            file_mtime=file_mtime,
+        )
+        clear_diagnostics_dir(paths.diagnostics_dir, log)
+        del row
+        del scan
+        
+    else:
+        # print('p: ',p);sys.exit()
+        src=p.source
+        freq_mhz=int(p.frequency)
+        # print(src,freq_mhz)
+        # sys.exit()
+        band=get_band_from_frequency(freq_mhz,log)
+        band=band.upper()
+        table_name = f"{src}_{freq_mhz}".upper()
+
+        # print(table_name)
+        conn = get_connection(paths.db_path, log)
+        
+        already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
+        conn.close()
+
+        # print('out', already_done)
+        if already_done:
+            log.debug("Skipping already processed file: %s", fits_path)
+            return []
+
+        skip, file_hash, file_size, file_mtime = _should_skip_by_registry(
+            fits_path, paths, log
+        )
+        
+        # print("skip: ", skip)
+        if skip:
+            log.debug("Skipping duplicate file by registry: %s", fits_path)
+            return []
+        
+        # print(">> ",fits_path, paths, band)
+
+        record = extract_observation(fits_path, paths, band, log)
+        # print('here',band);sys.exit()
+        scan = [record]
+        row = populate_row(scan, band, paths, log,args)
+        # print('here*')
+        disallowed_keys: set[str] = {"UISER_LONG", 
+                                    "GAIN1", "GAIN2",
+                                    "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
+        row = {k: v for k, v in row.items() if k not in disallowed_keys}
+
+        # print('here')
+        _ensure_and_insert(table_name,row,paths,log)
+        _record_processed_file(
+            fits_path,
+            paths,
+            log,
+            args,
+            file_hash=file_hash,
+            file_size=file_size,
+            file_mtime=file_mtime,
+        )
+        clear_diagnostics_dir(paths.diagnostics_dir, log)
+        del row
+        del scan
+        
+        # return scan
 
 
 def _process_directory(root_dir: Path, 
@@ -232,7 +294,7 @@ def _process_directory(root_dir: Path,
                     continue
             
             fits_files = sorted([path for path in parent_files if path.name.lower().endswith(".fits")])
-            
+            # print(fits_files);sys.exit()
             if fits_files:
                 try:
                     src, _freq_mhz, band = parse_source_frequency_band_from_path_if_folder(base, log)
@@ -272,11 +334,19 @@ def _process_directory(root_dir: Path,
                             continue
 
                         log.info(f"\nWorking on path: {fits_path}")
-                        record = extract_observation(fits_path, paths,band, log)
+                        record = extract_observation(fits_path, paths,band, log)#;sys.exit()
                         scan = [record]
                         results.append(record)
 
-                        row = populate_row(scan, band, paths,log,args)
+                        if src==None:
+                            src=record["OBJECT"]
+                        if band==None:
+                            band=record["BAND"]
+                        if _freq_mhz==None:
+                            _freq_mhz=int(record["CENTFREQ"])
+                        
+                        # print(src, _freq_mhz,band);sys.exit()
+                        row = populate_row(scan, band, paths,log,args)#;sys.exit()
                         disallowed_keys: set[str] = {"UISER_LONG", 
                                                      "GAIN1", "GAIN2",
                                                      "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  # example
@@ -302,7 +372,7 @@ def _process_directory(root_dir: Path,
                         clear_diagnostics_dir(paths.diagnostics_dir, log)
                         
                         del row
-                        del scan
+                        del scan#; sys.exit()
                 else:
                     log.info(f"Directory {base} has {len(paths_to_process)} files, skipping process")
             else:

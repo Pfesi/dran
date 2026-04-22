@@ -313,13 +313,14 @@ def populate_row(
     file_data, consistent with existing behavior).
     """
     
+    print(band)
     band = band.upper()
     for row in file_data:
-        if row.get("SCAN_ERROR") is not None:
+        # if row.get("SCAN_ERROR") is not None:
             
-            # Skip fitting if scan extraction failed; keep header-level fields only.
-            log.warning("Skipping fitting due to SCAN_ERROR: %s", row["SCAN_ERROR"])
-            continue
+        #     # Skip fitting if scan extraction failed; keep header-level fields only.
+        #     log.warning("Skipping fitting due to SCAN_ERROR: %s", row["SCAN_ERROR"])
+        #     continue
         
         # accommodate the new QC feature
         if band=="C" or band == "X":
@@ -329,6 +330,7 @@ def populate_row(
                         row[f'{b}{s}{p}QC']=None
         else:
             if band == "L" or band=="S":
+                
                 for p in ["L","R"]:
                     row[f"O{p}QC"]=None
             else:
