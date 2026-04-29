@@ -1,7 +1,7 @@
 DRAN README
 ===========
 
-**DRAN** (**D**ata **R**eduction and **AN**alysis) is the 
+`DRAN` (Data Reduction and ANalysis) is the 
 software pipeline  developed to streamline the reduction and 
 analysis of drift scan data acquired 
 with [HartRAO's ](http://www.hartrao.ac.za) [26m telescope](http://www.hartrao.ac.za/hh26m_factsfile.html). DRAN supersedes the older **LINES** continuum data reduction and analysis program previously employed at HartRAO.
