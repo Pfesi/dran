@@ -1,0 +1,1472 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>dran.fits package &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/dran.fits';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extras/CHANGELOG.html">CURRENT VERSION (0.9.7)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/dran.fits.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>dran.fits package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.backends">dran.fits.backends module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_hdu_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_name()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_hdu_type_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_type_name()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_header"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_header()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_data"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_info"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.close"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.BackendSelection"><code class="docutils literal notranslate"><span class="pre">BackendSelection</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.BackendSelection.name"><code class="docutils literal notranslate"><span class="pre">BackendSelection.name</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.select_backend"><code class="docutils literal notranslate"><span class="pre">select_backend()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.open_fits_handle"><code class="docutils literal notranslate"><span class="pre">open_fits_handle()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.computed_columns">dran.fits.computed_columns module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.computed_columns.build_computed_column_names"><code class="docutils literal notranslate"><span class="pre">build_computed_column_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.conversion">dran.fits.conversion module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.conversion.counts_to_kelvin"><code class="docutils literal notranslate"><span class="pre">counts_to_kelvin()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.hdu_rules">dran.fits.hdu_rules module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.hdu_rules.scan_hdu_indices"><code class="docutils literal notranslate"><span class="pre">scan_hdu_indices()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.init_fits_processing">dran.fits.init_fits_processing module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.init_fits_processing.process_fits_path"><code class="docutils literal notranslate"><span class="pre">process_fits_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.labels">dran.fits.labels module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.labels.build_computed_column_labels"><code class="docutils literal notranslate"><span class="pre">build_computed_column_labels()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.lazy_reader">dran.fits.lazy_reader module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.handle"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.handle</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.open"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.open()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.close"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.close()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.clear_cache"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.clear_cache()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.hdu_count"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.hdu_count()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_info"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_header"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_header()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_data"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.list_hdus"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.list_hdus()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.observation_extractor">dran.fits.observation_extractor module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observation_extractor.build_observation_record"><code class="docutils literal notranslate"><span class="pre">build_observation_record()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observation_extractor.extract_observation"><code class="docutils literal notranslate"><span class="pre">extract_observation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.observed_keys">dran.fits.observed_keys module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observed_keys.build_observed_header_key_groups"><code class="docutils literal notranslate"><span class="pre">build_observed_header_key_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.populate">dran.fits.populate module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.populate.populate_scan_arrays"><code class="docutils literal notranslate"><span class="pre">populate_scan_arrays()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.processing_fit">dran.fits.processing_fit module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.to_jsonable"><code class="docutils literal notranslate"><span class="pre">to_jsonable()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.dumps_json"><code class="docutils literal notranslate"><span class="pre">dumps_json()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.populate_row"><code class="docutils literal notranslate"><span class="pre">populate_row()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.schema">dran.fits.schema module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.schema.build_header_key_schema"><code class="docutils literal notranslate"><span class="pre">build_header_key_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.types">dran.fits.types module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary"><code class="docutils literal notranslate"><span class="pre">HduSummary</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.index"><code class="docutils literal notranslate"><span class="pre">HduSummary.index</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.extname"><code class="docutils literal notranslate"><span class="pre">HduSummary.extname</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.type"><code class="docutils literal notranslate"><span class="pre">HduSummary.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.rows"><code class="docutils literal notranslate"><span class="pre">HduSummary.rows</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.cols"><code class="docutils literal notranslate"><span class="pre">HduSummary.cols</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.shape"><code class="docutils literal notranslate"><span class="pre">HduSummary.shape</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.has_data"><code class="docutils literal notranslate"><span class="pre">HduSummary.has_data</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord"><code class="docutils literal notranslate"><span class="pre">ObsRecord</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.FILEPATH"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILEPATH</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.FILENAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILENAME</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.OBSNAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBSNAME</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.PLOT_SAVE_DIR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.PLOT_SAVE_DIR</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.HDULEN"><code class="docutils literal notranslate"><span class="pre">ObsRecord.HDULEN</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.OBJECT"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBJECT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.CENTFREQ"><code class="docutils literal notranslate"><span class="pre">ObsRecord.CENTFREQ</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.BAND"><code class="docutils literal notranslate"><span class="pre">ObsRecord.BAND</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.SCAN_ERROR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.SCAN_ERROR</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays"><code class="docutils literal notranslate"><span class="pre">ScanArrays</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.x"><code class="docutils literal notranslate"><span class="pre">ScanArrays.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.y"><code class="docutils literal notranslate"><span class="pre">ScanArrays.y</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.scan_id"><code class="docutils literal notranslate"><span class="pre">ScanArrays.scan_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.band"><code class="docutils literal notranslate"><span class="pre">ScanArrays.band</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.source"><code class="docutils literal notranslate"><span class="pre">ScanArrays.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.meta"><code class="docutils literal notranslate"><span class="pre">ScanArrays.meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.series"><code class="docutils literal notranslate"><span class="pre">ScanArrays.series</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions"><code class="docutils literal notranslate"><span class="pre">PopulateOptions</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.x_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.x_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.y_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.y_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.scan_id_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.scan_id_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.source_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.source_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.band_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.band_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.drop_non_finite"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.drop_non_finite</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.sort_by_x"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.sort_by_x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.extra_series"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.extra_series</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dran-fits-package">
+<h1>dran.fits package<a class="headerlink" href="#dran-fits-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-dran.fits.backends">
+<span id="dran-fits-backends-module"></span><h2>dran.fits.backends module<a class="headerlink" href="#module-dran.fits.backends" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.backends.</span></span><span class="sig-name descname"><span class="pre">FitsBackendHandle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></a></p>
+<p>Backend handle interface used by FITSReader.</p>
+<p>This keeps FITSReader independent from astropy or fitsio APIs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.get_hdu_name">
+<span class="sig-name descname"><span class="pre">get_hdu_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.get_hdu_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.get_hdu_name" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.get_hdu_type_name">
+<span class="sig-name descname"><span class="pre">get_hdu_type_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.get_hdu_type_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.get_hdu_type_name" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.get_header">
+<span class="sig-name descname"><span class="pre">get_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.get_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.get_header" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.get_data" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.get_info">
+<span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.get_info" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.backends.FitsBackendHandle.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#FitsBackendHandle.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.FitsBackendHandle.close" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.backends.BackendSelection">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.backends.</span></span><span class="sig-name descname"><span class="pre">BackendSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#BackendSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.BackendSelection" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.backends.BackendSelection.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.backends.BackendSelection.name" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.backends.select_backend">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.backends.</span></span><span class="sig-name descname"><span class="pre">select_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#select_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.select_backend" title="Link to this definition">#</a></dt>
+<dd><p>Select a FITS backend.</p>
+<p>Preference order:
+1) fitsio
+2) astropy</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#dran.fits.backends.BackendSelection" title="dran.fits.backends.BackendSelection"><em>BackendSelection</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.backends.open_fits_handle">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.backends.</span></span><span class="sig-name descname"><span class="pre">open_fits_handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/backends.html#open_fits_handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.backends.open_fits_handle" title="Link to this definition">#</a></dt>
+<dd><p>Open a FITS file with the selected backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>) – FITS file path.</p></li>
+<li><p><strong>memmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Used by astropy. fitsio ignores this flag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#dran.fits.backends.FitsBackendHandle" title="dran.fits.backends.FitsBackendHandle"><em>FitsBackendHandle</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.computed_columns">
+<span id="dran-fits-computed-columns-module"></span><h2>dran.fits.computed_columns module<a class="headerlink" href="#module-dran.fits.computed_columns" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.computed_columns.build_computed_column_names">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.computed_columns.</span></span><span class="sig-name descname"><span class="pre">build_computed_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/computed_columns.html#build_computed_column_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.computed_columns.build_computed_column_names" title="Link to this definition">#</a></dt>
+<dd><p>Build the unified computed column list for a given band and optional source.</p>
+<p>Ordering:
+1. COMM
+2. COMM_WEATHER
+3. band-specific weather groups (from WEATHER_BY_BAND)
+4. computed labels (from build_computed_column_labels)</p>
+<p>Special case:
+- If band is K and src is JUPITER, append JUP_WEATHER to the band weather groups.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Logger.</p></li>
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Band identifier (case-insensitive).</p></li>
+<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source name (case-insensitive).</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – Optional list to extend. If None, a new list is created.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assembled computed column list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.conversion">
+<span id="dran-fits-conversion-module"></span><h2>dran.fits.conversion module<a class="headerlink" href="#module-dran.fits.conversion" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.conversion.counts_to_kelvin">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.conversion.</span></span><span class="sig-name descname"><span class="pre">counts_to_kelvin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">counts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hz_per_k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/conversion.html#counts_to_kelvin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.conversion.counts_to_kelvin" title="Link to this definition">#</a></dt>
+<dd><p>Convert raw detector counts to Kelvin using a Hz-per-K scale factor.</p>
+<p>The conversion used mirrors the original behavior:
+(counts - counts[0]) / scale</p>
+<p>If conversion fails for any reason (missing scale, invalid scale, scale=0),
+the function returns a zero array of the same length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>counts</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>) – Input counts array.</p></li>
+<li><p><strong>hz_per_k</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – Scale factor (Hz per Kelvin). Accepts any value convertible to float.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Converted array in Kelvin, or a safe zero fallback.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.hdu_rules">
+<span id="dran-fits-hdu-rules-module"></span><h2>dran.fits.hdu_rules module<a class="headerlink" href="#module-dran.fits.hdu_rules" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.hdu_rules.scan_hdu_indices">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.hdu_rules.</span></span><span class="sig-name descname"><span class="pre">scan_hdu_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hdu_len</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/hdu_rules.html#scan_hdu_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.hdu_rules.scan_hdu_indices" title="Link to this definition">#</a></dt>
+<dd><p>Return HDU indices that contain scan data based on your known file layouts.</p>
+<p>Existing rules preserved:
+- If HDULEN == 5, scan index is [3]
+- If HDULEN == 7, scan indices are [3, 4, 5]
+- if HDULEN == 6, for older systems, scan indices are [3, 4, 5]</p>
+<p>For unknown HDU lengths, return an empty list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>hdu_len</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.init_fits_processing">
+<span id="dran-fits-init-fits-processing-module"></span><h2>dran.fits.init_fits_processing module<a class="headerlink" href="#module-dran.fits.init_fits_processing" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.init_fits_processing.process_fits_path">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.init_fits_processing.</span></span><span class="sig-name descname"><span class="pre">process_fits_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/init_fits_processing.html#process_fits_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.init_fits_processing.process_fits_path" title="Link to this definition">#</a></dt>
+<dd><p>Dispatch processing for a single FITS file or a directory of FITS files.
+Returns extracted FITS records. Directory results are concatenated.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><em>Namespace</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.labels">
+<span id="dran-fits-labels-module"></span><h2>dran.fits.labels module<a class="headerlink" href="#module-dran.fits.labels" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.labels.build_computed_column_labels">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.labels.</span></span><span class="sig-name descname"><span class="pre">build_computed_column_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('L',</span> <span class="pre">'R')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('O',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('RMS',</span> <span class="pre">'BSLOPE',</span> <span class="pre">'BRMS',</span> <span class="pre">'FLAG',</span> <span class="pre">'S2N',</span> <span class="pre">'TA',</span> <span class="pre">'TAPEAKLOC')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/labels.html#build_computed_column_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.labels.build_computed_column_labels" title="Link to this definition">#</a></dt>
+<dd><p>Generate computed column labels.</p>
+<p>Rules:
+- Labels are built from beam + position + polarization + base column name.
+- For TA, append TAERR.
+- If position codes include multiple entries and include “O”, append:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>PC</p></li>
+<li><p>corrected TA (prefixed with C)</p></li>
+<li><p>corrected TAERR</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Logger for diagnostics.</p></li>
+<li><p><strong>pol</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Polarizations, for example (“L”, “R”).</p></li>
+<li><p><strong>pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Position codes, for example (“N”, “S”, “O”).</p></li>
+<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Beam identifiers, for example (“A”, “B”, “”).</p></li>
+<li><p><strong>cols</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Base column names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Flattened list of label strings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.lazy_reader">
+<span id="dran-fits-lazy-reader-module"></span><h2>dran.fits.lazy_reader module<a class="headerlink" href="#module-dran.fits.lazy_reader" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.lazy_reader.</span></span><span class="sig-name descname"><span class="pre">LazyFITSReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">memmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Lazy FITS reader.</p>
+<p>Responsibilities:
+- Open and close a FITS file.
+- Provide header access immediately.
+- Load HDU data only when requested.
+- Offer HDU summaries without forcing data reads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>memmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>cache_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.handle">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">handle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#dran.fits.backends.FitsBackendHandle" title="dran.fits.backends.FitsBackendHandle"><span class="pre">FitsBackendHandle</span></a></span><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.handle" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.open" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.close" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.clear_cache" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.hdu_count">
+<span class="sig-name descname"><span class="pre">hdu_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.hdu_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.hdu_count" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.get_info">
+<span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.get_info" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.get_header">
+<span class="sig-name descname"><span class="pre">get_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.get_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.get_header" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.get_data" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dran.fits.lazy_reader.LazyFITSReader.list_hdus">
+<span class="sig-name descname"><span class="pre">list_hdus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/lazy_reader.html#LazyFITSReader.list_hdus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.lazy_reader.LazyFITSReader.list_hdus" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference internal" href="#dran.fits.types.HduSummary" title="dran.fits.types.HduSummary"><em>HduSummary</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.observation_extractor">
+<span id="dran-fits-observation-extractor-module"></span><h2>dran.fits.observation_extractor module<a class="headerlink" href="#module-dran.fits.observation_extractor" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.observation_extractor.build_observation_record">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.observation_extractor.</span></span><span class="sig-name descname"><span class="pre">build_observation_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency_mhz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdu_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/observation_extractor.html#build_observation_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.observation_extractor.build_observation_record" title="Link to this definition">#</a></dt>
+<dd><p>Build an observation result record with common file metadata fields.</p>
+<p>Notes
+- Keys are uppercase to match a “record schema” style used by CSV/DB
+exports.
+- “band” is accepted for schema completeness, even if not used yet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>) – Input FITS file path.</p></li>
+<li><p><strong>source_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source name. Stored in normalized form for folder conventions.</p></li>
+<li><p><strong>frequency_mhz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Center frequency derived from directory or context. Rounded to int for
+folder naming.</p></li>
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Band label (e.g., L/S/C/X). Stored for completeness.</p></li>
+<li><p><strong>hdu_len</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of HDUs in the FITS file.</p></li>
+<li><p><strong>logger</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Application logger.</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.observation_extractor.extract_observation">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.observation_extractor.</span></span><span class="sig-name descname"><span class="pre">extract_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/observation_extractor.html#extract_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.observation_extractor.extract_observation" title="Link to this definition">#</a></dt>
+<dd><p>Extract one observation record from a FITS file path.</p>
+<p>This preserves your existing behavior:
+- Uses headers to determine SRCNAME, CENTFREQ, BAND, HDULEN.
+- Populates a dict record using init_obs_row and get_complete_header_set.
+- Extracts scan arrays and derives weather quantities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A populated observation record dict.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#dran.fits.types.ObsRecord" title="dran.fits.types.ObsRecord">ObsRecord</a></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.observed_keys">
+<span id="dran-fits-observed-keys-module"></span><h2>dran.fits.observed_keys module<a class="headerlink" href="#module-dran.fits.observed_keys" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.observed_keys.build_observed_header_key_groups">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.observed_keys.</span></span><span class="sig-name descname"><span class="pre">build_observed_header_key_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/observed_keys.html#build_observed_header_key_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.observed_keys.build_observed_header_key_groups" title="Link to this definition">#</a></dt>
+<dd><p>Build observed header key groups for a given band.</p>
+<p>The indices reflect the existing downstream expectations in your pipeline.</p>
+<dl class="simple">
+<dt>For L/S:</dt><dd><p>0: PR_KEYS
+1: FS_KEYS
+2: ND_KEYS
+3: []
+4: C_KEYS
+5: []  (reserved for computed injection)</p>
+</dd>
+<dt>For other bands:</dt><dd><p>0: PR_KEYS
+1: FS_KEYS
+2: ND_KEYS
+3: []
+4: []
+5: []
+6: C_KEYS
+7: []</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Band identifier (case-insensitive).</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Logger.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[int, List[str]] mapping group index to cloned key lists.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.populate">
+<span id="dran-fits-populate-module"></span><h2>dran.fits.populate module<a class="headerlink" href="#module-dran.fits.populate" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.populate.populate_scan_arrays">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.populate.</span></span><span class="sig-name descname"><span class="pre">populate_scan_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scans_table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdu_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/populate.html#populate_scan_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.populate.populate_scan_arrays" title="Link to this definition">#</a></dt>
+<dd><p>Populate observation fields from a scans table.
+Extracts metadata and scan data for the given HDU, computes derived
+quantities for ZC headers, converts LCP and RCP counts to Kelvin, and
+stores results on the observation object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>scans_table</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>hdu_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>header_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>column_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.processing_fit">
+<span id="dran-fits-processing-fit-module"></span><h2>dran.fits.processing_fit module<a class="headerlink" href="#module-dran.fits.processing_fit" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.processing_fit.to_jsonable">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.processing_fit.</span></span><span class="sig-name descname"><span class="pre">to_jsonable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/processing_fit.html#to_jsonable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.processing_fit.to_jsonable" title="Link to this definition">#</a></dt>
+<dd><p>Convert a value into a JSON-serializable form.
+Handles dataclasses, objects with to_dict, scalars, collections,
+mappings, and plain objects, replacing non-finite floats with null
+equivalents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.processing_fit.dumps_json">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.processing_fit.</span></span><span class="sig-name descname"><span class="pre">dumps_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/processing_fit.html#dumps_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.processing_fit.dumps_json" title="Link to this definition">#</a></dt>
+<dd><p>JSON-dump with a safe default conversion.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.processing_fit.populate_row">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.processing_fit.</span></span><span class="sig-name descname"><span class="pre">populate_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/processing_fit.html#populate_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.processing_fit.populate_row" title="Link to this definition">#</a></dt>
+<dd><p>Run fitting per DATA column and populate derived fields back
+into the row dict. Returns the updated row (last row in
+file_data, consistent with existing behavior).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_data</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em><em>]</em>)</p></li>
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><em>Namespace</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.schema">
+<span id="dran-fits-schema-module"></span><h2>dran.fits.schema module<a class="headerlink" href="#module-dran.fits.schema" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.fits.schema.build_header_key_schema">
+<span class="sig-prename descclassname"><span class="pre">dran.fits.schema.</span></span><span class="sig-name descname"><span class="pre">build_header_key_schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/schema.html#build_header_key_schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.schema.build_header_key_schema" title="Link to this definition">#</a></dt>
+<dd><p>Build the complete header key schema (observed + computed) for band and source.</p>
+<p>Injection rule:
+- For L and S bands, computed columns are injected at HDU index 5.
+- For other bands, computed columns are injected at HDU index 7.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Band identifier.</p></li>
+<li><p><strong>src</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Source name (used for special-case computed columns).</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Logger.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Observed groups plus computed group injected.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.fits.types">
+<span id="dran-fits-types-module"></span><h2>dran.fits.types module<a class="headerlink" href="#module-dran.fits.types" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.types.</span></span><span class="sig-name descname"><span class="pre">HduSummary</span></span><a class="reference internal" href="../_modules/dran/fits/types.html#HduSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.types.HduSummary" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.index" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.extname">
+<span class="sig-name descname"><span class="pre">extname</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.extname" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.type" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.rows" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.cols">
+<span class="sig-name descname"><span class="pre">cols</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.cols" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.shape" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.HduSummary.has_data">
+<span class="sig-name descname"><span class="pre">has_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#dran.fits.types.HduSummary.has_data" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.types.</span></span><span class="sig-name descname"><span class="pre">ObsRecord</span></span><a class="reference internal" href="../_modules/dran/fits/types.html#ObsRecord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.types.ObsRecord" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></a></p>
+<p>Observation record produced by extraction.</p>
+<p>This matches the existing behavior where keys are added dynamically.
+It stays flexible, while still providing a named type for clarity.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.FILEPATH">
+<span class="sig-name descname"><span class="pre">FILEPATH</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.FILEPATH" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.FILENAME">
+<span class="sig-name descname"><span class="pre">FILENAME</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.FILENAME" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.OBSNAME">
+<span class="sig-name descname"><span class="pre">OBSNAME</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.OBSNAME" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.PLOT_SAVE_DIR">
+<span class="sig-name descname"><span class="pre">PLOT_SAVE_DIR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.PLOT_SAVE_DIR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.HDULEN">
+<span class="sig-name descname"><span class="pre">HDULEN</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.HDULEN" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.OBJECT">
+<span class="sig-name descname"><span class="pre">OBJECT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.OBJECT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.CENTFREQ">
+<span class="sig-name descname"><span class="pre">CENTFREQ</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.CENTFREQ" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.BAND">
+<span class="sig-name descname"><span class="pre">BAND</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.BAND" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ObsRecord.SCAN_ERROR">
+<span class="sig-name descname"><span class="pre">SCAN_ERROR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#dran.fits.types.ObsRecord.SCAN_ERROR" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.types.</span></span><span class="sig-name descname"><span class="pre">ScanArrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/types.html#ScanArrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.types.ScanArrays" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Normalized, analysis-ready arrays for one scan.</p>
+<p>Notes
+- x is the independent axis. For example frequency, offset, or sample index.
+- y is the primary dependent series. For example TA or power.
+- meta keeps scalar values that you want to show in UI or logs.
+- series lets you store multiple named arrays if you have more than one y.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a>)</p></li>
+<li><p><strong>scan_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>meta</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em>)</p></li>
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><em>Mapping</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><em>ndarray</em></a><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.x">
+<span class="sig-name descname"><span class="pre">x</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#dran.fits.types.ScanArrays.x" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.y">
+<span class="sig-name descname"><span class="pre">y</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#dran.fits.types.ScanArrays.y" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.scan_id">
+<span class="sig-name descname"><span class="pre">scan_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ScanArrays.scan_id" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.band">
+<span class="sig-name descname"><span class="pre">band</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ScanArrays.band" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.ScanArrays.source" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.meta">
+<span class="sig-name descname"><span class="pre">meta</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#dran.fits.types.ScanArrays.meta" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.ScanArrays.series">
+<span class="sig-name descname"><span class="pre">series</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.14)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#dran.fits.types.ScanArrays.series" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.fits.types.</span></span><span class="sig-name descname"><span class="pre">PopulateOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scan_id_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SCAN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SRC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BAND'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_non_finite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_series</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/fits/types.html#PopulateOptions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.fits.types.PopulateOptions" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Options to control how arrays are constructed from FITS content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>y_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>scan_id_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>source_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>band_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>drop_non_finite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>sort_by_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>)</p></li>
+<li><p><strong>extra_series</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.x_column">
+<span class="sig-name descname"><span class="pre">x_column</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.x_column" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.y_column">
+<span class="sig-name descname"><span class="pre">y_column</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.y_column" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.scan_id_column">
+<span class="sig-name descname"><span class="pre">scan_id_column</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.scan_id_column" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.source_column">
+<span class="sig-name descname"><span class="pre">source_column</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.source_column" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.band_column">
+<span class="sig-name descname"><span class="pre">band_column</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.band_column" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.drop_non_finite">
+<span class="sig-name descname"><span class="pre">drop_non_finite</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.drop_non_finite" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.sort_by_x">
+<span class="sig-name descname"><span class="pre">sort_by_x</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.sort_by_x" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.fits.types.PopulateOptions.extra_series">
+<span class="sig-name descname"><span class="pre">extra_series</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.14)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><a class="headerlink" href="#dran.fits.types.PopulateOptions.extra_series" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-dran.fits">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dran.fits" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.backends">dran.fits.backends module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_hdu_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_name()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_hdu_type_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_type_name()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_header"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_header()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_data"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.get_info"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.FitsBackendHandle.close"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.BackendSelection"><code class="docutils literal notranslate"><span class="pre">BackendSelection</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.BackendSelection.name"><code class="docutils literal notranslate"><span class="pre">BackendSelection.name</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.select_backend"><code class="docutils literal notranslate"><span class="pre">select_backend()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.backends.open_fits_handle"><code class="docutils literal notranslate"><span class="pre">open_fits_handle()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.computed_columns">dran.fits.computed_columns module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.computed_columns.build_computed_column_names"><code class="docutils literal notranslate"><span class="pre">build_computed_column_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.conversion">dran.fits.conversion module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.conversion.counts_to_kelvin"><code class="docutils literal notranslate"><span class="pre">counts_to_kelvin()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.hdu_rules">dran.fits.hdu_rules module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.hdu_rules.scan_hdu_indices"><code class="docutils literal notranslate"><span class="pre">scan_hdu_indices()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.init_fits_processing">dran.fits.init_fits_processing module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.init_fits_processing.process_fits_path"><code class="docutils literal notranslate"><span class="pre">process_fits_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.labels">dran.fits.labels module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.labels.build_computed_column_labels"><code class="docutils literal notranslate"><span class="pre">build_computed_column_labels()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.lazy_reader">dran.fits.lazy_reader module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.handle"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.handle</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.open"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.open()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.close"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.close()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.clear_cache"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.clear_cache()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.hdu_count"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.hdu_count()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_info"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_info()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_header"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_header()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.get_data"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.lazy_reader.LazyFITSReader.list_hdus"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.list_hdus()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.observation_extractor">dran.fits.observation_extractor module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observation_extractor.build_observation_record"><code class="docutils literal notranslate"><span class="pre">build_observation_record()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observation_extractor.extract_observation"><code class="docutils literal notranslate"><span class="pre">extract_observation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.observed_keys">dran.fits.observed_keys module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.observed_keys.build_observed_header_key_groups"><code class="docutils literal notranslate"><span class="pre">build_observed_header_key_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.populate">dran.fits.populate module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.populate.populate_scan_arrays"><code class="docutils literal notranslate"><span class="pre">populate_scan_arrays()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.processing_fit">dran.fits.processing_fit module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.to_jsonable"><code class="docutils literal notranslate"><span class="pre">to_jsonable()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.dumps_json"><code class="docutils literal notranslate"><span class="pre">dumps_json()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.processing_fit.populate_row"><code class="docutils literal notranslate"><span class="pre">populate_row()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.schema">dran.fits.schema module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.schema.build_header_key_schema"><code class="docutils literal notranslate"><span class="pre">build_header_key_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits.types">dran.fits.types module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary"><code class="docutils literal notranslate"><span class="pre">HduSummary</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.index"><code class="docutils literal notranslate"><span class="pre">HduSummary.index</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.extname"><code class="docutils literal notranslate"><span class="pre">HduSummary.extname</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.type"><code class="docutils literal notranslate"><span class="pre">HduSummary.type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.rows"><code class="docutils literal notranslate"><span class="pre">HduSummary.rows</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.cols"><code class="docutils literal notranslate"><span class="pre">HduSummary.cols</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.shape"><code class="docutils literal notranslate"><span class="pre">HduSummary.shape</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.HduSummary.has_data"><code class="docutils literal notranslate"><span class="pre">HduSummary.has_data</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord"><code class="docutils literal notranslate"><span class="pre">ObsRecord</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.FILEPATH"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILEPATH</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.FILENAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILENAME</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.OBSNAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBSNAME</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.PLOT_SAVE_DIR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.PLOT_SAVE_DIR</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.HDULEN"><code class="docutils literal notranslate"><span class="pre">ObsRecord.HDULEN</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.OBJECT"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBJECT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.CENTFREQ"><code class="docutils literal notranslate"><span class="pre">ObsRecord.CENTFREQ</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.BAND"><code class="docutils literal notranslate"><span class="pre">ObsRecord.BAND</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ObsRecord.SCAN_ERROR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.SCAN_ERROR</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays"><code class="docutils literal notranslate"><span class="pre">ScanArrays</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.x"><code class="docutils literal notranslate"><span class="pre">ScanArrays.x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.y"><code class="docutils literal notranslate"><span class="pre">ScanArrays.y</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.scan_id"><code class="docutils literal notranslate"><span class="pre">ScanArrays.scan_id</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.band"><code class="docutils literal notranslate"><span class="pre">ScanArrays.band</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.source"><code class="docutils literal notranslate"><span class="pre">ScanArrays.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.meta"><code class="docutils literal notranslate"><span class="pre">ScanArrays.meta</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.ScanArrays.series"><code class="docutils literal notranslate"><span class="pre">ScanArrays.series</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions"><code class="docutils literal notranslate"><span class="pre">PopulateOptions</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.x_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.x_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.y_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.y_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.scan_id_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.scan_id_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.source_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.source_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.band_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.band_column</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.drop_non_finite"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.drop_non_finite</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.sort_by_x"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.sort_by_x</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.fits.types.PopulateOptions.extra_series"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.extra_series</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.fits">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

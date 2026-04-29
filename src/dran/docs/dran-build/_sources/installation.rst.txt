@@ -1,0 +1,21 @@
+Installation 
+============
+
+The DRAN program was developed using the `uv <https://docs.astral.sh/uv/>`_ package 
+management system. A copy of the program can be downoaded from the 
+python package manager repository `pypi <https://pypi.org/project/pip/>`_ using 
+the `pip <https://pypi.org/project/pip/>`_ command
+
+To install the dran package
+
+.. code:: bash
+ 
+   # install with pip
+   $ pip install dran
+
+   # install with uv
+   uv run dran
+
+Once DRAN is successfully loaded. You can head over to the 
+.. to the :doc:`/api/getting-started/quickstart` or 
+:doc:`/api/tuts/tutorials` to start using DRAN.

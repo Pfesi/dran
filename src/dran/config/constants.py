@@ -13,7 +13,7 @@ import re
 # App configuration
 PROJECT_NAME: Final = "DRAN"
 
-VERSION: str = "0.9.6"
+VERSION: str = "0.9.7"
 
 RELEASE: Final = "1.0"
 YEAR: Final = str(datetime.now().year)

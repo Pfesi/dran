@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calibrating S-band data &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tuts/tut_2280_MHz';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../caveats.html">Caveats</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tuts/tut_2280_MHz.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Calibrating S-band data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction-of-2-ghz-data">Data reduction of 2 GHz data.</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="calibrating-s-band-data">
+<h1>Calibrating S-band data<a class="headerlink" href="#calibrating-s-band-data" title="Link to this heading">#</a></h1>
+<p>The following tutorial will show you how to run a basic data
+reduction for a Hydra A 13cm / 2 GHz observation.</p>
+<section id="data-reduction-of-2-ghz-data">
+<h2>Data reduction of 2 GHz data.<a class="headerlink" href="#data-reduction-of-2-ghz-data" title="Link to this heading">#</a></h2>
+<p>First we need to read in data from the file we want to process</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>dran<span class="w"> </span>-path<span class="w"> </span>data/HydraA_13NB/2011d285_04h55m29s_Cont_mike_HYDRA_A.fits
+</pre></div>
+</div>
+<p>This will produce the following output</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>************************************************************
+<span class="linenos"> 2</span><span class="c1"># PROCESSING SOURCE:</span>
+<span class="linenos"> 3</span>************************************************************
+<span class="linenos"> 4</span><span class="c1"># File name:  2011d285_04h55m29s_Cont_mike_HYDRA_A.fits</span>
+<span class="linenos"> 5</span><span class="c1"># Object:  HYDRA A</span>
+<span class="linenos"> 6</span><span class="c1"># Object type:  CAL</span>
+<span class="linenos"> 7</span><span class="c1"># Central Freq:  2280.0</span>
+<span class="linenos"> 8</span><span class="c1"># Observed :  2011-10-12</span>
+<span class="linenos"> 9</span>************************************************************
+<span class="linenos">10</span>
+<span class="linenos">11</span>-<span class="w"> </span>Processing:<span class="w"> </span>ON_LCP
+<span class="linenos">12</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># No sidelobes detected</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>*<span class="w"> </span>Center<span class="w"> </span>of<span class="w"> </span>baseline<span class="w"> </span>blocks<span class="w"> </span>on<span class="w"> </span>left<span class="w"> </span>and<span class="w"> </span>right<span class="w"> </span>of<span class="w"> </span>peak:
+<span class="linenos">18</span>min<span class="w"> </span>pos<span class="w"> </span>left:<span class="w"> </span><span class="o">[</span>-0.4041615<span class="o">]</span><span class="w"> </span>@<span class="w"> </span>loc/s<span class="w"> </span><span class="o">[</span><span class="m">160</span><span class="o">]</span>
+<span class="linenos">19</span>min<span class="w"> </span>pos<span class="w"> </span>right:<span class="w"> </span><span class="o">[</span><span class="m">0</span>.391495<span class="o">]</span><span class="w"> </span>@<span class="w"> </span>loc/s<span class="w"> </span><span class="o">[</span><span class="m">2497</span><span class="o">]</span>
+<span class="linenos">20</span>scan<span class="w"> </span>len:<span class="w"> </span><span class="m">2699</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span><span class="c1"># Fit the baseline</span>
+<span class="linenos">23</span>************************************************************
+<span class="linenos">24</span>
+<span class="linenos">25</span><span class="c1"># Fit = 0.073x + (-0.034), rms error = 0.0292</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="c1"># Fit the peak</span>
+<span class="linenos">28</span>************************************************************
+<span class="linenos">29</span>
+<span class="linenos">30</span><span class="c1"># Peak = 2.464 +- 0.030 [K]</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="c1"># S/N: 86.77</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span>-<span class="w"> </span>Processing:<span class="w"> </span>ON_RCP
+<span class="linenos">35</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="c1"># No sidelobes detected</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span>*<span class="w"> </span>Center<span class="w"> </span>of<span class="w"> </span>baseline<span class="w"> </span>blocks<span class="w"> </span>on<span class="w"> </span>left<span class="w"> </span>and<span class="w"> </span>right<span class="w"> </span>of<span class="w"> </span>peak:
+<span class="linenos">41</span>min<span class="w"> </span>pos<span class="w"> </span>left:<span class="w"> </span><span class="o">[</span>-0.40816145<span class="o">]</span><span class="w"> </span>@<span class="w"> </span>loc/s<span class="w"> </span><span class="o">[</span><span class="m">153</span><span class="o">]</span>
+<span class="linenos">42</span>min<span class="w"> </span>pos<span class="w"> </span>right:<span class="w"> </span><span class="o">[</span><span class="m">0</span>.39016168<span class="o">]</span><span class="w"> </span>@<span class="w"> </span>loc/s<span class="w"> </span><span class="o">[</span><span class="m">2525</span><span class="o">]</span>
+<span class="linenos">43</span>scan<span class="w"> </span>len:<span class="w"> </span><span class="m">2731</span>
+<span class="linenos">44</span>
+<span class="linenos">45</span><span class="c1"># Fit the baseline</span>
+<span class="linenos">46</span>************************************************************
+<span class="linenos">47</span>
+<span class="linenos">48</span><span class="c1"># Fit = -0.000632x + (-0.0406), rms error = 0.0254</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span><span class="c1"># Fit the peak</span>
+<span class="linenos">51</span>************************************************************
+<span class="linenos">52</span>
+<span class="linenos">53</span><span class="c1"># Peak = 2.493 +- 0.025 [K]</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="c1"># S/N: 100.69</span>
+</pre></div>
+</div>
+<p>We are now going to breakdown the results returned</p>
+<p>Lines 1 - 9 give us basic details on the source under observation.
+This includes the name of the file being processed, the object
+being observed, the type of object it is (CAL = Calibrator or
+TAR = Target), the observing frequency, as well as the date the
+source was observed.</p>
+<p>Line 11 tells you the drift scan currently being processed, in this
+case its the LCP On scan drift scan.</p>
+<p>Line 14 is a debugging output that lets you know if any large sidelobes
+were detected, these are sidelobes which are larger than half the peak
+maximum.</p>
+<p>Once the data is loaded and prepped, the program begins processing
+the data. First it tries to correct or remove any drift in the data
+that may exists. Using a gradient descent type algorithm, the program
+fits a spline through the data and detects the location of the lowest
+minimum locations on either sides of the center of the drift scan.</p>
+<p>Line 17 - 20 give us information on the positions selected as the
+local minimum points. An also gives the length of the scan.</p>
+<p>4% of the scan length is then used as the number of points required to
+get enough data around the local minimum points in order to fit a
+polynomila through the data.</p>
+<p>The equation of the line that is used to correct the drift in the data
+is then displayed in line 25.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-reduction-of-2-ghz-data">Data reduction of 2 GHz data.</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

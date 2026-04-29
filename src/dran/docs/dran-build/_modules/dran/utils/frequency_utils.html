@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.utils.frequency_utils &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.utils.frequency_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.utils.frequency_utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: frequency_utils.py                                                    #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =|========================================================================= #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">dran.utils.config</span> <span class="kn">import</span> <span class="n">ObservationPathError</span>
+<span class="kn">from</span> <span class="nn">dran.config.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FREQUENCY_BANDS_MHZ</span><span class="p">,</span> <span class="n">BAND_ALIASES</span><span class="p">,</span> <span class="n">FREQ_ALIASES</span><span class="p">,</span>
+    <span class="n">_WAVELENGTH_BEAM_RE</span><span class="p">,</span><span class="n">_WAVELENGTH_ONLY_RE</span><span class="p">)</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="k">def</span> <span class="nf">_normalize_band</span><span class="p">(</span><span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize band identifiers to canonical uppercase (e.g., Ku -&gt; KU).&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">BAND_ALIASES</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">BAND_ALIASES</span><span class="p">[</span><span class="n">band</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">band</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_band_from_frequency">
+<a class="viewcode-back" href="../../../docs/dran.utils.html#dran.utils.frequency_utils.get_band_from_frequency">[docs]</a>
+<span class="k">def</span> <span class="nf">get_band_from_frequency</span><span class="p">(</span><span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine the satellite frequency band for a given frequency (in MHz).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        frequency (float | int): Frequency in megahertz (MHz).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The corresponding band identifier</span>
+<span class="sd">             (e.g., &#39;L&#39;, &#39;S&#39;, &#39;C&#39;, &#39;CM&#39;, &#39;X&#39;, &#39;Ku&#39;, &#39;K&#39;, &#39;Ka&#39;).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the input frequency is invalid or outside known bands.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Getting frequency band from frequency in MHz&#39;</span><span class="p">)</span>
+    <span class="c1"># print(&#39;fr: &#39;,frequency)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">frequency</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">FREQ_ALIASES</span><span class="p">[</span><span class="n">frequency</span><span class="p">])</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># print(FREQ_ALIASES[frequency]) </span>
+    <span class="c1"># sys.exit()</span>
+    <span class="c1"># some files need a helper</span>
+    <span class="c1"># if frequency==13:</span>
+    <span class="c1">#     frequency=2270</span>
+    <span class="c1"># if frequency==35:</span>
+    <span class="c1">#     frequency=8280</span>
+    <span class="c1"># if frequency==6:</span>
+    <span class="c1">#     frequency=4800</span>
+
+    <span class="c1"># Validate input type</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frequency must be a numeric value, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Determine the corresponding frequency band</span>
+    <span class="k">for</span> <span class="n">band_name</span><span class="p">,</span> <span class="n">freq_range</span> <span class="ow">in</span> <span class="n">FREQUENCY_BANDS_MHZ</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">freq_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">frequency</span> <span class="o">&lt;=</span> <span class="n">freq_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="c1"># Return canonical band keys (uppercase).</span>
+            <span class="k">return</span> <span class="n">_normalize_band</span><span class="p">(</span><span class="n">band_name</span><span class="p">)</span>
+
+    <span class="c1"># Frequency not in any known band</span>
+    <span class="n">valid_ranges</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">band_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">band_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> MHz)&quot;</span>
+        <span class="k">for</span> <span class="n">band</span><span class="p">,</span> <span class="n">band_info</span> <span class="ow">in</span> <span class="n">FREQUENCY_BANDS_MHZ</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">]</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Frequency </span><span class="si">{</span><span class="n">frequency</span><span class="si">}</span><span class="s2"> MHz does not fall into any known band. &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Valid ranges: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valid_ranges</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_frequency_range_from_band">
+<a class="viewcode-back" href="../../../docs/dran.utils.html#dran.utils.frequency_utils.get_frequency_range_from_band">[docs]</a>
+<span class="k">def</span> <span class="nf">get_frequency_range_from_band</span><span class="p">(</span><span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the frequency range in MHz for a given band identifier.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        band: Band identifier such as &#39;L&#39;, &#39;S&#39;, &#39;C&#39;, &#39;CM&#39;, &#39;X&#39;, &#39;Ku&#39;, &#39;K&#39;, &#39;Ka&#39;.</span>
+<span class="sd">        log: Logger instance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of start and end frequency in MHz.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: Invalid band type.</span>
+<span class="sd">        ValueError: Unknown band.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting frequency range from band&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Band must be a string, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">band</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Accept legacy/user inputs but normalize to canonical keys.</span>
+    <span class="n">band_normalised</span> <span class="o">=</span> <span class="n">_normalize_band</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">band_normalised</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FREQUENCY_BANDS_MHZ</span><span class="p">:</span>
+        <span class="n">valid_bands</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FREQUENCY_BANDS_MHZ</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown band &#39;</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s2">&#39;. Valid bands: </span><span class="si">{</span><span class="n">valid_bands</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">FREQUENCY_BANDS_MHZ</span><span class="p">[</span><span class="n">band_normalised</span><span class="p">]</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_normalize_wavelength_key</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.10f</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<span class="k">def</span> <span class="nf">_resolve_band_to_frequency_mhz</span><span class="p">(</span><span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_freq_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns: (frequency_mhz, wavelength_cm, beam)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Case A: wavelength + beam like 13NB, 3.5WB, etc.</span>
+    <span class="c1"># print(band)</span>
+    <span class="n">m_beam</span> <span class="o">=</span> <span class="n">_WAVELENGTH_BEAM_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+    <span class="c1"># print(&#39;beam: &#39;,m_beam)</span>
+    <span class="k">if</span> <span class="n">m_beam</span><span class="p">:</span>
+        <span class="n">wavelength_cm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m_beam</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;wavelength&quot;</span><span class="p">))</span>
+        <span class="n">beam</span> <span class="o">=</span> <span class="n">m_beam</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;beam&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">_normalize_wavelength_key</span><span class="p">(</span><span class="n">wavelength_cm</span><span class="p">)</span>
+
+        <span class="c1"># print(&#39;&gt;&gt;&gt; key: &#39;,key)</span>
+        <span class="n">mhz_str</span> <span class="o">=</span> <span class="n">FREQ_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mhz_str</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ObservationPathError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown wavelength &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> cm&#39; in folder &#39;</span><span class="si">{</span><span class="n">source_freq_folder</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Add it to FREQ_ALIASES: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">mhz_str</span><span class="p">),</span> <span class="n">wavelength_cm</span><span class="p">,</span> <span class="n">beam</span>
+
+    <span class="c1"># Case B: wavelength only like 35, 13, 3.5</span>
+    <span class="n">m_wave</span> <span class="o">=</span> <span class="n">_WAVELENGTH_ONLY_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">band</span><span class="p">)</span>
+    <span class="c1"># print(&#39;m_wave: &#39;,m_wave,m_wave.group(&quot;wavelength&quot;))</span>
+    <span class="k">if</span> <span class="n">m_wave</span><span class="p">:</span>
+        <span class="n">wavelength_cm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">m_wave</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;wavelength&quot;</span><span class="p">))</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">_normalize_wavelength_key</span><span class="p">(</span><span class="n">wavelength_cm</span><span class="p">)</span>
+
+        <span class="n">mhz_str</span> <span class="o">=</span> <span class="n">FREQ_ALIASES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="c1"># print(mhz_str)</span>
+        <span class="k">if</span> <span class="n">mhz_str</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">mhz_str</span><span class="p">),</span> <span class="n">wavelength_cm</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="c1"># Case C: treat as frequency folder (must be digits)</span>
+    <span class="k">if</span> <span class="n">band</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">band</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">raise</span> <span class="n">ObservationPathError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Unrecognized band token &#39;</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s2">&#39; in &#39;</span><span class="si">{</span><span class="n">source_freq_folder</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_read_frequency_from_fits_header</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read observing frequency from the FITS header and convert it to the</span>
+<span class="sd">    frequency, wavelength, and beam fields expected by DRAN.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple[str, str, str]:</span>
+<span class="sd">            frequency_mhz, wavelength_cm, beam</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">hdul</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">hdul</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>
+
+            <span class="c1"># Try the most likely header keys first.</span>
+            <span class="n">freq_mhz</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CENTFREQ&quot;</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;FREQ&quot;</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RESTFREQ&quot;</span><span class="p">)</span>
+                <span class="c1"># or header.get(&quot;CRVAL3&quot;)</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">freq_mhz</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ObservationPathError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Could not determine frequency from FITS header: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Convert to MHz if the value looks like Hz.</span>
+            <span class="n">freq_mhz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">freq_mhz</span><span class="p">)</span>
+
+            <span class="n">wavelength_cm</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CENTFREQ&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># You can refine beam logic if your project has exact rules.</span>
+            <span class="k">if</span> <span class="n">freq_mhz</span><span class="o">&lt;</span><span class="mi">4000</span><span class="p">:</span>
+                <span class="n">beam</span> <span class="o">=</span> <span class="s2">&quot;SB&quot;</span>
+            <span class="k">elif</span> <span class="n">freq_mhz</span><span class="o">&gt;=</span><span class="mi">4000</span> <span class="ow">and</span> <span class="n">freq_mhz</span><span class="o">&lt;=</span><span class="mi">8000</span><span class="p">:</span>
+                <span class="n">beam</span><span class="o">=</span><span class="s2">&quot;DB&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">beam</span><span class="o">=</span><span class="s2">&quot;NB&quot;</span>
+
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">freq_mhz</span><span class="p">,</span>
+                <span class="n">wavelength_cm</span><span class="p">,</span>
+                <span class="n">beam</span>
+            <span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ObservationPathError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to read FITS header frequency from </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

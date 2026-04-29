@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.gui.main &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.gui.main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.gui.main</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: main.py                                                               #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Standard library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qtagg</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FigureCanvasQTAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span><span class="p">,</span> <span class="n">NavigationToolbar2QT</span> <span class="k">as</span> <span class="n">NavigationToolbar</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.ui.canvas_manager</span> <span class="kn">import</span> <span class="n">CanvasManager</span>
+<span class="kn">from</span> <span class="nn">.ui.secondary_canvas_manager</span> <span class="kn">import</span> <span class="n">SecondaryCanvasManager</span>
+<span class="kn">from</span> <span class="nn">.ui.main_window</span> <span class="kn">import</span> <span class="n">Ui_MainWindow</span>
+<span class="kn">from</span> <span class="nn">.ui.edit_driftscan_window</span> <span class="kn">import</span> <span class="n">Ui_DriftscanWindow</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="Main">
+<a class="viewcode-back" href="../../../docs/dran.gui.html#dran.gui.main.Main">[docs]</a>
+<span class="k">class</span> <span class="nc">Main</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">,</span> <span class="n">Ui_MainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main application window handling GUI operations and core functionality.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        log: Logger instance for application logging</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">pathToSaveDir</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+        <span class="c1"># Initialize </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span> <span class="o">=</span> <span class="n">log</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_application_state</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_components</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">_initialize_application_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize all application state variables.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># Current active file path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deleted_items</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Track deleted items for undo functionality</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_status</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Default status values</span>
+        
+        <span class="c1"># -- Snapshot + printout --</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="s2">&quot;deleted_items&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deleted_items</span><span class="p">),</span>   <span class="c1"># copy for safe display</span>
+            <span class="s2">&quot;initial_status&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_status</span><span class="p">),</span> <span class="c1"># copy for safe display</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[INIT] Application state initialized:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">state</span>
+    
+    <span class="k">def</span> <span class="nf">_setup_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize and configure all UI components.&quot;&quot;&quot;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_initial_state</span><span class="p">()</span>
+        <span class="c1"># self.setup_file_handler()</span>
+        
+<div class="viewcode-block" id="Main.setup_initial_state">
+<a class="viewcode-back" href="../../../docs/dran.gui.html#dran.gui.main.Main.setup_initial_state">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_initial_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets up the initial state of the GUI based on the file path.&quot;&quot;&quot;</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">***** Running setup_initial_state</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_button_properties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_edit_driftscan</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_button_properties</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_edit_timeseries</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">btn_edit_driftscan</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_drift_window</span><span class="p">)</span>
+            <span class="c1"># self.btn_edit_timeseries.clicked.connect(self.open_timeseries_window)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># self.open_drift_window()</span>
+            <span class="k">pass</span></div>
+
+        
+<div class="viewcode-block" id="Main.set_button_properties">
+<a class="viewcode-back" href="../../../docs/dran.gui.html#dran.gui.main.Main.set_button_properties">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_button_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button</span><span class="p">,</span> <span class="n">bg_color</span><span class="p">,</span> <span class="n">text_color</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the background color and text color of a button.&quot;&quot;&quot;</span>
+
+        <span class="c1"># print(&#39;\n***** Running set_button_properties\n&#39;)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QPushButton </span><span class="se">{{</span><span class="s2">background-color: </span><span class="si">{</span><span class="n">bg_color</span><span class="si">}</span><span class="s2">; color: </span><span class="si">{</span><span class="n">text_color</span><span class="si">}</span><span class="s2">;</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Main.open_drift_window">
+<a class="viewcode-back" href="../../../docs/dran.gui.html#dran.gui.main.Main.open_drift_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_drift_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Connect the edit drift scan window to the main window. &quot;&quot;&quot;</span>
+
+        <span class="c1"># Initiate Canvas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Canvas</span> <span class="o">=</span> <span class="n">CanvasManager</span><span class="p">(</span><span class="n">log</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ntb</span> <span class="o">=</span> <span class="n">NavigationToolbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Canvas</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drift_window</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drift_ui</span> <span class="o">=</span> <span class="n">Ui_DriftscanWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drift_ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drift_window</span><span class="p">)</span>
+
+        <span class="c1"># initiate Secondary canvas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">secondaryCanvas</span> <span class="o">=</span> <span class="n">SecondaryCanvasManager</span><span class="p">(</span><span class="n">log</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
+
+        <span class="c1"># Layouts</span>
+        <span class="n">plotLayout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drift_ui</span><span class="o">.</span><span class="n">PlotLayout</span>
+        <span class="n">otherPlotLayout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drift_ui</span><span class="o">.</span><span class="n">otherPlotsLayout</span>
+
+        <span class="c1"># Add Canvas/es to the gui</span>
+        <span class="n">plotLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ntb</span><span class="p">)</span>
+        <span class="n">plotLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Canvas</span><span class="p">)</span>
+        <span class="n">otherPlotLayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secondaryCanvas</span><span class="p">)</span>
+
+        <span class="c1"># Connect buttons to actions performed by user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_buttons</span><span class="p">()</span>
+
+        <span class="c1"># Print welcome message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;DRAN GUI loaded successfully.&quot;</span><span class="p">,</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Open a file to get started.&quot;</span><span class="p">,</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Set status, indicates whether fit/plot has been modified/not</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">drift_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+        
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

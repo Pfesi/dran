@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.calibration.pointing &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.calibration.pointing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.calibration.pointing</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: pointing.py                                                           #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =|========================================================================= #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># ---------------------------------------------------------------------------- #</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="c1"># =|========================================================================= #</span>
+
+
+<div class="viewcode-block" id="PointingGainResult">
+<a class="viewcode-back" href="../../../docs/dran.calibration.html#dran.calibration.pointing.PointingGainResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PointingGainResult</span><span class="p">:</span>
+    <span class="n">pc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="n">ta_corr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="n">ta_corr_err</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_safe_log_abs</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the natural logarithm of the absolute value safely.</span>
+<span class="sd">    Returns None for null, non-finite, or non-positive inputs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">ax</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="calc_pointing_correction">
+<a class="viewcode-back" href="../../../docs/dran.calibration.html#dran.calibration.pointing.calc_pointing_correction">[docs]</a>
+<span class="k">def</span> <span class="nf">calc_pointing_correction</span><span class="p">(</span><span class="n">hps_ta</span><span class="p">,</span> <span class="n">hps_err</span><span class="p">,</span> 
+                            <span class="n">hpn_ta</span><span class="p">,</span> <span class="n">hpn_err</span><span class="p">,</span> 
+                            <span class="n">on_ta</span><span class="p">,</span><span class="n">on_err</span><span class="p">,</span> 
+                            <span class="n">data</span><span class="p">,</span> 
+                            <span class="n">missing_side</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute pointing correction factor and corrected antenna temperature </span>
+<span class="sd">    with propagated uncertainty.</span>
+<span class="sd">    Uses safe log transforms of scan peak temperatures to derive a pointing </span>
+<span class="sd">    correction based on which beam side is missing, then applies the </span>
+<span class="sd">    correction to on-source temperature and propagates errors via partial </span>
+<span class="sd">    derivatives.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Derivatives of pc w.r.t Ta1 and Ta2</span>
+    <span class="c1"># pc = exp( (d^2)/denom ), d = ln|Ta1| - ln|Ta2| (+/- ln2)</span>
+    <span class="c1"># d(pc)/d(Ta1) = pc * (2*d/denom) * (1/Ta1)</span>
+    <span class="c1"># d(pc)/d(Ta2) = pc * (2*d/denom) * (-1/Ta2)</span>
+
+    <span class="n">lnS</span> <span class="o">=</span> <span class="n">_safe_log_abs</span><span class="p">(</span><span class="n">hps_ta</span><span class="p">)</span>
+    <span class="n">lnN</span> <span class="o">=</span> <span class="n">_safe_log_abs</span><span class="p">(</span><span class="n">hpn_ta</span><span class="p">)</span>
+    <span class="n">lnO</span> <span class="o">=</span> <span class="n">_safe_log_abs</span><span class="p">(</span><span class="n">on_ta</span><span class="p">)</span>
+    <span class="c1"># print(lnS,lnN,lnO)</span>
+    <span class="k">if</span> <span class="n">missing_side</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">lnS</span><span class="o">-</span><span class="n">lnO</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">expo</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">expo</span><span class="p">))</span>
+
+        <span class="c1"># calculate the derivatives</span>
+        <span class="n">hps_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">hps_ta</span><span class="p">)</span>
+        <span class="n">on_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">on_ta</span><span class="p">)</span>
+        <span class="n">err_ta_corrected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">hps_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">hps_der</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">on_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">on_der</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">missing_side</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">lnO</span><span class="o">-</span><span class="n">lnN</span><span class="p">)</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">expo</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">expo</span><span class="p">))</span>
+
+        <span class="c1"># calculate the derivatives</span>
+        <span class="n">on_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">on_ta</span><span class="p">)</span>
+        <span class="n">hpn_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">hpn_ta</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">err_ta_corrected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">on_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">on_der</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">hpn_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">hpn_der</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Errors are too high, setting errors to 99&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Err ON: &#39;</span><span class="p">,</span> <span class="n">on_der</span><span class="p">,</span><span class="s1">&#39;, Err HPN: &#39;</span><span class="p">,</span> <span class="n">hpn_der</span><span class="p">)</span>
+            <span class="n">err_ta_corrected</span> <span class="o">=</span> <span class="mi">99</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">d</span><span class="o">=</span><span class="n">lnS</span><span class="o">-</span><span class="n">lnN</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="mf">16.0</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
+        <span class="n">expo</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">denom</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">expo</span><span class="p">))</span>
+
+        <span class="c1"># calculate the derivatives</span>
+        <span class="n">hps_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">hps_ta</span><span class="p">)</span>
+        <span class="n">hpn_der</span> <span class="o">=</span> <span class="n">pc</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">expo</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">hpn_ta</span><span class="p">)</span>
+        <span class="n">err_ta_corrected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">hps_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">hps_der</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">hpn_err</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">hpn_der</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        
+    <span class="n">ta_corrected</span> <span class="o">=</span> <span class="n">calc_tcorr</span><span class="p">(</span><span class="n">on_ta</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pc</span><span class="p">,</span> <span class="n">ta_corrected</span><span class="p">,</span> <span class="n">err_ta_corrected</span></div>
+
+
+
+<div class="viewcode-block" id="calc_tcorr">
+<a class="viewcode-back" href="../../../docs/dran.calibration.html#dran.calibration.pointing.calc_tcorr">[docs]</a>
+<span class="k">def</span> <span class="nf">calc_tcorr</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the antenna temperature correction for high frequencies.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            Ta - the on scan antenna temperature </span>
+<span class="sd">            pc - the pointing correction </span>
+<span class="sd">            data - the dictionary containing all the drift scan parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            corrTa - the corrected antenna temperature</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">Ta</span><span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Ta</span><span class="p">)</span>
+    <span class="n">pc</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;FRONTEND&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;01.3S&quot;</span> <span class="ow">or</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;EXTNAME&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;01.3S&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;OBJECT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;JUPITER&quot;</span><span class="p">:</span>
+                <span class="c1"># Only applying a size correction factor and atmospheric correction to Jupiter</span>
+                <span class="c1"># See van Zyl et al. (2026) - in Prep</span>
+                <span class="nb">abs</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ATMOS_ABSORPTION_CORR&quot;</span><span class="p">])</span>
+                <span class="n">scf</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;SIZE_CORRECTION_FACTOR&quot;</span><span class="p">])</span>
+                <span class="n">corrTa</span> <span class="o">=</span> <span class="n">Ta</span> <span class="o">*</span> <span class="n">pc</span> <span class="o">*</span> <span class="nb">abs</span> <span class="o">*</span> <span class="n">scf</span>
+                <span class="k">return</span> <span class="n">corrTa</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># do we also apply a atmospheric correcttion factor directly to the target source ?</span>
+            <span class="c1"># find out, for now I&#39;m not applyin it</span>
+            <span class="c1"># tests this ASAP</span>
+            <span class="n">corrTa</span> <span class="o">=</span> <span class="n">Ta</span> <span class="o">*</span> <span class="n">pc</span> 
+            <span class="k">return</span> <span class="n">corrTa</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">corrTa</span> <span class="o">=</span> <span class="n">Ta</span><span class="o">*</span><span class="n">pc</span>
+        <span class="k">return</span> <span class="n">corrTa</span></div>
+
+    
+
+<div class="viewcode-block" id="pointing_gain_from_halfpower">
+<a class="viewcode-back" href="../../../docs/dran.calibration.html#dran.calibration.pointing.pointing_gain_from_halfpower">[docs]</a>
+<span class="k">def</span> <span class="nf">pointing_gain_from_halfpower</span><span class="p">(</span>
+    <span class="n">hpn_ta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">hpn_err</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">on_ta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">on_err</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">hps_ta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">hps_err</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span><span class="n">Dict</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+    <span class="n">missing_side</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PointingGainResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute multiplicative pointing gain factor pc and 1-sigma uncertainty pc_err.</span>
+
+<span class="sd">    missing_side:</span>
+<span class="sd">      None  -&gt; both half-power points available (south and north)</span>
+<span class="sd">      &quot;n&quot;   -&gt; missing north half-power, use (HPS, ON) form in caller if needed</span>
+<span class="sd">      &quot;s&quot;   -&gt; missing south half-power, use (ON, HPN) form in caller if needed</span>
+
+<span class="sd">    This function expects the two temperatures supplied belong to the two</span>
+<span class="sd">    half-power points used in the same equation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="n">hps_ta</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">hps_ta</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">hps_ta</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">hps_err</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">hps_err</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">hps_err</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">hpn_ta</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">hpn_ta</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">hpn_ta</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">hpn_err</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">hpn_err</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">hpn_err</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">on_ta</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">on_ta</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">on_ta</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">on_err</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">on_err</span><span class="p">))</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">on_err</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+
+    <span class="n">pc</span><span class="p">,</span> <span class="n">ta</span><span class="p">,</span> <span class="n">ta_corr</span> <span class="o">=</span> <span class="n">calc_pointing_correction</span><span class="p">(</span><span class="n">hps_ta</span><span class="p">,</span> <span class="n">hps_err</span><span class="p">,</span> 
+                                               <span class="n">hpn_ta</span><span class="p">,</span> <span class="n">hpn_err</span><span class="p">,</span> 
+                                               <span class="n">on_ta</span><span class="p">,</span><span class="n">on_err</span><span class="p">,</span> 
+                                               <span class="n">data</span><span class="p">,</span>
+                                               <span class="n">missing_side</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">PointingGainResult</span><span class="p">(</span><span class="n">pc</span><span class="o">=</span><span class="n">pc</span><span class="p">,</span> 
+                              <span class="n">ta_corr</span><span class="o">=</span><span class="n">ta</span><span class="p">,</span> 
+                              <span class="n">ta_corr_err</span><span class="o">=</span><span class="n">ta_corr</span><span class="p">,</span> 
+                              <span class="n">reason</span><span class="o">=</span><span class="s1">&#39;ok&#39;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

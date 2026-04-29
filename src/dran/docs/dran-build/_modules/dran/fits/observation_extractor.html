@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.fits.observation_extractor &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.fits.observation_extractor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.fits.observation_extractor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: observation_extractor.py                                              #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dran.fits.hdu_rules</span> <span class="kn">import</span> <span class="n">scan_hdu_indices</span>
+<span class="kn">from</span> <span class="nn">dran.fits.lazy_reader</span> <span class="kn">import</span> <span class="n">LazyFITSReader</span>
+<span class="kn">from</span> <span class="nn">dran.fits.types</span> <span class="kn">import</span> <span class="n">ObsRecord</span>
+<span class="kn">from</span> <span class="nn">dran.utils.config</span> <span class="kn">import</span> <span class="n">ProjectPaths</span>
+<span class="kn">from</span> <span class="nn">dran.utils.frequency_utils</span> <span class="kn">import</span> <span class="n">get_band_from_frequency</span>
+<span class="kn">from</span> <span class="nn">dran.fits.schema</span> <span class="kn">import</span> <span class="n">build_header_key_schema</span>
+<span class="kn">from</span> <span class="nn">dran.fits.populate</span> <span class="kn">import</span>  <span class="n">populate_scan_arrays</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.atmosphere.meteo_water_vapour</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_water_vapour_fields</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.atmosphere.atmos_frontend_dispatch</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dispatch_atmospheric_correction</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.errors</span> <span class="kn">import</span> <span class="n">UnsupportedFrontendError</span>
+<span class="kn">from</span> <span class="nn">dran.utils.fs</span> <span class="kn">import</span> <span class="n">create_dir</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="build_observation_record">
+<a class="viewcode-back" href="../../../docs/dran.fits.html#dran.fits.observation_extractor.build_observation_record">[docs]</a>
+<span class="k">def</span> <span class="nf">build_observation_record</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">paths</span><span class="p">:</span><span class="n">ProjectPaths</span><span class="p">,</span>
+    <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">frequency_mhz</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">hdu_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build an observation result record with common file metadata fields.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    - Keys are uppercase to match a &quot;record schema&quot; style used by CSV/DB </span>
+<span class="sd">    exports.</span>
+<span class="sd">    - &quot;band&quot; is accepted for schema completeness, even if not used yet.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path:</span>
+<span class="sd">        Input FITS file path.</span>
+<span class="sd">    source_name:</span>
+<span class="sd">        Source name. Stored in normalized form for folder conventions.</span>
+<span class="sd">    frequency_mhz:</span>
+<span class="sd">        Center frequency derived from directory or context. Rounded to int for </span>
+<span class="sd">        folder naming.</span>
+<span class="sd">    band:</span>
+<span class="sd">        Band label (e.g., L/S/C/X). Stored for completeness.</span>
+<span class="sd">    hdu_len:</span>
+<span class="sd">        Number of HDUs in the FITS file.</span>
+<span class="sd">    logger:</span>
+<span class="sd">        Application logger.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Building observation record with common file metadata fields.&quot;</span><span class="p">)</span>
+
+    <span class="n">normalized_source</span> <span class="o">=</span> <span class="n">source_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">freq_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frequency_mhz</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;FILEPATH&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+        <span class="s2">&quot;FILENAME&quot;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;OBSNAME&quot;</span><span class="p">:</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="mi">18</span><span class="p">],</span>
+        <span class="s2">&quot;DIR_FREQ&quot;</span><span class="p">:</span> <span class="n">freq_int</span><span class="p">,</span>  <span class="c1"># convention: frequency folder name (MHz)</span>
+        <span class="s2">&quot;DIR_NAME&quot;</span><span class="p">:</span> <span class="n">normalized_source</span><span class="p">,</span>  <span class="c1"># convention: source folder name</span>
+        <span class="s2">&quot;BAND&quot;</span><span class="p">:</span> <span class="n">band</span><span class="p">,</span>
+        <span class="s2">&quot;HDULEN&quot;</span><span class="p">:</span> <span class="n">hdu_len</span><span class="p">,</span>
+        <span class="s2">&quot;PLOT_SAVE_DIR&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">plots_dir</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">normalized_source</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">freq_int</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">,</span>
+        <span class="c1"># Populated when scan extraction fails; stored in DB for diagnostics.</span>
+        <span class="s2">&quot;SCAN_ERROR&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="extract_observation">
+<a class="viewcode-back" href="../../../docs/dran.fits.html#dran.fits.observation_extractor.extract_observation">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_observation</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> 
+                        <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+                        <span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                        <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsRecord</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract one observation record from a FITS file path.</span>
+
+<span class="sd">    This preserves your existing behavior:</span>
+<span class="sd">    - Uses headers to determine SRCNAME, CENTFREQ, BAND, HDULEN.</span>
+<span class="sd">    - Populates a dict record using init_obs_row and get_complete_header_set.</span>
+<span class="sd">    - Extracts scan arrays and derives weather quantities.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ObsRecord</span>
+<span class="sd">        A populated observation record dict.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">LazyFITSReader</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">memmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
+
+        <span class="n">hdu_len</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">hdu_count</span><span class="p">()</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">_extract_headers</span><span class="p">(</span><span class="n">reader</span><span class="o">=</span><span class="n">reader</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="n">paths</span><span class="p">,</span>
+                               <span class="n">hdu_len</span><span class="o">=</span><span class="n">hdu_len</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="n">band</span><span class="p">,</span>
+                               <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+        
+        <span class="c1"># Prefer the header-derived band for validation and logging.</span>
+        <span class="n">derived_band</span> <span class="o">=</span> <span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;BAND&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">band</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">hdu_len</span><span class="o">&lt;=</span><span class="mi">5</span> <span class="ow">and</span> <span class="n">derived_band</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">}:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">hdu_len</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">derived_band</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;CM&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">,</span><span class="s1">&#39;KU&#39;</span><span class="p">,</span><span class="s1">&#39;K&#39;</span><span class="p">,</span><span class="s1">&#39;KA&#39;</span><span class="p">}:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid obs file: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;HDU_LEN=</span><span class="si">{</span><span class="n">hdu_len</span><span class="si">}</span><span class="s2">, band(path)=</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s2">, band(header)=</span><span class="si">{</span><span class="n">derived_band</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;SCAN_ERROR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">msg</span>
+
+        
+        <span class="n">_extract_scans</span><span class="p">(</span><span class="n">reader</span><span class="o">=</span><span class="n">reader</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+        <span class="n">_apply_weather</span><span class="p">(</span><span class="n">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">obs</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_extract_headers</span><span class="p">(</span><span class="n">reader</span><span class="p">:</span> <span class="n">LazyFITSReader</span><span class="p">,</span>
+                     <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+                     <span class="n">hdu_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+                     <span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                     <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObsRecord</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract core FITS headers and initialize an observation record.</span>
+<span class="sd">    Reads required headers, derives band from CENTFREQ, builds and logs the </span>
+<span class="sd">    observation metadata, prepares output directories, and populates </span>
+<span class="sd">    additional header fields across expected HDUs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">hdu_len</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">build_observation_record</span><span class="p">(</span>
+            <span class="n">reader</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="s2">&quot;UNKNOWN&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">hdu_len</span><span class="p">,</span> <span class="n">log</span>
+        <span class="p">)</span>
+        <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;SCAN_ERROR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid FITS file: expected HDU 0 and 2, got </span><span class="si">{</span><span class="n">hdu_len</span><span class="si">}</span><span class="s2"> HDUs&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obs</span>
+
+    <span class="n">hdr0</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_header</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">hdr2</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_header</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">srcname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">hdr0</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OBJECT&quot;</span><span class="p">))</span>
+    <span class="n">centfreq</span> <span class="o">=</span> <span class="n">hdr2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CENTFREQ&quot;</span><span class="p">)</span>
+
+
+    <span class="k">if</span> <span class="n">centfreq</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">centfreq</span> <span class="o">=</span> <span class="n">hdr2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CENTFRQ1&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">centfreq</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;CENTFREQ missing in HDU 2 header&quot;</span><span class="p">)</span>
+
+    
+    <span class="n">band</span> <span class="o">=</span> <span class="n">get_band_from_frequency</span><span class="p">(</span><span class="n">centfreq</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+
+    <span class="n">obs</span><span class="p">:</span> <span class="n">ObsRecord</span> <span class="o">=</span> <span class="n">build_observation_record</span><span class="p">(</span>
+        <span class="n">reader</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">srcname</span><span class="p">,</span> <span class="n">centfreq</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">hdu_len</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initialized observation record: </span><span class="si">{</span><span class="n">obs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Source parameters&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Target: </span><span class="si">{</span><span class="n">srcname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frequency: </span><span class="si">{</span><span class="n">centfreq</span><span class="si">}</span><span class="s2"> MHz&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Band: </span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File name: </span><span class="si">{</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Save processed plots to: </span><span class="si">{</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PLOT_SAVE_DIR&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    
+    <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CENTFREQ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">centfreq</span>
+    
+    <span class="n">header_keys</span> <span class="o">=</span> <span class="n">build_header_key_schema</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="n">srcname</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Header key map loaded. HDUs expected: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">header_keys</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;PLOT_SAVE_DIR&#39;</span><span class="p">],</span><span class="n">log</span><span class="p">)</span>
+    <span class="n">_populate_header_fields</span><span class="p">(</span>
+        <span class="n">reader</span><span class="o">=</span><span class="n">reader</span><span class="p">,</span>
+        <span class="n">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span>
+        <span class="n">header_keys</span><span class="o">=</span><span class="n">header_keys</span><span class="p">,</span>
+        <span class="n">hdu_len</span><span class="o">=</span><span class="n">hdu_len</span><span class="p">,</span>
+        <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">,</span>
+        <span class="n">band</span><span class="o">=</span><span class="n">band</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">obs</span>
+
+
+<span class="k">def</span> <span class="nf">_populate_header_fields</span><span class="p">(</span>
+    <span class="n">reader</span><span class="p">:</span> <span class="n">LazyFITSReader</span><span class="p">,</span>
+    <span class="n">obs</span><span class="p">:</span> <span class="n">ObsRecord</span><span class="p">,</span>
+    <span class="n">header_keys</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+    <span class="n">hdu_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+    <span class="n">band</span><span class="p">:</span><span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Populate obs with header fields.</span>
+
+<span class="sd">    This retains your existing pattern where header_keys is indexed by HDU </span>
+<span class="sd">    index, plus an extra final entry for derived or optional fields.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    
+    <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">keys_for_hdu</span> <span class="ow">in</span> <span class="n">header_keys</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">row</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">hdu_len</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_header</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">band</span><span class="o">==</span><span class="s1">&#39;X&#39;</span> <span class="ow">or</span> <span class="n">band</span><span class="o">==</span><span class="s2">&quot;C&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">row</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                    <span class="c1"># use low noise diode</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Using low noise diode data&#39;</span><span class="p">)</span>
+                    <span class="n">hzperk</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HZPERK1&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR1&#39;</span><span class="p">,</span><span class="s1">&#39;HZPERK2&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR2&#39;</span><span class="p">]</span>
+                    <span class="n">keys_for_hdu</span><span class="o">+=</span><span class="n">hzperk</span>
+            <span class="k">else</span><span class="p">:</span>
+                
+                <span class="k">if</span> <span class="p">(</span><span class="n">band</span><span class="o">==</span><span class="s2">&quot;S&quot;</span> <span class="ow">or</span> <span class="n">band</span><span class="o">==</span><span class="s2">&quot;L&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">hdu_len</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">row</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Using high noise diode data&#39;</span><span class="p">)</span>
+                        <span class="n">hzperk</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HZPERK1&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR1&#39;</span><span class="p">,</span><span class="s1">&#39;HZPERK2&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR2&#39;</span><span class="p">]</span>
+                        <span class="n">keys_for_hdu</span><span class="o">+=</span><span class="n">hzperk</span>
+                <span class="k">elif</span> <span class="n">row</span><span class="o">==</span><span class="n">hdu_len</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Using high noise diode data&#39;</span><span class="p">)</span>
+                    <span class="n">hzperk</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;HZPERK1&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR1&#39;</span><span class="p">,</span><span class="s1">&#39;HZPERK2&#39;</span><span class="p">,</span><span class="s1">&#39;HZKERR2&#39;</span><span class="p">]</span>
+                    <span class="n">keys_for_hdu</span><span class="o">+=</span><span class="n">hzperk</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_for_hdu</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                    
+                    <span class="c1"># Do not clobber existing valid values with None.</span>
+                    <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                    <span class="k">if</span> <span class="n">key</span><span class="o">==</span><span class="s1">&#39;DATE&#39;</span><span class="p">:</span>
+                        <span class="n">date_val</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">date_val</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;T&quot;</span> <span class="ow">in</span> <span class="n">date_val</span><span class="p">:</span>
+                            <span class="n">date</span> <span class="o">=</span> <span class="n">date_val</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;OBSDATE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;OBSTIME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;OBSDATE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;OBSTIME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obs</span> <span class="ow">or</span> <span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_for_hdu</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;HUMIDITY&quot;</span><span class="p">,</span> <span class="s2">&quot;TAMBIENT&quot;</span><span class="p">}:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">obs</span> <span class="ow">or</span> <span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">obs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># sys.exit()</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Header fields populated into observation record.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_extract_scans</span><span class="p">(</span><span class="n">reader</span><span class="p">:</span> <span class="n">LazyFITSReader</span><span class="p">,</span> 
+                   <span class="n">obs</span><span class="p">:</span> <span class="n">ObsRecord</span><span class="p">,</span> 
+                   <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract scan data from configured FITS HDUs into the observation record.</span>
+<span class="sd">    Validates HDU length metadata, resolves the scan HDU indices, and </span>
+<span class="sd">    iterates through each scan HDU to load and store scan arrays.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Fetching observation scans&#39;</span><span class="p">)</span>
+    <span class="n">hdus</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">list_hdus</span><span class="p">()</span>
+    <span class="n">hdu_len</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HDULEN&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hdu_len</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;HDULEN missing from observation record&quot;</span><span class="p">)</span>
+
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">scan_hdu_indices</span><span class="p">(</span><span class="n">hdu_len</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">indices</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No scan HDU indices configured for HDULEN=</span><span class="si">{</span><span class="n">hdu_len</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+        <span class="n">_extract_single_scan</span><span class="p">(</span><span class="n">reader</span><span class="o">=</span><span class="n">reader</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">hdus</span><span class="o">=</span><span class="n">hdus</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_extract_single_scan</span><span class="p">(</span>
+    <span class="n">reader</span><span class="p">:</span> <span class="n">LazyFITSReader</span><span class="p">,</span>
+    <span class="n">obs</span><span class="p">:</span> <span class="n">ObsRecord</span><span class="p">,</span>
+    <span class="n">hdus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span>
+    <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a single scan HDU and populate observation scan arrays.</span>
+<span class="sd">    Validates the HDU index, derives a header name (including legacy Drift </span>
+<span class="sd">    mapping), reads the scan table, logs available columns, and delegates </span>
+<span class="sd">    storage and derived-field computation to populate_scan_arrays.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+   
+    <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hdus</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scan HDU index out of range: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">hdu_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">hdus</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;extname&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    <span class="n">header_name</span> <span class="o">=</span> <span class="n">hdu_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">hdu_name</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="c1"># support for older file systems from 2004</span>
+    <span class="k">if</span> <span class="n">header_name</span><span class="o">==</span><span class="s1">&#39;Drift&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+            <span class="n">header_name</span><span class="o">=</span><span class="s1">&#39;HPNZ&#39;</span>
+        <span class="k">elif</span> <span class="n">index</span><span class="o">==</span><span class="mi">4</span><span class="p">:</span>
+            <span class="n">header_name</span><span class="o">=</span><span class="s1">&#39;ZC&#39;</span>
+        <span class="k">elif</span> <span class="n">index</span><span class="o">==</span><span class="mi">5</span><span class="p">:</span>
+            <span class="n">header_name</span><span class="o">=</span><span class="s1">&#39;HPSZ&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Unexpected HDU layout: flag and stop processing this file.</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid drift-scan HDU index: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="n">obs</span><span class="p">[</span><span class="s2">&quot;SCAN_ERROR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Invalid drift-scan HDU index: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">return</span>
+    <span class="k">if</span> <span class="n">header_name</span><span class="o">==</span><span class="s2">&quot;HPNA&quot;</span><span class="p">:</span>
+        <span class="n">header_name</span><span class="o">=</span><span class="s2">&quot;HPNZ&quot;</span>
+    <span class="k">if</span> <span class="n">header_name</span><span class="o">==</span><span class="s2">&quot;ONA&quot;</span><span class="p">:</span>
+        <span class="n">header_name</span><span class="o">=</span><span class="s2">&quot;ZC&quot;</span>
+    <span class="k">if</span> <span class="n">header_name</span><span class="o">==</span><span class="s2">&quot;HPSA&quot;</span><span class="p">:</span>
+        <span class="n">header_name</span><span class="o">=</span><span class="s2">&quot;HPSZ&quot;</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting scan data from HDU </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">header_name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># print(obs);sys.exit()</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;BAND&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;S&quot;</span> <span class="ow">or</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;BAND&#39;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;L&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obs</span><span class="p">[</span><span class="s1">&#39;HDULEN&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">header_name</span> <span class="o">==</span> <span class="s2">&quot;ZC&quot;</span><span class="p">:</span>
+            <span class="n">scans</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+                    <span class="n">names</span> <span class="o">=</span> <span class="n">scans</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HDU </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> table columns: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HDU </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> table columns: unknown&quot;</span><span class="p">)</span>
+
+            <span class="n">populate_scan_arrays</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">scans</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">header_name</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+        
+    <span class="n">scans</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scans</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">scans</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HDU </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> table columns: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HDU </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> table columns: unknown&quot;</span><span class="p">)</span>
+
+    <span class="n">populate_scan_arrays</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">scans</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">header_name</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_apply_weather</span><span class="p">(</span><span class="n">obs</span><span class="p">:</span> <span class="n">ObsRecord</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply weather and atmospheric corrections to an observation record.</span>
+<span class="sd">    Adds water vapour related fields and runs the configured atmospheric </span>
+<span class="sd">    correction routine.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">add_water_vapour_fields</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="n">extname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;EXTNAME&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">extname</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Missing EXTNAME; skipping atmospheric calibration&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dispatch_atmospheric_correction</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">UnsupportedFrontendError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Atmospheric calibration skipped: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

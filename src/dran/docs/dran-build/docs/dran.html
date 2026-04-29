@@ -1,0 +1,1035 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>dran package &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/dran';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extras/CHANGELOG.html">CURRENT VERSION (0.9.7)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/dran.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>dran package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.main">dran.main module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dran-package">
+<h1>dran package<a class="headerlink" href="#dran-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dran.calibration.html">dran.calibration package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.atmosphere.html">dran.calibration.atmosphere package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.atmosphere.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.atmosphere.html#module-dran.calibration.atmosphere.atmos_frontend_dispatch">dran.calibration.atmosphere.atmos_frontend_dispatch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.atmosphere.html#module-dran.calibration.atmosphere.atmos_models">dran.calibration.atmosphere.atmos_models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.atmosphere.html#module-dran.calibration.atmosphere.meteo_water_vapour">dran.calibration.atmosphere.meteo_water_vapour module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.atmosphere.html#module-dran.calibration.atmosphere">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.planets.html">dran.calibration.planets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.planets.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.planets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.planets.html#module-dran.calibration.planets.planet_geometry">dran.calibration.planets.planet_geometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.planets.html#module-dran.calibration.planets.planet_jupiter_calibration">dran.calibration.planets.planet_jupiter_calibration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.planets.html#module-dran.calibration.planets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.predefs.html">dran.calibration.predefs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.predefs.html#module-dran.calibration.predefs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#module-dran.calibration.calibrate">dran.calibration.calibrate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.calibrate.calibrate_pointing_corrected_ta"><code class="docutils literal notranslate"><span class="pre">calibrate_pointing_corrected_ta()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#module-dran.calibration.errors">dran.calibration.errors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.errors.CalibrationError"><code class="docutils literal notranslate"><span class="pre">CalibrationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.errors.MissingResourceError"><code class="docutils literal notranslate"><span class="pre">MissingResourceError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.errors.UnsupportedFrontendError"><code class="docutils literal notranslate"><span class="pre">UnsupportedFrontendError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.errors.EphemerisDateOutOfRangeError"><code class="docutils literal notranslate"><span class="pre">EphemerisDateOutOfRangeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.errors.InvalidObservationDateError"><code class="docutils literal notranslate"><span class="pre">InvalidObservationDateError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#module-dran.calibration.pointing">dran.calibration.pointing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.PointingGainResult"><code class="docutils literal notranslate"><span class="pre">PointingGainResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.PointingGainResult.pc"><code class="docutils literal notranslate"><span class="pre">PointingGainResult.pc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.PointingGainResult.ta_corr"><code class="docutils literal notranslate"><span class="pre">PointingGainResult.ta_corr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.PointingGainResult.ta_corr_err"><code class="docutils literal notranslate"><span class="pre">PointingGainResult.ta_corr_err</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.PointingGainResult.reason"><code class="docutils literal notranslate"><span class="pre">PointingGainResult.reason</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.calc_pointing_correction"><code class="docutils literal notranslate"><span class="pre">calc_pointing_correction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.calc_tcorr"><code class="docutils literal notranslate"><span class="pre">calc_tcorr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.pointing.pointing_gain_from_halfpower"><code class="docutils literal notranslate"><span class="pre">pointing_gain_from_halfpower()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#module-dran.calibration.row_accessors">dran.calibration.row_accessors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.calibration.html#dran.calibration.row_accessors.get_float"><code class="docutils literal notranslate"><span class="pre">get_float()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.calibration.html#module-dran.calibration">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.cli.html">dran.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.cli.html#module-dran.cli.init_processes">dran.cli.init_processes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.init_processes.init_output_directories"><code class="docutils literal notranslate"><span class="pre">init_output_directories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.init_processes.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.cli.html#module-dran.cli.parser">dran.cli.parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.parser.build_parser"><code class="docutils literal notranslate"><span class="pre">build_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.parser.normalize_args"><code class="docutils literal notranslate"><span class="pre">normalize_args()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.parser.validate_args"><code class="docutils literal notranslate"><span class="pre">validate_args()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.cli.html#dran.cli.parser.parse_args"><code class="docutils literal notranslate"><span class="pre">parse_args()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.cli.html#module-dran.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.config.html">dran.config package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.config.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.config.html#module-dran.config.constants">dran.config.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.config.html#module-dran.config.logging">dran.config.logging module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.LevelBasedFormatter"><code class="docutils literal notranslate"><span class="pre">LevelBasedFormatter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.config.html#dran.config.logging.LevelBasedFormatter.format"><code class="docutils literal notranslate"><span class="pre">LevelBasedFormatter.format()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.disclaimer"><code class="docutils literal notranslate"><span class="pre">disclaimer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.print_start"><code class="docutils literal notranslate"><span class="pre">print_start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.load_prog"><code class="docutils literal notranslate"><span class="pre">load_prog()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.configure_console_logger"><code class="docutils literal notranslate"><span class="pre">configure_console_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.config.html#dran.config.logging.configure_logging"><code class="docutils literal notranslate"><span class="pre">configure_logging()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.config.html#module-dran.config">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.fits.html">dran.fits package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.backends">dran.fits.backends module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.get_hdu_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.get_hdu_type_name"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_hdu_type_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.get_header"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.get_data"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.get_info"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.FitsBackendHandle.close"><code class="docutils literal notranslate"><span class="pre">FitsBackendHandle.close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.backends.BackendSelection"><code class="docutils literal notranslate"><span class="pre">BackendSelection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.backends.BackendSelection.name"><code class="docutils literal notranslate"><span class="pre">BackendSelection.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.backends.select_backend"><code class="docutils literal notranslate"><span class="pre">select_backend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.backends.open_fits_handle"><code class="docutils literal notranslate"><span class="pre">open_fits_handle()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.computed_columns">dran.fits.computed_columns module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.computed_columns.build_computed_column_names"><code class="docutils literal notranslate"><span class="pre">build_computed_column_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.conversion">dran.fits.conversion module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.conversion.counts_to_kelvin"><code class="docutils literal notranslate"><span class="pre">counts_to_kelvin()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.hdu_rules">dran.fits.hdu_rules module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.hdu_rules.scan_hdu_indices"><code class="docutils literal notranslate"><span class="pre">scan_hdu_indices()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.init_fits_processing">dran.fits.init_fits_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.init_fits_processing.process_fits_path"><code class="docutils literal notranslate"><span class="pre">process_fits_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.labels">dran.fits.labels module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.labels.build_computed_column_labels"><code class="docutils literal notranslate"><span class="pre">build_computed_column_labels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.lazy_reader">dran.fits.lazy_reader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.handle"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.handle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.open"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.close"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.clear_cache"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.hdu_count"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.hdu_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.get_info"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.get_header"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.get_data"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.lazy_reader.LazyFITSReader.list_hdus"><code class="docutils literal notranslate"><span class="pre">LazyFITSReader.list_hdus()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.observation_extractor">dran.fits.observation_extractor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.observation_extractor.build_observation_record"><code class="docutils literal notranslate"><span class="pre">build_observation_record()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.observation_extractor.extract_observation"><code class="docutils literal notranslate"><span class="pre">extract_observation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.observed_keys">dran.fits.observed_keys module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.observed_keys.build_observed_header_key_groups"><code class="docutils literal notranslate"><span class="pre">build_observed_header_key_groups()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.populate">dran.fits.populate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.populate.populate_scan_arrays"><code class="docutils literal notranslate"><span class="pre">populate_scan_arrays()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.processing_fit">dran.fits.processing_fit module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.processing_fit.to_jsonable"><code class="docutils literal notranslate"><span class="pre">to_jsonable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.processing_fit.dumps_json"><code class="docutils literal notranslate"><span class="pre">dumps_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.processing_fit.populate_row"><code class="docutils literal notranslate"><span class="pre">populate_row()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.schema">dran.fits.schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.schema.build_header_key_schema"><code class="docutils literal notranslate"><span class="pre">build_header_key_schema()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits.types">dran.fits.types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary"><code class="docutils literal notranslate"><span class="pre">HduSummary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.index"><code class="docutils literal notranslate"><span class="pre">HduSummary.index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.extname"><code class="docutils literal notranslate"><span class="pre">HduSummary.extname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.type"><code class="docutils literal notranslate"><span class="pre">HduSummary.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.rows"><code class="docutils literal notranslate"><span class="pre">HduSummary.rows</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.cols"><code class="docutils literal notranslate"><span class="pre">HduSummary.cols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.shape"><code class="docutils literal notranslate"><span class="pre">HduSummary.shape</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.HduSummary.has_data"><code class="docutils literal notranslate"><span class="pre">HduSummary.has_data</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord"><code class="docutils literal notranslate"><span class="pre">ObsRecord</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.FILEPATH"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILEPATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.FILENAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.FILENAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.OBSNAME"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBSNAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.PLOT_SAVE_DIR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.PLOT_SAVE_DIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.HDULEN"><code class="docutils literal notranslate"><span class="pre">ObsRecord.HDULEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.OBJECT"><code class="docutils literal notranslate"><span class="pre">ObsRecord.OBJECT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.CENTFREQ"><code class="docutils literal notranslate"><span class="pre">ObsRecord.CENTFREQ</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.BAND"><code class="docutils literal notranslate"><span class="pre">ObsRecord.BAND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ObsRecord.SCAN_ERROR"><code class="docutils literal notranslate"><span class="pre">ObsRecord.SCAN_ERROR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays"><code class="docutils literal notranslate"><span class="pre">ScanArrays</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.x"><code class="docutils literal notranslate"><span class="pre">ScanArrays.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.y"><code class="docutils literal notranslate"><span class="pre">ScanArrays.y</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.scan_id"><code class="docutils literal notranslate"><span class="pre">ScanArrays.scan_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.band"><code class="docutils literal notranslate"><span class="pre">ScanArrays.band</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.source"><code class="docutils literal notranslate"><span class="pre">ScanArrays.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.meta"><code class="docutils literal notranslate"><span class="pre">ScanArrays.meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.ScanArrays.series"><code class="docutils literal notranslate"><span class="pre">ScanArrays.series</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions"><code class="docutils literal notranslate"><span class="pre">PopulateOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.x_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.x_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.y_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.y_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.scan_id_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.scan_id_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.source_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.source_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.band_column"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.band_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.drop_non_finite"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.drop_non_finite</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.sort_by_x"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.sort_by_x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fits.html#dran.fits.types.PopulateOptions.extra_series"><code class="docutils literal notranslate"><span class="pre">PopulateOptions.extra_series</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fits.html#module-dran.fits">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.fitting.html">dran.fitting package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.baseline_correction">dran.fitting.baseline_correction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.baseline_correction.fit_polynomial"><code class="docutils literal notranslate"><span class="pre">fit_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.baseline_correction.calc_residual_and_rms"><code class="docutils literal notranslate"><span class="pre">calc_residual_and_rms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.baseline_correction.correct_baseline_linear"><code class="docutils literal notranslate"><span class="pre">correct_baseline_linear()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.baseline_windows">dran.fitting.baseline_windows module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.baseline_windows.filter_invalid_minima"><code class="docutils literal notranslate"><span class="pre">filter_invalid_minima()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.baseline_windows.build_baseline_windows"><code class="docutils literal notranslate"><span class="pre">build_baseline_windows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.config">dran.fitting.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.step_sigma_mult"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.step_sigma_mult</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.step_count_max"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.step_count_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.max_gap_frac"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.max_gap_frac</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.min_points_per_beam"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.min_points_per_beam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.max_edge_frac"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.max_edge_frac</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.max_resid_to_baseline_rms"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.max_resid_to_baseline_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.min_snr"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.min_snr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.config.DualBeamQCConfig.max_amp_ratio"><code class="docutils literal notranslate"><span class="pre">DualBeamQCConfig.max_amp_ratio</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.gaussian_fit">dran.fitting.gaussian_fit module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.gaussian_fit.gauss_plus_linear_baseline"><code class="docutils literal notranslate"><span class="pre">gauss_plus_linear_baseline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.gaussian_fit.fit_gaussian_test"><code class="docutils literal notranslate"><span class="pre">fit_gaussian_test()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.locate_fitting_blocks">dran.fitting.locate_fitting_blocks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.models">dran.fitting.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.ResidualFit"><code class="docutils literal notranslate"><span class="pre">ResidualFit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.ResidualFit.rms"><code class="docutils literal notranslate"><span class="pre">ResidualFit.rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.ResidualFit.residuals"><code class="docutils literal notranslate"><span class="pre">ResidualFit.residuals</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan"><code class="docutils literal notranslate"><span class="pre">CleanedScan</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.x"><code class="docutils literal notranslate"><span class="pre">CleanedScan.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.y"><code class="docutils literal notranslate"><span class="pre">CleanedScan.y</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.rms"><code class="docutils literal notranslate"><span class="pre">CleanedScan.rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.residual"><code class="docutils literal notranslate"><span class="pre">CleanedScan.residual</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.spline_max"><code class="docutils literal notranslate"><span class="pre">CleanedScan.spline_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.spline"><code class="docutils literal notranslate"><span class="pre">CleanedScan.spline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.points_deleted"><code class="docutils literal notranslate"><span class="pre">CleanedScan.points_deleted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.raw_rms"><code class="docutils literal notranslate"><span class="pre">CleanedScan.raw_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.raw_residuals"><code class="docutils literal notranslate"><span class="pre">CleanedScan.raw_residuals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.flag"><code class="docutils literal notranslate"><span class="pre">CleanedScan.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.CleanedScan.message"><code class="docutils literal notranslate"><span class="pre">CleanedScan.message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult"><code class="docutils literal notranslate"><span class="pre">BeamFitResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.qc"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.qc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.peak_coeffs"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.peak_coeffs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.peak_model"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.peak_model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.ta_peak"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.ta_peak</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.ta_peak_err"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.ta_peak_err</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.peak_loc_index"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.peak_loc_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.baseline_coeffs"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.baseline_coeffs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.baseline_residual"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.baseline_residual</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.baseline_rms"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.baseline_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.baseline_window_indices"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.baseline_window_indices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.y_corrected"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.y_corrected</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.y_corrected_spline"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.y_corrected_spline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.clean_rms"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.clean_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.flag"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.BeamFitResult.message"><code class="docutils literal notranslate"><span class="pre">BeamFitResult.message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.is_bad"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.is_bad</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.flag"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.reasons"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.reasons</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.step_max"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.step_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.step_count"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.step_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.max_gap_frac"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.max_gap_frac</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.snr_a"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.snr_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.snr_b"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.snr_b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.resid_rms_a"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.resid_rms_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.resid_rms_b"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.resid_rms_b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamQCResult.to_dict"><code class="docutils literal notranslate"><span class="pre">DualBeamQCResult.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.qc"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.qc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.apeak_residuals"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.apeak_residuals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.ata_peak"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.ata_peak</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.ata_peak_err"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.ata_peak_err</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.apeak_loc_index"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.apeak_loc_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.bpeak_residuals"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.bpeak_residuals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.bta_peak"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.bta_peak</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.bta_peak_err"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.bta_peak_err</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.bpeak_loc_index"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.bpeak_loc_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.baseline_coeffs"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.baseline_coeffs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.baseline_residuals"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.baseline_residuals</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.baseline_rms"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.baseline_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.baseline_window_indices"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.baseline_window_indices</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.y_corrected"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.y_corrected</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.y_corrected_spline"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.y_corrected_spline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.clean_rms"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.clean_rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.flag"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.DualBeamFitResult.message"><code class="docutils literal notranslate"><span class="pre">DualBeamFitResult.message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.x"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.y"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.y</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.rms"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.rms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.residual"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.residual</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.spline_max"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.spline_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.spline"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.spline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.points_deleted"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.points_deleted</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.flag"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.names"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.IterativeCleaningResult.message"><code class="docutils literal notranslate"><span class="pre">IterativeCleaningResult.message</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.models.sig_to_noise"><code class="docutils literal notranslate"><span class="pre">sig_to_noise()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.peak_fitting">dran.fitting.peak_fitting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.peak_fitting.peak_window_indices"><code class="docutils literal notranslate"><span class="pre">peak_window_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.peak_fitting.fit_quadratic_peak"><code class="docutils literal notranslate"><span class="pre">fit_quadratic_peak()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.peak_fitting.calc_residual"><code class="docutils literal notranslate"><span class="pre">calc_residual()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.peak_fitting.peak_location_index"><code class="docutils literal notranslate"><span class="pre">peak_location_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.pipeline">dran.fitting.pipeline module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.find_step_locations"><code class="docutils literal notranslate"><span class="pre">find_step_locations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.plot_dual_beam_final"><code class="docutils literal notranslate"><span class="pre">plot_dual_beam_final()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.robust_sigma"><code class="docutils literal notranslate"><span class="pre">robust_sigma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.step_metrics"><code class="docutils literal notranslate"><span class="pre">step_metrics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.max_gap_fraction"><code class="docutils literal notranslate"><span class="pre">max_gap_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.edge_distance_fraction"><code class="docutils literal notranslate"><span class="pre">edge_distance_fraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.compute_dual_beam_qc"><code class="docutils literal notranslate"><span class="pre">compute_dual_beam_qc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.dual_beam_qc_to_scan_quality"><code class="docutils literal notranslate"><span class="pre">dual_beam_qc_to_scan_quality()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.fit_scan"><code class="docutils literal notranslate"><span class="pre">fit_scan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.pipeline.fit_scan_db"><code class="docutils literal notranslate"><span class="pre">fit_scan_db()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.plot_qc">dran.fitting.plot_qc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.ok"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult.ok</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.flag"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult.flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.message"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult.message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.metrics"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult.metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.to_dict"><code class="docutils literal notranslate"><span class="pre">ScanQualityResult.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.plot_qc.check_scan_quality"><code class="docutils literal notranslate"><span class="pre">check_scan_quality()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.plotting">dran.fitting.plotting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.plotting.plot_diagnostics"><code class="docutils literal notranslate"><span class="pre">plot_diagnostics()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.plotting.plot_fail"><code class="docutils literal notranslate"><span class="pre">plot_fail()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.rfi_cleaning">dran.fitting.rfi_cleaning module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.rfi_cleaning.clean_rfi_sigma_clip"><code class="docutils literal notranslate"><span class="pre">clean_rfi_sigma_clip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.rfi_cleaning.clean_data"><code class="docutils literal notranslate"><span class="pre">clean_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.rfi_cleaning.clean_data_iterative_fitting"><code class="docutils literal notranslate"><span class="pre">clean_data_iterative_fitting()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.rfi_cleaning.calc_residual"><code class="docutils literal notranslate"><span class="pre">calc_residual()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.spline_models">dran.fitting.spline_models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.spline_models.spline_fit_1d"><code class="docutils literal notranslate"><span class="pre">spline_fit_1d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting.validation">dran.fitting.validation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.fitting.html#dran.fitting.validation.validate_xy"><code class="docutils literal notranslate"><span class="pre">validate_xy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.fitting.html#module-dran.fitting">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.gui.html">dran.gui package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.gui.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.gui.ui.html">dran.gui.ui package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#module-dran.gui.ui.canvas_manager">dran.gui.ui.canvas_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#module-dran.gui.ui.edit_driftscan_window">dran.gui.ui.edit_driftscan_window module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#module-dran.gui.ui.main_window">dran.gui.ui.main_window module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#module-dran.gui.ui.secondary_canvas_manager">dran.gui.ui.secondary_canvas_manager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui.html#module-dran.gui.ui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.gui.ui_design.html">dran.gui.ui_design package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.ui_design.html#module-dran.gui.ui_design">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.gui.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.gui.html#module-dran.gui.main">dran.gui.main module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.gui.html#dran.gui.main.Main"><code class="docutils literal notranslate"><span class="pre">Main</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.html#dran.gui.main.Main.setup_initial_state"><code class="docutils literal notranslate"><span class="pre">Main.setup_initial_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.html#dran.gui.main.Main.set_button_properties"><code class="docutils literal notranslate"><span class="pre">Main.set_button_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.gui.html#dran.gui.main.Main.open_drift_window"><code class="docutils literal notranslate"><span class="pre">Main.open_drift_window()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.gui.html#module-dran.gui">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.pipelines.html">dran.pipelines package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines.analysis_processing">dran.pipelines.analysis_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.analysis_processing.run_analysis_processing"><code class="docutils literal notranslate"><span class="pre">run_analysis_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines.docs_processing">dran.pipelines.docs_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.docs_processing.run_docs_processing"><code class="docutils literal notranslate"><span class="pre">run_docs_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines.fits_processing">dran.pipelines.fits_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.fits_processing.run_fits_processing"><code class="docutils literal notranslate"><span class="pre">run_fits_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines.gui_processing">dran.pipelines.gui_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.gui_processing.run_gui_processing"><code class="docutils literal notranslate"><span class="pre">run_gui_processing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.gui_processing.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines.web_processing">dran.pipelines.web_processing module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.pipelines.html#dran.pipelines.web_processing.run_web_processing"><code class="docutils literal notranslate"><span class="pre">run_web_processing()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.pipelines.html#module-dran.pipelines">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.storage.html">dran.storage package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage.db_introspection">dran.storage.db_introspection module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.db_introspection.record_exists"><code class="docutils literal notranslate"><span class="pre">record_exists()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.db_introspection.ensure_processed_files_table"><code class="docutils literal notranslate"><span class="pre">ensure_processed_files_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.db_introspection.processed_file_exists_by_path"><code class="docutils literal notranslate"><span class="pre">processed_file_exists_by_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.db_introspection.processed_file_hashes_by_size"><code class="docutils literal notranslate"><span class="pre">processed_file_hashes_by_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.db_introspection.insert_processed_file"><code class="docutils literal notranslate"><span class="pre">insert_processed_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage.sqlite_connection">dran.storage.sqlite_connection module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_connection.get_connection"><code class="docutils literal notranslate"><span class="pre">get_connection()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage.sqlite_repository">dran.storage.sqlite_repository module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_repository.insert_dict"><code class="docutils literal notranslate"><span class="pre">insert_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_repository.fetch_row"><code class="docutils literal notranslate"><span class="pre">fetch_row()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_repository.get_existing_keys"><code class="docutils literal notranslate"><span class="pre">get_existing_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_repository.save_record"><code class="docutils literal notranslate"><span class="pre">save_record()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage.sqlite_schema">dran.storage.sqlite_schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_schema.infer_sqlite_type"><code class="docutils literal notranslate"><span class="pre">infer_sqlite_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_schema.ensure_table_from_dict"><code class="docutils literal notranslate"><span class="pre">ensure_table_from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage.sqlite_types">dran.storage.sqlite_types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_types.array_to_blob"><code class="docutils literal notranslate"><span class="pre">array_to_blob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_types.blob_to_array"><code class="docutils literal notranslate"><span class="pre">blob_to_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_types.normalize_for_schema"><code class="docutils literal notranslate"><span class="pre">normalize_for_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.sqlite_types.normalize_for_storage"><code class="docutils literal notranslate"><span class="pre">normalize_for_storage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.storage.html#module-dran.storage">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.get_connection"><code class="docutils literal notranslate"><span class="pre">get_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.ensure_table_from_dict"><code class="docutils literal notranslate"><span class="pre">ensure_table_from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.insert_dict"><code class="docutils literal notranslate"><span class="pre">insert_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.fetch_row"><code class="docutils literal notranslate"><span class="pre">fetch_row()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.get_existing_keys"><code class="docutils literal notranslate"><span class="pre">get_existing_keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.save_record"><code class="docutils literal notranslate"><span class="pre">save_record()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.array_to_blob"><code class="docutils literal notranslate"><span class="pre">array_to_blob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.blob_to_array"><code class="docutils literal notranslate"><span class="pre">blob_to_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.normalize_for_schema"><code class="docutils literal notranslate"><span class="pre">normalize_for_schema()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.storage.html#dran.storage.normalize_for_storage"><code class="docutils literal notranslate"><span class="pre">normalize_for_storage()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dran.utils.html">dran.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils.config">dran.utils.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.root_data_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.frequency</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.filename"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.full_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.wavelength_cm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.beam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathParts.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.root_data_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.frequency</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.foldername"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.foldername</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.full_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.wavelength_cm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.beam</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathPartsFolder.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths"><code class="docutils literal notranslate"><span class="pre">ProjectPaths</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.workdir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.workdir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.db_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.db_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.log_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.log_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.invalid_files_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.invalid_files_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.symlinks_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.symlinks_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.diagnostics_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="dran.utils.html#dran.utils.config.ProjectPaths.plots_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.plots_dir</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.config.ObservationPathError"><code class="docutils literal notranslate"><span class="pre">ObservationPathError</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils.frequency_utils">dran.utils.frequency_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.frequency_utils.get_band_from_frequency"><code class="docutils literal notranslate"><span class="pre">get_band_from_frequency()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.frequency_utils.get_frequency_range_from_band"><code class="docutils literal notranslate"><span class="pre">get_frequency_range_from_band()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils.fs">dran.utils.fs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.build_paths"><code class="docutils literal notranslate"><span class="pre">build_paths()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.resolve_existing_path"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.parse_source_directory_path"><code class="docutils literal notranslate"><span class="pre">parse_source_directory_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.parse_source_frequency_band_from_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_source_frequency_band_from_path_if_folder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.parse_plot_path"><code class="docutils literal notranslate"><span class="pre">parse_plot_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.resolve_existing_path_without_logger"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path_without_logger()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.parse_observation_path"><code class="docutils literal notranslate"><span class="pre">parse_observation_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.parse_observation_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_observation_path_if_folder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.ensure_directory_exists"><code class="docutils literal notranslate"><span class="pre">ensure_directory_exists()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.ensure_output_directories"><code class="docutils literal notranslate"><span class="pre">ensure_output_directories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.recreate_dir"><code class="docutils literal notranslate"><span class="pre">recreate_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.create_dir"><code class="docutils literal notranslate"><span class="pre">create_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.clear_diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">clear_diagnostics_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.compute_file_hash"><code class="docutils literal notranslate"><span class="pre">compute_file_hash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.load_invalid_paths"><code class="docutils literal notranslate"><span class="pre">load_invalid_paths()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.load_symlink_paths"><code class="docutils literal notranslate"><span class="pre">load_symlink_paths()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.append_invalid_path"><code class="docutils literal notranslate"><span class="pre">append_invalid_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.append_symlink_path"><code class="docutils literal notranslate"><span class="pre">append_symlink_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.record_invalid_path_once"><code class="docutils literal notranslate"><span class="pre">record_invalid_path_once()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.fs.record_symlink_path_once"><code class="docutils literal notranslate"><span class="pre">record_symlink_path_once()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils.port_utils">dran.utils.port_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.port_utils.find_pids_by_port"><code class="docutils literal notranslate"><span class="pre">find_pids_by_port()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.port_utils.kill_processes_on_port"><code class="docutils literal notranslate"><span class="pre">kill_processes_on_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils.time_utils">dran.utils.time_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.time_utils.doy_to_date"><code class="docutils literal notranslate"><span class="pre">doy_to_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dran.utils.html#dran.utils.time_utils.parse_doy_timestamp"><code class="docutils literal notranslate"><span class="pre">parse_doy_timestamp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dran.utils.html#module-dran.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-dran.main">
+<span id="dran-main-module"></span><h2>dran.main module<a class="headerlink" href="#module-dran.main" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.main.main">
+<span class="sig-prename descclassname"><span class="pre">dran.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.main.main" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>argv</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dran" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.main">dran.main module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

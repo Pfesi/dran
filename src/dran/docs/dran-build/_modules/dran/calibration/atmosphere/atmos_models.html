@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.calibration.atmosphere.atmos_models &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.calibration.atmosphere.atmos_models</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.calibration.atmosphere.atmos_models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: atmos_models.py                                                       #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dran.config.constants</span> <span class="kn">import</span> <span class="n">DEG_TO_RAD</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.row_accessors</span> <span class="kn">import</span> <span class="n">get_float</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="apply_atmospheric_penetration_2p5s">
+<a class="viewcode-back" href="../../../../docs/dran.calibration.atmosphere.html#dran.calibration.atmosphere.atmos_models.apply_atmospheric_penetration_2p5s">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_atmospheric_penetration_2p5s</span><span class="p">(</span>
+    <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply atmospheric penetration model for 02.5S frontend (nominally 12 GHz band).</span>
+<span class="sd">    Writes: TAU10, TAU15, TBATMOS10, TBATMOS15, MEAN_ATMOS_CORRECTION</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pwv</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;PWV&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">wvd</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;WVD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">za_deg</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;ZA&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">pwv</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wvd</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">za_deg</span><span class="p">):</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;TAU10&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;TAU15&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;TBATMOS10&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;TBATMOS15&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;MEAN_ATMOS_CORRECTION&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tau10</span> <span class="o">=</span> <span class="mf">0.0071</span> <span class="o">+</span> <span class="mf">0.00021</span> <span class="o">*</span> <span class="n">pwv</span>
+        <span class="n">tau15</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.055</span> <span class="o">+</span> <span class="mf">0.004</span> <span class="o">*</span> <span class="n">wvd</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.343</span>
+        <span class="n">tbatmos10</span> <span class="o">=</span> <span class="mf">260.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau10</span><span class="p">))</span>
+        <span class="n">tbatmos15</span> <span class="o">=</span> <span class="mf">260.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau15</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">tau10</span><span class="p">,</span> <span class="n">tau15</span><span class="p">,</span> <span class="n">tbatmos10</span><span class="p">,</span> <span class="n">tbatmos15</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">za_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)</span>
+        <span class="n">mean_atm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">tau15</span> <span class="o">+</span> <span class="n">tau10</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">za_rad</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">mean_atm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;TAU10&quot;</span><span class="p">:</span> <span class="n">tau10</span><span class="p">,</span>
+        <span class="s2">&quot;TAU15&quot;</span><span class="p">:</span> <span class="n">tau15</span><span class="p">,</span>
+        <span class="s2">&quot;TBATMOS10&quot;</span><span class="p">:</span> <span class="n">tbatmos10</span><span class="p">,</span>
+        <span class="s2">&quot;TBATMOS15&quot;</span><span class="p">:</span> <span class="n">tbatmos15</span><span class="p">,</span>
+        <span class="s2">&quot;MEAN_ATMOS_CORRECTION&quot;</span><span class="p">:</span> <span class="n">mean_atm</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;02.5S atmosphere derived: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="apply_atmospheric_absorption_sb">
+<a class="viewcode-back" href="../../../../docs/dran.calibration.atmosphere.html#dran.calibration.atmosphere.atmos_models.apply_atmospheric_absorption_sb">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_atmospheric_absorption_sb</span><span class="p">(</span>
+    <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply simple atmospheric absorption model for high frequency frontends (SB).</span>
+<span class="sd">    Writes: ATMOSABS</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">za_deg</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;ZA&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">za_deg</span><span class="p">):</span>
+        <span class="n">row</span><span class="p">[</span><span class="s2">&quot;ATMOSABS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">atmosabs</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.005</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">atmosabs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">row</span><span class="p">[</span><span class="s2">&quot;ATMOSABS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atmosabs</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;SB atmosphere derived: ATMOSABS=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">atmosabs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="apply_atmospheric_penetration_1p3s">
+<a class="viewcode-back" href="../../../../docs/dran.calibration.atmosphere.html#dran.calibration.atmosphere.atmos_models.apply_atmospheric_penetration_1p3s">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_atmospheric_penetration_1p3s</span><span class="p">(</span>
+    <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply atmospheric penetration model for 01.3S frontend (nominally 22 </span>
+<span class="sd">    GHz band).</span>
+<span class="sd">    Writes: TAU221, TAU2223, TBATMOS221, TBATMOS2223</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pwv</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;PWV&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">wvd</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;WVD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">pwv</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wvd</span><span class="p">):</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;TAU221&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;TAU2223&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> 
+                    <span class="s2">&quot;TBATMOS221&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;TBATMOS2223&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span>
+        <span class="k">return</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tau221</span> <span class="o">=</span> <span class="mf">0.0140</span> <span class="o">+</span> <span class="mf">0.00780</span> <span class="o">*</span> <span class="n">pwv</span>
+        <span class="n">tau2223</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.110</span> <span class="o">+</span> <span class="mf">0.048</span> <span class="o">*</span> <span class="n">wvd</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.343</span>
+        <span class="n">tbatmos221</span> <span class="o">=</span> <span class="mf">260.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau221</span><span class="p">))</span>
+        <span class="n">tbatmos2223</span> <span class="o">=</span> <span class="mf">260.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau2223</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">tau221</span><span class="p">,</span> <span class="n">tau2223</span><span class="p">,</span> <span class="n">tbatmos221</span><span class="p">,</span> <span class="n">tbatmos2223</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;TAU221&quot;</span><span class="p">:</span> <span class="n">tau221</span><span class="p">,</span>
+        <span class="s2">&quot;TAU2223&quot;</span><span class="p">:</span> <span class="n">tau2223</span><span class="p">,</span>
+        <span class="s2">&quot;TBATMOS221&quot;</span><span class="p">:</span> <span class="n">tbatmos221</span><span class="p">,</span>
+        <span class="s2">&quot;TBATMOS2223&quot;</span><span class="p">:</span> <span class="n">tbatmos2223</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;01.3S atmosphere derived: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="apply_atmospheric_absorption_db">
+<a class="viewcode-back" href="../../../../docs/dran.calibration.atmosphere.html#dran.calibration.atmosphere.atmos_models.apply_atmospheric_absorption_db">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_atmospheric_absorption_db</span><span class="p">(</span>
+    <span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply atmospheric absorption model for D frontend.</span>
+<span class="sd">    Writes: SEC_Z, X_Z, DRY_ATMOS_TRANSMISSION, ZENITH_TAU_AT_1400M, </span>
+<span class="sd">    ABSORPTION_AT_ZENITH</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">za_deg</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;ZA&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">pwv</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;PWV&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">pwv</span><span class="p">):</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;SEC_Z&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;X_Z&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;DRY_ATMOS_TRANSMISSION&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;ZENITH_TAU_AT_1400M&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                <span class="s2">&quot;ABSORPTION_AT_ZENITH&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">za_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)</span>
+    <span class="n">dtr</span> <span class="o">=</span> <span class="mf">0.01745329</span> <span class="c1">#! TODO: where does this number come from??</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sec_z</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">za_rad</span><span class="p">)</span> <span class="c1"># 1.0 / np.cos(za  * dtr)</span>
+        <span class="n">x_z</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.0045</span> <span class="o">+</span> <span class="mf">1.00672</span> <span class="o">*</span> <span class="n">sec_z</span> <span class="o">-</span> <span class="mf">0.002234</span> <span class="o">*</span> <span class="n">sec_z</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">0.0006247</span> <span class="o">*</span> <span class="n">sec_z</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">dry_atmos_transmission</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.0069</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mf">90.0</span> <span class="o">-</span> <span class="n">za_deg</span><span class="p">)</span> <span class="o">*</span> <span class="n">DEG_TO_RAD</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">))</span>
+        <span class="n">zenith_tau_at_1400m</span> <span class="o">=</span> <span class="mf">0.00610</span> <span class="o">+</span> <span class="mf">0.00018</span> <span class="o">*</span> <span class="n">pwv</span>
+        <span class="n">abs_at_zenith</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">zenith_tau_at_1400m</span> <span class="o">*</span> <span class="n">x_z</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">sec_z</span><span class="p">,</span> <span class="n">x_z</span><span class="p">,</span> <span class="n">dry_atmos_transmission</span><span class="p">,</span> <span class="n">zenith_tau_at_1400m</span><span class="p">,</span> <span class="n">abs_at_zenith</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;SEC_Z&quot;</span><span class="p">:</span> <span class="n">sec_z</span><span class="p">,</span>
+        <span class="s2">&quot;X_Z&quot;</span><span class="p">:</span> <span class="n">x_z</span><span class="p">,</span>
+        <span class="s2">&quot;DRY_ATMOS_TRANSMISSION&quot;</span><span class="p">:</span> <span class="n">dry_atmos_transmission</span><span class="p">,</span>
+        <span class="s2">&quot;ZENITH_TAU_AT_1400M&quot;</span><span class="p">:</span> <span class="n">zenith_tau_at_1400m</span><span class="p">,</span>
+        <span class="s2">&quot;ABSORPTION_AT_ZENITH&quot;</span><span class="p">:</span> <span class="n">abs_at_zenith</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;db atmosphere derived: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

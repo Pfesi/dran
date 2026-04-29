@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.fitting.plot_qc &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.fitting.plot_qc</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.fitting.plot_qc</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: plot_qc.py                                                            #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="ScanQualityResult">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ScanQualityResult</span><span class="p">:</span>
+    <span class="c1"># Defaults represent &quot;QC not computed yet&quot;.</span>
+    <span class="n">ok</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QC not computed&quot;</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="ScanQualityResult.to_dict">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.plot_qc.ScanQualityResult.to_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;flag&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;ok&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;metrics&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metrics&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+<span class="k">def</span> <span class="nf">_mad</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the median absolute deviation (MAD) of a numeric array.</span>
+
+<span class="sd">    MAD is defined as the median of the absolute differences between each</span>
+<span class="sd">    value and the median of the data. It provides a robust measure of</span>
+<span class="sd">    statistical dispersion and resists the influence of outliers.</span>
+
+<span class="sd">    Non-finite values such as NaN and infinity are removed before</span>
+<span class="sd">    computation. If no finite values remain, NaN is returned.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : np.ndarray</span>
+<span class="sd">        Input array of numeric values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The median absolute deviation of the input data, or NaN if the</span>
+<span class="sd">        input contains no finite values.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function returns the raw MAD value. To approximate the standard</span>
+<span class="sd">    deviation for normally distributed data, multiply the result by</span>
+<span class="sd">    1.4826.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">med</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">med</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">_local_maxima_indices</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return indices of local maxima in a one-dimensional numeric array.</span>
+
+<span class="sd">    A local maximum is defined as a point whose value is greater than</span>
+<span class="sd">    both its immediate neighbors. Endpoints are excluded, and flat</span>
+<span class="sd">    plateaus are not considered maxima.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y : np.ndarray</span>
+<span class="sd">        Input array of numeric values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.ndarray</span>
+<span class="sd">        Array of integer indices where local maxima occur. Returns an</span>
+<span class="sd">        empty array if fewer than three elements are provided.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The implementation detects sign changes in the first derivative</span>
+<span class="sd">    from positive to negative. This method is efficient and robust for</span>
+<span class="sd">    smooth signals but does not detect flat or multi-point peaks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="check_scan_quality">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.plot_qc.check_scan_quality">[docs]</a>
+<span class="k">def</span> <span class="nf">check_scan_quality</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_corrected</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y_spline</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">hfnbw</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">hhpbw</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">peak_coeffs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">peak_x</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">peak_y</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">peak_model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">band</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ScanQualityResult</span><span class="p">:</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_corrected</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_spline</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="n">metrics</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="ow">or</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="s2">&quot;invalid input length&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="n">max_spline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+    <span class="n">peak_height</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_spline</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">max_spline</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_height</span>
+
+    <span class="c1"># pmin=min(peak_y)</span>
+    <span class="c1"># pmax=max(peak_y)</span>
+    <span class="c1"># print(pmin,pmax, pmax-pmin)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">peak_height</span><span class="p">)</span> <span class="ow">or</span> <span class="n">peak_height</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="s2">&quot;non-finite or non-positive peak height&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="c1"># 1) Step detection</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">mad_dy</span> <span class="o">=</span> <span class="n">_mad</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;mad_dy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mad_dy</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">mad_dy</span><span class="p">)</span> <span class="ow">and</span> <span class="n">mad_dy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">step_k</span> <span class="o">=</span> <span class="mf">8.0</span>
+        <span class="n">step_hits</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">step_k</span> <span class="o">*</span> <span class="n">mad_dy</span><span class="p">))</span>
+        <span class="n">step_frac</span> <span class="o">=</span> <span class="n">step_hits</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dy</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;step_hits&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_hits</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;step_frac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_frac</span>
+        <span class="k">if</span> <span class="n">step_frac</span> <span class="o">&gt;</span> <span class="mf">0.01</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="s2">&quot;step-like jumps detected&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="c1"># Regions</span>
+    <span class="n">main_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">hfnbw</span>
+    <span class="n">wing_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">hfnbw</span>
+
+    <span class="c1"># 2) Multi-peak test inside FNBW</span>
+    <span class="n">main_max_idx</span> <span class="o">=</span> <span class="n">_local_maxima_indices</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="n">main_mask</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">main_max_idx</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">main_vals</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="n">main_mask</span><span class="p">][</span><span class="n">main_max_idx</span><span class="p">]</span>
+        <span class="n">strong</span> <span class="o">=</span> <span class="n">main_vals</span> <span class="o">&gt;=</span> <span class="mf">0.60</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">ys</span><span class="p">[</span><span class="n">main_mask</span><span class="p">]))</span>
+        <span class="n">strong_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">strong</span><span class="p">))</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;main_local_max_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">main_max_idx</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;main_strong_max_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strong_count</span>
+        <span class="k">if</span> <span class="n">strong_count</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="s2">&quot;multiple strong peaks in main beam&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="c1"># 3) Baseline flatness outside FNBW</span>
+    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">wing_mask</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">wing_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">wing_mask</span><span class="p">]</span>
+        <span class="n">wing_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">wing_mask</span><span class="p">]</span>
+        <span class="n">wing_mean</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">wing_y</span><span class="p">)))</span>
+        <span class="n">wing_std</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">wing_y</span><span class="p">))</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;wing_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_mean</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;wing_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_std</span>
+
+        <span class="n">mean_lim</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">peak_height</span> <span class="c1">#0.05</span>
+        <span class="n">std_lim</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">peak_height</span> <span class="c1">#0.10</span>
+        <span class="k">if</span> <span class="n">wing_std</span> <span class="o">&gt;</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">std_lim</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;baseline too noisy or structured (&gt;1.5*std), wing std: </span><span class="si">{</span><span class="n">wing_std</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, peak std lim: </span><span class="si">{</span><span class="n">std_lim</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wing_mean</span> <span class="o">&gt;</span> <span class="n">mean_lim</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;baseline mean too far from zero, wing mean: </span><span class="si">{</span><span class="n">wing_mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, peak mean lim: </span><span class="si">{</span><span class="n">mean_lim</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+        <span class="c1"># if wing_std &gt; std_lim:</span>
+        <span class="c1">#     return ScanQualityResult(False, 39, f&quot;baseline too noisy or structured, wing std: {wing_std:.2f}, peak std lim: {std_lim:.2f}&quot;, metrics)</span>
+
+        <span class="c1"># slope in wings</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">wing_x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wing_y</span><span class="p">)],</span> <span class="n">wing_y</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wing_y</span><span class="p">)],</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">wing_slope</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">wing_slope</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;wing_slope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wing_slope</span>
+
+        <span class="n">slope_lim</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.20</span> <span class="o">*</span> <span class="n">peak_height</span><span class="p">)</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">hfnbw</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wing_slope</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">wing_slope</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">slope_lim</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;baseline slope too large&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="c1"># 4) Peak concavity and vertex position</span>
+    <span class="k">if</span> <span class="n">peak_coeffs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">peak_coeffs</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">peak_coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">peak_coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_coeff_a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_coeff_b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">or</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="s2">&quot;peak parabola not concave down&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+        <span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">b</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_vertex_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span>
+
+        <span class="k">if</span> <span class="n">peak_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">peak_x</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">xmin</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">peak_x</span><span class="p">))</span>
+            <span class="n">xmax</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">peak_x</span><span class="p">))</span>
+            <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_fit_xmin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xmin</span>
+            <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_fit_xmax&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xmax</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">xmin</span> <span class="o">&lt;=</span> <span class="n">x0</span> <span class="o">&lt;=</span> <span class="n">xmax</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;peak vertex outside fit window&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    <span class="c1"># 6) Peak residual quality</span>
+    <span class="k">if</span> <span class="n">peak_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">peak_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">peak_y</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="n">peak_model</span><span class="o">.</span><span class="n">size</span> <span class="ow">and</span> <span class="n">peak_y</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">resid</span> <span class="o">=</span> <span class="n">peak_y</span> <span class="o">-</span> <span class="n">peak_model</span>
+        <span class="n">peak_rms</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">resid</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="n">peak_rms</span> <span class="o">/</span> <span class="n">peak_height</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_rms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peak_rms</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;peak_rel_rms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">rel</span><span class="p">)</span> <span class="ow">and</span> <span class="n">rel</span> <span class="o">&gt;</span> <span class="mf">0.2</span><span class="p">:</span> <span class="c1">#0.08:</span>
+            <span class="c1"># print(peak_rms)</span>
+            <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;peak fit residual too large, peak_rms: </span><span class="si">{</span><span class="n">peak_rms</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, peak_rel_rms: </span><span class="si">{</span><span class="n">rel</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  &quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+
+    
+    <span class="c1"># 7) Negative tail check</span>
+    <span class="c1"># tail_min = float(np.nanmin(y[wing_mask])) if int(np.count_nonzero(wing_mask)) else float(&quot;nan&quot;)</span>
+    <span class="c1"># metrics[&quot;tail_min&quot;] = tail_min</span>
+    <span class="c1"># if np.isfinite(tail_min) and tail_min &lt; (-0.20 * peak_height):</span>
+    <span class="c1">#     return ScanQualityResult(False, 44, &quot;negative tail too deep&quot;, metrics)</span>
+
+    <span class="k">return</span> <span class="n">ScanQualityResult</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

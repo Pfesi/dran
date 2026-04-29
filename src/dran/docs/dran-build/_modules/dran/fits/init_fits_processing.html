@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dran.fits.init_fits_processing &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/dran/fits/init_fits_processing';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/index.html">Tutorials</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for dran.fits.init_fits_processing</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: init_fits_processing.py                                               #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">dran.storage.sqlite_connection</span> <span class="kn">import</span> <span class="n">get_connection</span>
+<span class="kn">from</span> <span class="nn">dran.fits.observation_extractor</span> <span class="kn">import</span> <span class="n">extract_observation</span>
+<span class="kn">from</span> <span class="nn">dran.utils.fs</span> <span class="kn">import</span> <span class="p">(</span><span class="n">clear_diagnostics_dir</span><span class="p">,</span> <span class="n">compute_file_hash</span><span class="p">,</span>
+    <span class="n">record_invalid_path_once</span><span class="p">,</span><span class="n">ProjectPaths</span><span class="p">,</span>
+    <span class="n">parse_source_frequency_band_from_path_if_folder</span><span class="p">,</span>
+    <span class="n">resolve_existing_path</span><span class="p">,</span> <span class="n">parse_observation_path</span><span class="p">,</span>
+    <span class="n">_validate_symlink</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dran.storage.db_introspection</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_ensure_and_insert</span><span class="p">,</span>
+    <span class="n">record_exists</span><span class="p">,</span> 
+    <span class="n">ensure_processed_files_table</span><span class="p">,</span>
+    <span class="n">processed_file_exists_by_path</span><span class="p">,</span>
+    <span class="n">processed_file_hashes_by_size</span><span class="p">,</span>
+    <span class="n">insert_processed_file</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dran.fits.processing_fit</span> <span class="kn">import</span> <span class="n">populate_row</span>
+<span class="kn">from</span> <span class="nn">dran.utils.frequency_utils</span> <span class="kn">import</span> <span class="n">get_band_from_frequency</span>
+
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="process_fits_path">
+<a class="viewcode-back" href="../../../docs/dran.fits.html#dran.fits.init_fits_processing.process_fits_path">[docs]</a>
+<span class="k">def</span> <span class="nf">process_fits_path</span><span class="p">(</span>
+    <span class="n">root_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">:</span><span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dispatch processing for a single FITS file or a directory of FITS files.</span>
+<span class="sd">    Returns extracted FITS records. Directory results are concatenated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">resolved</span> <span class="o">=</span> <span class="n">resolve_existing_path</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">paths</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">resolved</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;root_path is None&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">resolved</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="n">_process_single_file</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">resolved</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="n">_process_directory</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> 
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid path type: </span><span class="si">{</span><span class="n">resolved</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_should_skip_by_registry</span><span class="p">(</span>
+    <span class="n">fits_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hybrid de-duplication:</span>
+<span class="sd">    - Skip if FILEPATH is already registered.</span>
+<span class="sd">    - If file_size matches existing entries, compute hash and skip if hash exists.</span>
+<span class="sd">    Returns (skip, file_hash_or_none, file_size, file_mtime).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stat</span> <span class="o">=</span> <span class="n">fits_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span>
+    <span class="n">file_size</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">st_size</span>
+    <span class="n">file_mtime</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">st_mtime</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">get_connection</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">db_path</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ensure_processed_files_table</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">processed_file_exists_by_path</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_path</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span>
+
+        <span class="n">known_hashes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">processed_file_hashes_by_size</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">file_size</span><span class="p">))</span>
+        <span class="n">file_hash</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">known_hashes</span><span class="p">:</span>
+            <span class="n">file_hash</span> <span class="o">=</span> <span class="n">compute_file_hash</span><span class="p">(</span><span class="n">fits_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">file_hash</span> <span class="ow">in</span> <span class="n">known_hashes</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">file_hash</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span>
+
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file_hash</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_record_processed_file</span><span class="p">(</span>
+    <span class="n">fits_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+    <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+    <span class="n">args</span><span class="p">:</span><span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">file_hash</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">file_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">file_mtime</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Persist processed file metadata for path-independent de-duplication.&quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="n">file_hash</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_hash</span> <span class="o">=</span> <span class="n">compute_file_hash</span><span class="p">(</span><span class="n">fits_path</span><span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">get_connection</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">db_path</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">insert_processed_file</span><span class="p">(</span>
+            <span class="n">conn</span><span class="p">,</span>
+            <span class="n">file_hash</span><span class="o">=</span><span class="n">file_hash</span><span class="p">,</span>
+            <span class="n">file_size</span><span class="o">=</span><span class="n">file_size</span><span class="p">,</span>
+            <span class="n">file_mtime</span><span class="o">=</span><span class="n">file_mtime</span><span class="p">,</span>
+            <span class="n">filepath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">fits_path</span><span class="p">),</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">fits_path</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_process_single_file</span><span class="p">(</span>
+        <span class="n">fits_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> 
+        <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span> 
+        <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+        <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    
+    <span class="n">fits_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">fits_path</span><span class="p">)</span>
+  
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_validate_symlink</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">fits_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">record_invalid_path_once</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="s2">&quot;empty file&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="n">p</span><span class="o">=</span><span class="n">parse_observation_path</span><span class="p">(</span><span class="n">fits_path</span><span class="p">)</span>
+    
+    <span class="c1"># print(p);sys.exit()</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">band_folder</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+
+        <span class="n">record</span> <span class="o">=</span> <span class="n">extract_observation</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">band_folder</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        
+        <span class="n">src</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;OBJECT&quot;</span><span class="p">]</span>
+        <span class="n">band</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;BAND&quot;</span><span class="p">]</span>
+        <span class="n">freq_mhz</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;CENTFREQ&quot;</span><span class="p">])</span>
+        <span class="n">table_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">freq_mhz</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                  
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">get_connection</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">db_path</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        
+        <span class="n">already_done</span> <span class="o">=</span> <span class="n">record_exists</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="s2">&quot;FILEPATH&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_path</span><span class="p">))</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">already_done</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping already processed file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fits_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">skip</span><span class="p">,</span> <span class="n">file_hash</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span> <span class="o">=</span> <span class="n">_should_skip_by_registry</span><span class="p">(</span>
+            <span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span>
+        <span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping duplicate file by registry: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fits_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        
+        <span class="n">record</span> <span class="o">=</span> <span class="n">extract_observation</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+
+                  
+        <span class="n">scan</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="p">]</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">populate_row</span><span class="p">(</span><span class="n">scan</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="n">disallowed_keys</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;UISER_LONG&quot;</span><span class="p">,</span> 
+                                    <span class="s2">&quot;GAIN1&quot;</span><span class="p">,</span> <span class="s2">&quot;GAIN2&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;ALTGAIN1&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN2&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN3&quot;</span><span class="p">}</span>  
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed_keys</span><span class="p">}</span>
+
+        <span class="c1"># print(&#39;here&#39;)</span>
+        <span class="n">_ensure_and_insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+        <span class="n">_record_processed_file</span><span class="p">(</span>
+            <span class="n">fits_path</span><span class="p">,</span>
+            <span class="n">paths</span><span class="p">,</span>
+            <span class="n">log</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">file_hash</span><span class="o">=</span><span class="n">file_hash</span><span class="p">,</span>
+            <span class="n">file_size</span><span class="o">=</span><span class="n">file_size</span><span class="p">,</span>
+            <span class="n">file_mtime</span><span class="o">=</span><span class="n">file_mtime</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">clear_diagnostics_dir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">diagnostics_dir</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">row</span>
+        <span class="k">del</span> <span class="n">scan</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">src</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">source</span>
+        <span class="n">freq_mhz</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span>
+        <span class="n">band</span><span class="o">=</span><span class="n">get_band_from_frequency</span><span class="p">(</span><span class="n">freq_mhz</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+        <span class="n">band</span><span class="o">=</span><span class="n">band</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">table_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">freq_mhz</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">get_connection</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">db_path</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        
+        <span class="n">already_done</span> <span class="o">=</span> <span class="n">record_exists</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="s2">&quot;FILEPATH&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_path</span><span class="p">))</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">already_done</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping already processed file: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fits_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">skip</span><span class="p">,</span> <span class="n">file_hash</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span> <span class="o">=</span> <span class="n">_should_skip_by_registry</span><span class="p">(</span>
+            <span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping duplicate file by registry: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fits_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+
+        <span class="n">record</span> <span class="o">=</span> <span class="n">extract_observation</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+
+        <span class="n">scan</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="p">]</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">populate_row</span><span class="p">(</span><span class="n">scan</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="n">disallowed_keys</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;UISER_LONG&quot;</span><span class="p">,</span> 
+                                    <span class="s2">&quot;GAIN1&quot;</span><span class="p">,</span> <span class="s2">&quot;GAIN2&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;ALTGAIN1&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN2&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN3&quot;</span><span class="p">}</span>  
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed_keys</span><span class="p">}</span>
+
+
+        <span class="n">_ensure_and_insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+        <span class="n">_record_processed_file</span><span class="p">(</span>
+            <span class="n">fits_path</span><span class="p">,</span>
+            <span class="n">paths</span><span class="p">,</span>
+            <span class="n">log</span><span class="p">,</span>
+            <span class="n">args</span><span class="p">,</span>
+            <span class="n">file_hash</span><span class="o">=</span><span class="n">file_hash</span><span class="p">,</span>
+            <span class="n">file_size</span><span class="o">=</span><span class="n">file_size</span><span class="p">,</span>
+            <span class="n">file_mtime</span><span class="o">=</span><span class="n">file_mtime</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">clear_diagnostics_dir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">diagnostics_dir</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">row</span>
+        <span class="k">del</span> <span class="n">scan</span>
+        
+
+<span class="k">def</span> <span class="nf">_process_directory</span><span class="p">(</span><span class="n">root_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> 
+                       <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span> 
+                       <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
+                       <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span>
+                       <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    
+    <span class="n">results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+    <span class="k">for</span> <span class="n">dirpath</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root_dir</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">parent_files</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="n">parent_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">base</span> <span class="o">/</span> <span class="n">file</span> <span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;.DS_Store&#39;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            
+            <span class="n">fits_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">parent_files</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.fits&quot;</span><span class="p">)])</span>
+
+            <span class="k">if</span> <span class="n">fits_files</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">src</span><span class="p">,</span> <span class="n">_freq_mhz</span><span class="p">,</span> <span class="n">band</span> <span class="o">=</span> <span class="n">parse_source_frequency_band_from_path_if_folder</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Skipping directory </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="c1"># De-dup is handled by the processed_files registry (path + hash).</span>
+                <span class="n">paths_to_process</span> <span class="o">=</span> <span class="n">fits_files</span>
+                <span class="n">paths_to_process</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+                
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths_to_process</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;File stats&#39;</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Directory: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Total files: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parent_files</span><span class="p">))</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;New files: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths_to_process</span><span class="p">))</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    
+                    <span class="k">for</span> <span class="n">fits_path</span> <span class="ow">in</span> <span class="n">paths_to_process</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s1">&#39;.DS_Store&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">fits_path</span><span class="p">):</span>
+                            <span class="k">continue</span>
+
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">_validate_symlink</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+                            <span class="k">continue</span>
+
+                        <span class="k">if</span> <span class="n">fits_path</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">record_invalid_path_once</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="s2">&quot;empty file&quot;</span><span class="p">)</span>
+                            <span class="k">continue</span>
+
+                        <span class="n">skip</span><span class="p">,</span> <span class="n">file_hash</span><span class="p">,</span> <span class="n">file_size</span><span class="p">,</span> <span class="n">file_mtime</span> <span class="o">=</span> <span class="n">_should_skip_by_registry</span><span class="p">(</span>
+                            <span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span> <span class="n">log</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">skip</span><span class="p">:</span>
+                            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Skipping duplicate file by registry: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fits_path</span><span class="p">)</span>
+                            <span class="k">continue</span>
+
+                        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Working on path: </span><span class="si">{</span><span class="n">fits_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        
+                        <span class="n">record</span> <span class="o">=</span> <span class="n">extract_observation</span><span class="p">(</span><span class="n">fits_path</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span><span class="n">band</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+                        <span class="n">scan</span> <span class="o">=</span> <span class="p">[</span><span class="n">record</span><span class="p">]</span>
+                        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">src</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+                            <span class="n">src</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;OBJECT&quot;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">band</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+                            <span class="n">band</span><span class="o">=</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;BAND&quot;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">_freq_mhz</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+                            <span class="n">_freq_mhz</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;CENTFREQ&quot;</span><span class="p">])</span>
+                        
+                        <span class="n">row</span> <span class="o">=</span> <span class="n">populate_row</span><span class="p">(</span><span class="n">scan</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">paths</span><span class="p">,</span><span class="n">log</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+                        <span class="n">disallowed_keys</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;UISER_LONG&quot;</span><span class="p">,</span> 
+                                                     <span class="s2">&quot;GAIN1&quot;</span><span class="p">,</span> <span class="s2">&quot;GAIN2&quot;</span><span class="p">,</span>
+                                                     <span class="s2">&quot;ALTGAIN1&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN2&quot;</span><span class="p">,</span><span class="s2">&quot;ALTGAIN3&quot;</span><span class="p">}</span>  <span class="c1"># example</span>
+                        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">disallowed_keys</span><span class="p">}</span>
+
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">src</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;OBJECT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                        <span class="k">except</span><span class="p">:</span>
+                            <span class="k">pass</span>
+                        <span class="n">table_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">_freq_mhz</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                        <span class="n">_ensure_and_insert</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">paths</span><span class="p">,</span><span class="n">log</span><span class="p">)</span>
+                        <span class="n">_record_processed_file</span><span class="p">(</span>
+                            <span class="n">fits_path</span><span class="p">,</span>
+                            <span class="n">paths</span><span class="p">,</span>
+                            <span class="n">log</span><span class="p">,</span>
+                            <span class="n">args</span><span class="p">,</span>
+                            <span class="n">file_hash</span><span class="o">=</span><span class="n">file_hash</span><span class="p">,</span>
+                            <span class="n">file_size</span><span class="o">=</span><span class="n">file_size</span><span class="p">,</span>
+                            <span class="n">file_mtime</span><span class="o">=</span><span class="n">file_mtime</span><span class="p">,</span>
+                            
+                        <span class="p">)</span>
+                        <span class="n">clear_diagnostics_dir</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">diagnostics_dir</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+                        
+                        <span class="k">del</span> <span class="n">row</span>
+                        <span class="k">del</span> <span class="n">scan</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Directory </span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">paths_to_process</span><span class="p">)</span><span class="si">}</span><span class="s2"> files, skipping process&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Directory </span><span class="si">{</span><span class="n">base</span><span class="si">}</span><span class="s2"> has no `    fits files, skipping process&quot;</span><span class="p">)</span>
+            
+    
+    <span class="k">return</span> 
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

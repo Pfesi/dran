@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dran.calibration.planets.planet_jupiter_calibration &mdash; DRAN Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            DRAN
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#the-landing-page">The landing page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#edit-driftscan">Edit driftscan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/gui.html#view-plots">View plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/interface/web.html">The web interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../caveats.html">Caveats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">DRAN</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dran.calibration.planets.planet_jupiter_calibration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dran.calibration.planets.planet_jupiter_calibration</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: planet_jupiter_calibration.py.                                        #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.row_accessors</span> <span class="kn">import</span> <span class="n">get_float</span>
+<span class="kn">from</span> <span class="nn">dran.calibration.planets.planet_geometry</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_jupiter_distance_au</span><span class="p">,</span> <span class="n">add_planet_angular_diameter</span><span class="p">)</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="apply_jupiter_atmospheric_calibration">
+<a class="viewcode-back" href="../../../../docs/dran.calibration.planets.html#dran.calibration.planets.planet_jupiter_calibration.apply_jupiter_atmospheric_calibration">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_jupiter_atmospheric_calibration</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> 
+                                          <span class="n">log</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply Jupiter calibration fields for 22 GHz observations.</span>
+
+<span class="sd">    This function mutates row in place and assumes TAU221 already exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying Jupiter atmospheric calibration fields.&quot;</span><span class="p">)</span>
+
+    <span class="n">add_planet_angular_diameter</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="n">add_jupiter_distance_au</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+
+
+    <span class="n">jupiter_dist_au</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;JUPITER_DIST_AU&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">planet_ang_diam_rad</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;PLANET_ANG_DIAM_RAD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">cent_freq</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;CENTFREQ&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">za_deg</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;ZA&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">tau221</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;TAU221&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">jupiter_dist_au</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">planet_ang_diam_rad</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">cent_freq</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Jupiter calibration skipped due to missing derived inputs.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># TODO: Verify HPBW constant and origin.</span>
+    <span class="n">hpbw_arcsec</span> <span class="o">=</span> <span class="mf">0.033</span> <span class="o">*</span> <span class="mf">3600.0</span>
+    <span class="n">adopted_planet_tb</span> <span class="o">=</span> <span class="mf">136.0</span>  <span class="c1"># Gibson, Welch, de Pater (2005)</span>
+
+    <span class="n">sync_flux_density</span> <span class="o">=</span> <span class="mf">1.6</span> <span class="o">*</span> <span class="p">(</span><span class="mf">4.04</span> <span class="o">/</span> <span class="n">jupiter_dist_au</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="n">ang_diam_radius</span> <span class="o">=</span> <span class="n">planet_ang_diam_rad</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">planet_solid_angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">ang_diam_radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.935</span>
+
+    <span class="c1"># Flux density terms</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">thermal_flux</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">1380.0</span> <span class="o">*</span> <span class="n">adopted_planet_tb</span> <span class="o">*</span> <span class="n">planet_solid_angle</span> <span class="o">/</span> <span class="p">(</span><span class="mf">300.0</span> <span class="o">/</span> <span class="n">cent_freq</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">total_planet_flux_d</span> <span class="o">=</span> <span class="n">sync_flux_density</span> <span class="o">+</span> <span class="n">thermal_flux</span>
+        <span class="n">total_planet_flux_d_wmap</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="mf">1380.0</span> <span class="o">*</span> <span class="mf">135.2</span> <span class="o">*</span> <span class="n">planet_solid_angle</span> <span class="o">/</span> <span class="p">(</span><span class="mf">300.0</span> <span class="o">/</span> <span class="n">cent_freq</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">thermal_flux</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">total_planet_flux_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">total_planet_flux_d_wmap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># Size correction</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">planet_ang_diam_arcsec</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;PLANET_ANG_DIAM&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">size_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">planet_ang_diam_arcsec</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.935</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.2</span> <span class="o">*</span> <span class="n">hpbw_arcsec</span><span class="p">)</span>
+        <span class="n">size_correction_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">size_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">size_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+        <span class="n">size_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">size_correction_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">measured_tcal1</span> <span class="o">=</span> <span class="mf">71.4</span>
+    <span class="n">measured_tcal2</span> <span class="o">=</span> <span class="mf">70.1</span>
+
+    <span class="n">tcal1</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;TCAL1&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">tcal2</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;TCAL2&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="n">meas_tcal1_corr</span> <span class="o">=</span> <span class="p">(</span><span class="n">measured_tcal1</span> <span class="o">/</span> <span class="n">tcal1</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">tcal1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tcal1</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">meas_tcal2_corr</span> <span class="o">=</span> <span class="p">(</span><span class="n">measured_tcal2</span> <span class="o">/</span> <span class="n">tcal2</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">tcal2</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tcal2</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># Atmospheric absorption correction from tau at source zenith angle</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">tau221</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">za_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">za_deg</span><span class="p">)</span>
+            <span class="n">atm_abs_corr</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">tau221</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">za_rad</span><span class="p">))</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ZeroDivisionError</span><span class="p">,</span> <span class="ne">OverflowError</span><span class="p">):</span>
+            <span class="n">za_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">atm_abs_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">za_rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">atm_abs_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">jupiter_params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;HPBW_ARCSEC&quot;</span><span class="p">:</span> <span class="n">hpbw_arcsec</span><span class="p">,</span>
+        <span class="s2">&quot;ADOPTED_PLANET_TB&quot;</span><span class="p">:</span> <span class="n">adopted_planet_tb</span><span class="p">,</span>
+        <span class="s2">&quot;SYNCH_FLUX_DENSITY&quot;</span><span class="p">:</span> <span class="n">sync_flux_density</span><span class="p">,</span>
+        <span class="s2">&quot;PLANET_ANG_EQ_RAD&quot;</span><span class="p">:</span> <span class="n">ang_diam_radius</span><span class="p">,</span>
+        <span class="s2">&quot;PLANET_SOLID_ANG&quot;</span><span class="p">:</span> <span class="n">planet_solid_angle</span><span class="p">,</span>
+        <span class="s2">&quot;THERMAL_PLANET_FLUX_D&quot;</span><span class="p">:</span> <span class="n">thermal_flux</span><span class="p">,</span>
+        <span class="s2">&quot;SIZE_FACTOR_IN_BEAM&quot;</span><span class="p">:</span> <span class="n">size_factor</span><span class="p">,</span>
+        <span class="s2">&quot;SIZE_CORRECTION_FACTOR&quot;</span><span class="p">:</span> <span class="n">size_correction_factor</span><span class="p">,</span>
+        <span class="s2">&quot;MEASURED_TCAL1&quot;</span><span class="p">:</span> <span class="n">measured_tcal1</span><span class="p">,</span>
+        <span class="s2">&quot;MEASURED_TCAL2&quot;</span><span class="p">:</span> <span class="n">measured_tcal2</span><span class="p">,</span>
+        <span class="s2">&quot;MEAS_TCAL1_CORR_FACTOR&quot;</span><span class="p">:</span> <span class="n">meas_tcal1_corr</span><span class="p">,</span>
+        <span class="s2">&quot;MEAS_TCAL2_CORR_FACTOR&quot;</span><span class="p">:</span> <span class="n">meas_tcal2_corr</span><span class="p">,</span>
+        <span class="s2">&quot;ZA_RAD&quot;</span><span class="p">:</span> <span class="n">za_rad</span><span class="p">,</span>
+        <span class="s2">&quot;TOTAL_PLANET_FLUX_D&quot;</span><span class="p">:</span> <span class="n">total_planet_flux_d</span><span class="p">,</span>
+        <span class="s2">&quot;TOTAL_PLANET_FLUX_D_WMAP&quot;</span><span class="p">:</span> <span class="n">total_planet_flux_d_wmap</span><span class="p">,</span>
+        <span class="s2">&quot;ATMOS_ABSORPTION_CORR&quot;</span><span class="p">:</span> <span class="n">atm_abs_corr</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">jupiter_params</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Jupiter calibration derived: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">jupiter_params</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Pfesesani van Zyl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
