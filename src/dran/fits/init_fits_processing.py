@@ -271,12 +271,18 @@ def _process_directory(root_dir: Path,
             
             fits_files = sorted([path for path in parent_files if path.name.lower().endswith(".fits")])
 
+            # print(base)
+            # sys.exit()
             if fits_files:
-                try:
-                    src, _freq_mhz, band = parse_source_frequency_band_from_path_if_folder(base, log)
-                except Exception as exc:
-                    log.warning("Skipping directory %s: %s", base, exc)
-                    continue
+                # print(fits_files)
+                # print(Path(base)/fits_file);sys.exit()
+                
+                # parse_source_directory_path()
+                # try:
+                #     src, _freq_mhz, band = parse_source_frequency_band_from_path_if_folder(base, log)
+                # except Exception as exc:
+                #     log.warning("Skipping directory %s: %s", base, exc)
+                #     continue
                 # De-dup is handled by the processed_files registry (path + hash).
                 paths_to_process = fits_files
                 paths_to_process.reverse()
@@ -311,16 +317,36 @@ def _process_directory(root_dir: Path,
 
                         log.info(f"\nWorking on path: {fits_path}")
                         
+                        # p=parse_observation_path(fits_path)
+                        # print(p); sys.exit()
+                        band=None
                         record = extract_observation(fits_path, paths,band, log)
+                        
+                        src=record["OBJECT"]
+                        band=record["BAND"]
+                        freq_mhz=int(record["CENTFREQ"])
+                        table_name = f"{src}_{freq_mhz}".upper()
+                                
+                        conn = get_connection(paths.db_path, log)
+                        
+                        already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
+                        conn.close()
+                        
+                        if already_done:
+                            log.debug("Skipping already processed file: %s", fits_path)
+                            return []
+                        
+                        # sys.exit()
+                        record = extract_observation(fits_path, paths, band, log)
                         scan = [record]
                         results.append(record)
 
-                        if src==None:
-                            src=record["OBJECT"]
-                        if band==None:
-                            band=record["BAND"]
-                        if _freq_mhz==None:
-                            _freq_mhz=int(record["CENTFREQ"])
+                        # if src==None:
+                        #     src=record["OBJECT"]
+                        # if band==None:
+                        #     band=record["BAND"]
+                        # if _freq_mhz==None:
+                        #     _freq_mhz=int(record["CENTFREQ"])
                         
                         row = populate_row(scan, band, paths,log,args)
                         disallowed_keys: set[str] = {"UISER_LONG", 
@@ -332,7 +358,7 @@ def _process_directory(root_dir: Path,
                             src=row['OBJECT'].replace(' ','').upper()
                         except:
                             pass
-                        table_name=f'{src}_{int(_freq_mhz)}'.upper()
+                        # table_name=f'{src}_{int(_freq_mhz)}'.upper()
                         _ensure_and_insert(table_name,row,paths,log)
                         _record_processed_file(
                             fits_path,

@@ -1,4 +1,4 @@
-CURRENT VERSION (0.10.2)
+CURRENT VERSION (0.11.0)
 ========================
 
 MAJOR REVISION
@@ -7,6 +7,7 @@ MAJOR REVISION
 MINOR REVISION
 --------------
 
+- v0.11.0 (c3ba3d4) [2026-04-29] added new files to docs
 - v0.10.2 (691c84e) [2026-04-29] test updates after git conflict
 - v0.10.1 (a78eeee) [2026-04-29] Merge branch ‘main’ of
   https://github.com/Pfesi/dran

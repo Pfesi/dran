@@ -1,6 +1,19 @@
-# Project package management
-# Pfesi van Zyl - pfesi24@gmail.com
-# =================================================================
+#!/usr/bin/env python
+################################################################################
+# Copyright (c) 2026, National Research Foundation (SARAO)
+#
+# Licensed under the BSD 3-Clause License (the "License"); you may not use
+# this file except in compliance with the License. You may obtain a copy
+# of the License at
+#
+#   https://opensource.org/licenses/BSD-3-Clause
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
 
 
 [build-system]
@@ -12,7 +25,6 @@ module-name = "dran"
 module-root = "src"
 
 source-include = [
-  # "dran/src/docs/dran-build/**"
   "src/dran/calibration/predefs",
   "src/dran/data"
 ]
@@ -63,11 +75,10 @@ wheel-exclude = [
 [project]
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
-maintainers = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
-version = "0.10.2"
-license = "MIT"
-description = "Data reduction and analysis of HartRAO 26m telescope drift scans."
-keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators"]
+maintainers = [{name = "Pfesesani van Zyl", email = "pvanzyl@sarao.ac.za"}]
+version = "0.11.0"
+description = "Data reduction and analysis of HartRAO 26m telescope drift scan data."
+keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators", "Single-dish"]
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.11"
 
