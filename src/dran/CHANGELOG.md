@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.9.5)
+# CURRENT VERSION (0.9.6)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,7 @@
 
 ## MINOR REVISION
 
+- v0.9.6 (28dfa43) [2026-04-29] updated readme to .md from .rst
 - v0.9.5 (8d00fd3) [2026-04-29] minor typos update
 - v0.9.4 (2e0a0c0) [2026-04-29] updated python version and moved readme
 - v0.9.3 (c5ce108) [2026-04-29] configured ReadTheDocs
