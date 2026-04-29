@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.11.1)
+# CURRENT VERSION (0.12.0)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,7 @@
 
 ## MINOR REVISION
 
+- v0.12.0 (566143a) [2026-04-29] needed to add myst_parser for docs
 - v0.11.1 (88ccaa5) [2026-04-29] fixed issue with failing to process data on remote machine
 - v0.11.0 (c3ba3d4) [2026-04-29] added new files to docs
 - v0.10.2 (691c84e) [2026-04-29] test updates after git conflict
