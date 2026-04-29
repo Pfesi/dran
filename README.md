@@ -1,7 +1,7 @@
 DRAN README
 ===========
 
-`DRAN` (Data Reduction and ANalysis) is the 
+**DRAN** (**D**ata **R**eduction and **AN**alysis) is the 
 software pipeline  developed to streamline the reduction and 
 analysis of drift scan data acquired 
 with [HartRAO's ](http://www.hartrao.ac.za) [26m telescope](http://www.hartrao.ac.za/hh26m_factsfile.html). DRAN supersedes the older **LINES** continuum data reduction and analysis program previously employed at HartRAO.
@@ -37,7 +37,7 @@ Installation
 -------------
 
 DRAN is conveniently available for installation through 
-the [PYPI package manager](https://pypi.org/project/dran2/) using 
+the [PYPI package manager](https://pypi.org/project/dran/) using 
 the following command:
 
 ``` 
@@ -134,6 +134,6 @@ Get Help and Contribute
 
 Having trouble with DRAN? Have questions about the software or features? We encourage you to:
 
-* Report Issues: Encounter any bugs or unexpected behavior? Please [OPEN AN ISSUE](https://github.com/Pfesi/dran2/issues) on the GitHub repository.
+* Report Issues: Encounter any bugs or unexpected behavior? Please [OPEN AN ISSUE](https://github.com/Pfesi/dran/issues) on the GitHub repository.
 * Share your thoughts: We value your feedback! Feel free to use the GitHub issue tracker to suggest improvements or request new features.
 

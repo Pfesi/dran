@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.9.1)
+# CURRENT VERSION (0.9.5)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,10 @@
 
 ## MINOR REVISION
 
+- v0.9.5 (8d00fd3) [2026-04-29] minor typos update
+- v0.9.4 (2e0a0c0) [2026-04-29] updated python version and moved readme
+- v0.9.3 (c5ce108) [2026-04-29] configured ReadTheDocs
+- v0.9.2 (81fb65c) [2026-04-29] moved docs folder out of src folder for reathedocs. Also edited main README file
 - v0.9.1 (0d1570d) [2026-04-29] updated issue with dran crashing when data directory doesn't start with "data/"
 - v0.9.0 (ad56b5c) [2026-04-22] added a few more updates, path resolving etc.
 - v0.8.2 (095a18d) [2026-03-26] updated jupiter calibration process, code was failing to access predef files.

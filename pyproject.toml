@@ -64,11 +64,11 @@ wheel-exclude = [
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
 maintainers = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
-version = "0.9.1"
+version = "0.9.5"
 license = "MIT"
 description = "Data reduction and analysis of HartRAO 26m telescope drift scans."
 keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators"]
-readme = {file = "src/README.rst", content-type = "text/markdown"}
+readme = {file = "README.rst", content-type = "text/markdown"}
 requires-python = ">=3.11"
 
 dependencies = [
