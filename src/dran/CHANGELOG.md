@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.9.0)
+# CURRENT VERSION (0.9.1)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,7 @@
 
 ## MINOR REVISION
 
+- v0.9.1 (0d1570d) [2026-04-29] updated issue with dran crashing when data directory doesn't start with "data/"
 - v0.9.0 (ad56b5c) [2026-04-22] added a few more updates, path resolving etc.
 - v0.8.2 (095a18d) [2026-03-26] updated jupiter calibration process, code was failing to access predef files.
 - v0.8.1 (ca02340) [2026-03-19] updated docs building page,  it was creating the source file in the wrong path.

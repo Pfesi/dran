@@ -1,14 +1,14 @@
 DRAN README
 ===========
 
-**DRAN** (**D**ata **R**eduction and **AN**alysis) is a recently developed 
-software pipeline specifically designed to streamline the reduction and 
+**DRAN** (**D**ata **R**eduction and **AN**alysis) is the 
+software pipeline  developed to streamline the reduction and 
 analysis of drift scan data acquired 
 with [HartRAO's ](http://www.hartrao.ac.za) [26m telescope](http://www.hartrao.ac.za/hh26m_factsfile.html). DRAN supersedes the older **LINES** continuum data reduction and analysis program previously employed at HartRAO.
 
 To get started with DRAN and read more on the full documentations of the 
 program you can go to the 
-DRAN [READ THE DOCS](https://dran2.readthedocs.io/en/latest/) page.
+DRAN [READ THE DOCS](https://dran.readthedocs.io/en/latest/) page.
 
 Acknowledging DRAN
 -------------------
@@ -18,7 +18,7 @@ cite [van Zyl P. 2023](https://ui.adsabs.harvard.edu/abs/2023arXiv230600764V/abs
 Program structure 
 ------------------
 
-**DRAN** offers two user interfaces for flexibility:
+**DRAN** offers two user interfaces:
 
 * **Command-Line Interface (CLI)**: Designed for automated and semi-automated processing of drift scan data. The CLI streamlines the reduction and analysis of large batches of drift scan files.
 
