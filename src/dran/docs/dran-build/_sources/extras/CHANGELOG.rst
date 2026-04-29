@@ -1,5 +1,5 @@
-CURRENT VERSION (0.9.7)
-=======================
+CURRENT VERSION (0.10.0)
+========================
 
 MAJOR REVISION
 --------------
@@ -7,6 +7,7 @@ MAJOR REVISION
 MINOR REVISION
 --------------
 
+- v0.10.0 (4cd04a0) [2026-04-29] added some missing files
 - v0.9.7 (3d79a7f) [2026-04-29] fixing git push from local repository
 - v0.9.6 (28dfa43) [2026-04-29] updated readme to .md from .rst
 - v0.9.5 (8d00fd3) [2026-04-29] minor typos update
