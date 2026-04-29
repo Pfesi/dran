@@ -1,4 +1,4 @@
-CURRENT VERSION (0.10.0)
+CURRENT VERSION (0.10.2)
 ========================
 
 MAJOR REVISION
@@ -7,7 +7,11 @@ MAJOR REVISION
 MINOR REVISION
 --------------
 
+- v0.10.2 (691c84e) [2026-04-29] test updates after git conflict
+- v0.10.1 (a78eeee) [2026-04-29] Merge branch ‘main’ of
+  https://github.com/Pfesi/dran
 - v0.10.0 (4cd04a0) [2026-04-29] added some missing files
+- v0.9.8 (6f82cbd) [2026-04-29] Delete run_main.py
 - v0.9.7 (3d79a7f) [2026-04-29] fixing git push from local repository
 - v0.9.6 (28dfa43) [2026-04-29] updated readme to .md from .rst
 - v0.9.5 (8d00fd3) [2026-04-29] minor typos update
