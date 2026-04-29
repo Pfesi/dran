@@ -537,12 +537,13 @@ wheels = [
 
 [[package]]
 name = "dran"
-version = "0.11.0"
+version = "0.11.1"
 source = { editable = "." }
 dependencies = [
     { name = "astropy" },
     { name = "dotenv" },
     { name = "matplotlib" },
+    { name = "myst-parser" },
     { name = "numba" },
     { name = "numpy" },
     { name = "pandas" },
@@ -569,6 +570,7 @@ requires-dist = [
     { name = "astropy", specifier = ">=7.2.0" },
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "matplotlib", specifier = ">=3.10.8" },
+    { name = "myst-parser", specifier = ">=5.0.0" },
     { name = "numba", specifier = ">=0.65.0" },
     { name = "numpy", specifier = ">=2.4.2" },
     { name = "pandas", specifier = ">=3.0.1" },
@@ -1114,6 +1116,18 @@ wheels = [
 ]
 
 [[package]]
+name = "mdit-py-plugins"
+version = "0.5.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown-it-py" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b2/fd/a756d36c0bfba5f6e39a1cdbdbfdd448dc02692467d83816dff4592a1ebc/mdit_py_plugins-0.5.0.tar.gz", hash = "sha256:f4918cb50119f50446560513a8e311d574ff6aaed72606ddae6d35716fe809c6", size = 44655, upload-time = "2025-08-11T07:25:49.083Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fb/86/dd6e5db36df29e76c7a7699123569a4a18c1623ce68d826ed96c62643cae/mdit_py_plugins-0.5.0-py3-none-any.whl", hash = "sha256:07a08422fc1936a5d26d146759e9155ea466e842f5ab2f7d2266dd084c8dab1f", size = 57205, upload-time = "2025-08-11T07:25:47.597Z" },
+]
+
+[[package]]
 name = "mdurl"
 version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1138,6 +1152,24 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a2/f7/139d22fef48ac78127d18e01d80cf1be40236ae489769d17f35c3d425293/more_itertools-11.0.2.tar.gz", hash = "sha256:392a9e1e362cbc106a2457d37cabf9b36e5e12efd4ebff1654630e76597df804", size = 144659, upload-time = "2026-04-09T15:01:33.297Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cb/98/6af411189d9413534c3eb691182bff1f5c6d44ed2f93f2edfe52a1bbceb8/more_itertools-11.0.2-py3-none-any.whl", hash = "sha256:6e35b35f818b01f691643c6c611bc0902f2e92b46c18fffa77ae1e7c46e912e4", size = 71939, upload-time = "2026-04-09T15:01:32.21Z" },
+]
+
+[[package]]
+name = "myst-parser"
+version = "5.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "docutils" },
+    { name = "jinja2" },
+    { name = "markdown-it-py" },
+    { name = "mdit-py-plugins" },
+    { name = "pyyaml" },
+    { name = "sphinx", version = "9.0.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "sphinx", version = "9.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/33/fa/7b45eef11b7971f0beb29d27b7bfe0d747d063aa29e170d9edd004733c8a/myst_parser-5.0.0.tar.gz", hash = "sha256:f6f231452c56e8baa662cc352c548158f6a16fcbd6e3800fc594978002b94f3a", size = 98535, upload-time = "2026-01-15T09:08:18.036Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d3/ac/686789b9145413f1a61878c407210e41bfdb097976864e0913078b24098c/myst_parser-5.0.0-py3-none-any.whl", hash = "sha256:ab31e516024918296e169139072b81592336f2fef55b8986aa31c9f04b5f7211", size = 84533, upload-time = "2026-01-15T09:08:16.788Z" },
 ]
 
 [[package]]
