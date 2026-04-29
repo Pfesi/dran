@@ -1,0 +1,1297 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>dran.utils package &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/dran.utils';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extras/CHANGELOG.html">CURRENT VERSION (0.13.0)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/docs/dran.utils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>dran.utils package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.config">dran.utils.config module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.root_data_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.category</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.frequency</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.filename"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.filename</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.full_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.wavelength_cm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.beam</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.root_data_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.category</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.frequency</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.foldername"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.foldername</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.full_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.wavelength_cm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.beam</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths"><code class="docutils literal notranslate"><span class="pre">ProjectPaths</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.workdir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.workdir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.db_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.db_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.log_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.log_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.invalid_files_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.invalid_files_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.symlinks_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.symlinks_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.diagnostics_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.plots_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.plots_dir</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathError"><code class="docutils literal notranslate"><span class="pre">ObservationPathError</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.frequency_utils">dran.utils.frequency_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.frequency_utils.get_band_from_frequency"><code class="docutils literal notranslate"><span class="pre">get_band_from_frequency()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.frequency_utils.get_frequency_range_from_band"><code class="docutils literal notranslate"><span class="pre">get_frequency_range_from_band()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.fs">dran.utils.fs module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.build_paths"><code class="docutils literal notranslate"><span class="pre">build_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.resolve_existing_path"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_source_directory_path"><code class="docutils literal notranslate"><span class="pre">parse_source_directory_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_source_frequency_band_from_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_source_frequency_band_from_path_if_folder()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_plot_path"><code class="docutils literal notranslate"><span class="pre">parse_plot_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.resolve_existing_path_without_logger"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path_without_logger()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_observation_path"><code class="docutils literal notranslate"><span class="pre">parse_observation_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_observation_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_observation_path_if_folder()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.ensure_directory_exists"><code class="docutils literal notranslate"><span class="pre">ensure_directory_exists()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.ensure_output_directories"><code class="docutils literal notranslate"><span class="pre">ensure_output_directories()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.recreate_dir"><code class="docutils literal notranslate"><span class="pre">recreate_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.create_dir"><code class="docutils literal notranslate"><span class="pre">create_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.clear_diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">clear_diagnostics_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.compute_file_hash"><code class="docutils literal notranslate"><span class="pre">compute_file_hash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.load_invalid_paths"><code class="docutils literal notranslate"><span class="pre">load_invalid_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.load_symlink_paths"><code class="docutils literal notranslate"><span class="pre">load_symlink_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.append_invalid_path"><code class="docutils literal notranslate"><span class="pre">append_invalid_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.append_symlink_path"><code class="docutils literal notranslate"><span class="pre">append_symlink_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.record_invalid_path_once"><code class="docutils literal notranslate"><span class="pre">record_invalid_path_once()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.record_symlink_path_once"><code class="docutils literal notranslate"><span class="pre">record_symlink_path_once()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.port_utils">dran.utils.port_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.port_utils.find_pids_by_port"><code class="docutils literal notranslate"><span class="pre">find_pids_by_port()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.port_utils.kill_processes_on_port"><code class="docutils literal notranslate"><span class="pre">kill_processes_on_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.time_utils">dran.utils.time_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.time_utils.doy_to_date"><code class="docutils literal notranslate"><span class="pre">doy_to_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.time_utils.parse_doy_timestamp"><code class="docutils literal notranslate"><span class="pre">parse_doy_timestamp()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dran-utils-package">
+<h1>dran.utils package<a class="headerlink" href="#dran-utils-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-dran.utils.config">
+<span id="dran-utils-config-module"></span><h2>dran.utils.config module<a class="headerlink" href="#module-dran.utils.config" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.utils.config.</span></span><span class="sig-name descname"><span class="pre">ObservationPathParts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength_cm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/config.html#ObservationPathParts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.config.ObservationPathParts" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>category</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>full_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>wavelength_cm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>band_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.root_data_dir">
+<span class="sig-name descname"><span class="pre">root_data_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.root_data_dir" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.category">
+<span class="sig-name descname"><span class="pre">category</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.category" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.source" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.frequency">
+<span class="sig-name descname"><span class="pre">frequency</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.frequency" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.filename" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.full_path">
+<span class="sig-name descname"><span class="pre">full_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.full_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.wavelength_cm">
+<span class="sig-name descname"><span class="pre">wavelength_cm</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.wavelength_cm" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.beam">
+<span class="sig-name descname"><span class="pre">beam</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.beam" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathParts.band_folder">
+<span class="sig-name descname"><span class="pre">band_folder</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathParts.band_folder" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.utils.config.</span></span><span class="sig-name descname"><span class="pre">ObservationPathPartsFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">foldername</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength_cm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/config.html#ObservationPathPartsFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>category</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>foldername</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>full_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>wavelength_cm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>band_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.root_data_dir">
+<span class="sig-name descname"><span class="pre">root_data_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.root_data_dir" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.category">
+<span class="sig-name descname"><span class="pre">category</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.category" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.source">
+<span class="sig-name descname"><span class="pre">source</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.source" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.frequency">
+<span class="sig-name descname"><span class="pre">frequency</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.frequency" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.foldername">
+<span class="sig-name descname"><span class="pre">foldername</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.foldername" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.full_path">
+<span class="sig-name descname"><span class="pre">full_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.full_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.wavelength_cm">
+<span class="sig-name descname"><span class="pre">wavelength_cm</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.wavelength_cm" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.beam">
+<span class="sig-name descname"><span class="pre">beam</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.beam" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathPartsFolder.band_folder">
+<span class="sig-name descname"><span class="pre">band_folder</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#dran.utils.config.ObservationPathPartsFolder.band_folder" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.utils.config.</span></span><span class="sig-name descname"><span class="pre">ProjectPaths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">invalid_files_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">symlinks_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnostics_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">plots_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">pathlib.Path</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/config.html#ProjectPaths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.config.ProjectPaths" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>db_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>invalid_files_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>symlinks_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>diagnostics_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>plots_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.workdir">
+<span class="sig-name descname"><span class="pre">workdir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.workdir" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.db_path">
+<span class="sig-name descname"><span class="pre">db_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.db_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.log_path">
+<span class="sig-name descname"><span class="pre">log_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.log_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.invalid_files_path">
+<span class="sig-name descname"><span class="pre">invalid_files_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.invalid_files_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.symlinks_path">
+<span class="sig-name descname"><span class="pre">symlinks_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.symlinks_path" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.diagnostics_dir">
+<span class="sig-name descname"><span class="pre">diagnostics_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.diagnostics_dir" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dran.utils.config.ProjectPaths.plots_dir">
+<span class="sig-name descname"><span class="pre">plots_dir</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><span class="pre">Path</span></a></span><a class="headerlink" href="#dran.utils.config.ProjectPaths.plots_dir" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="dran.utils.config.ObservationPathError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">dran.utils.config.</span></span><span class="sig-name descname"><span class="pre">ObservationPathError</span></span><a class="reference internal" href="../_modules/dran/utils/config.html#ObservationPathError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.config.ObservationPathError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Raised when an observation path cannot be parsed.</p>
+</dd></dl>
+
+</section>
+<section id="module-dran.utils.frequency_utils">
+<span id="dran-utils-frequency-utils-module"></span><h2>dran.utils.frequency_utils module<a class="headerlink" href="#module-dran.utils.frequency_utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.frequency_utils.get_band_from_frequency">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.frequency_utils.</span></span><span class="sig-name descname"><span class="pre">get_band_from_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/frequency_utils.html#get_band_from_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.frequency_utils.get_band_from_frequency" title="Link to this definition">#</a></dt>
+<dd><p>Determine the satellite frequency band for a given frequency (in MHz).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Frequency in megahertz (MHz).</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The corresponding band identifier</dt><dd><p>(e.g., ‘L’, ‘S’, ‘C’, ‘CM’, ‘X’, ‘Ku’, ‘K’, ‘Ka’).</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the input frequency is invalid or outside known bands.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.frequency_utils.get_frequency_range_from_band">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.frequency_utils.</span></span><span class="sig-name descname"><span class="pre">get_frequency_range_from_band</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">band</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/frequency_utils.html#get_frequency_range_from_band"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.frequency_utils.get_frequency_range_from_band" title="Link to this definition">#</a></dt>
+<dd><p>Return the frequency range in MHz for a given band identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>band</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Band identifier such as ‘L’, ‘S’, ‘C’, ‘CM’, ‘X’, ‘Ku’, ‘K’, ‘Ka’.</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>) – Logger instance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of start and end frequency in MHz.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – Invalid band type.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – Unknown band.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.utils.fs">
+<span id="dran-utils-fs-module"></span><h2>dran.utils.fs module<a class="headerlink" href="#module-dran.utils.fs" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.build_paths">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">build_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#build_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.build_paths" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>workdir</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.resolve_existing_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">resolve_existing_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#resolve_existing_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.resolve_existing_path" title="Link to this definition">#</a></dt>
+<dd><p>Resolve a filesystem path strictly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resolved absolute path.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.14)"><strong>FileNotFoundError</strong></a> – If the path does not exist.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#OSError" title="(in Python v3.14)"><strong>OSError</strong></a> – If the path cannot be resolved.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.parse_source_directory_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">parse_source_directory_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#parse_source_directory_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.parse_source_directory_path" title="Link to this definition">#</a></dt>
+<dd><p>Extract frequency and source name from a directory path.</p>
+<dl class="simple">
+<dt>Expected structure:</dt><dd><p>…/&lt;SOURCE&gt;/&lt;FREQ&gt;/
+…/&lt;SOURCE&gt;/<a href="#id1"><span class="problematic" id="id2">*</span></a>_&lt;FREQ&gt;/</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(frequency, source)</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.parse_source_frequency_band_from_path_if_folder">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">parse_source_frequency_band_from_path_if_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#parse_source_frequency_band_from_path_if_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.parse_source_frequency_band_from_path_if_folder" title="Link to this definition">#</a></dt>
+<dd><p>Parse (source_name, frequency_mhz, band) from a FITS file path.</p>
+<dl class="simple">
+<dt>Assumes a directory layout like:</dt><dd><p>…/&lt;SOURCE_NAME&gt;/&lt;FREQUENCY_MHZ&gt;/&lt;file&gt;.fits</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(source_name_upper, frequency_mhz, band)</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.parse_plot_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">parse_plot_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#parse_plot_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.parse_plot_path" title="Link to this definition">#</a></dt>
+<dd><p>Extract source name, frequency, and filename from a plot path.</p>
+<dl class="simple">
+<dt>Expected structure:</dt><dd><p>base / &lt;src_name&gt; / &lt;freq&gt; / &lt;filename&gt;</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(src_name, freq, filename)</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.resolve_existing_path_without_logger">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">resolve_existing_path_without_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#resolve_existing_path_without_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.resolve_existing_path_without_logger" title="Link to this definition">#</a></dt>
+<dd><p>Resolve a filesystem path strictly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Resolved absolute path.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.parse_observation_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">parse_observation_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#parse_observation_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.parse_observation_path" title="Link to this definition">#</a></dt>
+<dd><p>Parse observation file paths for DRAN.</p>
+<p>Supported layouts:
+data/calibration/3C123/12178/file.fits
+data/calibration/3C123_12178/file.fits
+data/calibration/3C123_13NB/file.fits
+data/calibration/3C123_13NB_dichroic_on/file.fits
+data/calibration/3C123_35/file.fits
+data/calibration/3C123_3.5NB/file.fits
+data/calibration/Jup/file.fits</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#dran.utils.config.ObservationPathParts" title="dran.utils.config.ObservationPathParts"><em>ObservationPathParts</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.parse_observation_path_if_folder">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">parse_observation_path_if_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#parse_observation_path_if_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.parse_observation_path_if_folder" title="Link to this definition">#</a></dt>
+<dd><p>Parse observation file paths for DRAN.</p>
+<p>Supported layouts:
+data/calibration/3C123/12178/
+data/calibration/3C123_12178/
+data/calibration/3C123_13NB/
+data/calibration/3C123_13NB_dichroic_on/
+data/calibration/3C123_35/
+data/calibration/3C123_3.5NB/
+data/calibration/3C123/
+data/calibration/Jup/</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#dran.utils.config.ObservationPathPartsFolder" title="dran.utils.config.ObservationPathPartsFolder"><em>ObservationPathPartsFolder</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.ensure_directory_exists">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">ensure_directory_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#ensure_directory_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.ensure_directory_exists" title="Link to this definition">#</a></dt>
+<dd><p>Ensure the given path exists and is a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.ensure_output_directories">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">ensure_output_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_if_contains</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'diagnostic'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#ensure_output_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.ensure_output_directories" title="Link to this definition">#</a></dt>
+<dd><p>Ensure required output directories exist.</p>
+<p>Default behavior:
+- If the directory path contains the token “diagnostic”, it is recreated.
+- All other directories are created if missing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.14)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em>]</em>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+<li><p><strong>overwrite_if_contains</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.recreate_dir">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">recreate_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#recreate_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.recreate_dir" title="Link to this definition">#</a></dt>
+<dd><p>Recreate a directory.</p>
+<p>If the directory already exists, it is removed with all contents, then
+recreated (including parents).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.create_dir">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">create_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#create_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.create_dir" title="Link to this definition">#</a></dt>
+<dd><p>Ensure a directory exists.</p>
+<p>Creates parent directories as needed. If it already exists, it is left
+unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.clear_diagnostics_dir">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">clear_diagnostics_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#clear_diagnostics_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.clear_diagnostics_dir" title="Link to this definition">#</a></dt>
+<dd><p>Remove all files and subdirectories from a diagnostics directory.
+Safely deletes directory contents if the path exists. Logs a warning for
+any item that cannot be removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.compute_file_hash">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">compute_file_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1048576</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#compute_file_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.compute_file_hash" title="Link to this definition">#</a></dt>
+<dd><p>Compute a SHA-256 hash for a file by streaming its contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>chunk_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.load_invalid_paths">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">load_invalid_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#load_invalid_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.load_invalid_paths" title="Link to this definition">#</a></dt>
+<dd><p>Load previously recorded invalid paths from disk.</p>
+<p>Returns an empty set if the log file does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.14)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.load_symlink_paths">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">load_symlink_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#load_symlink_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.load_symlink_paths" title="Link to this definition">#</a></dt>
+<dd><p>Load previously recorded symlink paths from disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.14)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.append_invalid_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">append_invalid_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#append_invalid_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.append_invalid_path" title="Link to this definition">#</a></dt>
+<dd><p>Append a path to the invalid path registry on disk.</p>
+<p>Creates parent directories for the registry file if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.append_symlink_path">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">append_symlink_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#append_symlink_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.append_symlink_path" title="Link to this definition">#</a></dt>
+<dd><p>Append a symlink path to the symlink registry on disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.record_invalid_path_once">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">record_invalid_path_once</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#record_invalid_path_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.record_invalid_path_once" title="Link to this definition">#</a></dt>
+<dd><p>Record an invalid path only once.</p>
+<p>If the path is already present, nothing is appended.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+<li><p><strong>reason</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.fs.record_symlink_path_once">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.fs.</span></span><span class="sig-name descname"><span class="pre">record_symlink_path_once</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/fs.html#record_symlink_path_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.fs.record_symlink_path_once" title="Link to this definition">#</a></dt>
+<dd><p>Record a symlink path only once in the symlink registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a>)</p></li>
+<li><p><strong>paths</strong> (<a class="reference internal" href="#dran.utils.config.ProjectPaths" title="dran.utils.config.ProjectPaths"><em>ProjectPaths</em></a>)</p></li>
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.utils.port_utils">
+<span id="dran-utils-port-utils-module"></span><h2>dran.utils.port_utils module<a class="headerlink" href="#module-dran.utils.port_utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.port_utils.find_pids_by_port">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.port_utils.</span></span><span class="sig-name descname"><span class="pre">find_pids_by_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/port_utils.html#find_pids_by_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.port_utils.find_pids_by_port" title="Link to this definition">#</a></dt>
+<dd><p>Find all PIDs using a given port.</p>
+<p>Uses <cite>lsof</cite>, which is available on macOS and most Linux systems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.port_utils.kill_processes_on_port">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.port_utils.</span></span><span class="sig-name descname"><span class="pre">kill_processes_on_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/port_utils.html#kill_processes_on_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.port_utils.kill_processes_on_port" title="Link to this definition">#</a></dt>
+<dd><p>Kill all processes using a given port.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Port number to check</p></li>
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, use SIGKILL (-9). Otherwise SIGTERM (default)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.utils.time_utils">
+<span id="dran-utils-time-utils-module"></span><h2>dran.utils.time_utils module<a class="headerlink" href="#module-dran.utils.time_utils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.time_utils.doy_to_date">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.time_utils.</span></span><span class="sig-name descname"><span class="pre">doy_to_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/time_utils.html#doy_to_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.time_utils.doy_to_date" title="Link to this definition">#</a></dt>
+<dd><p>Convert day-of-year to a calendar date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Four-digit year, for example 2024.</p></li>
+<li><p><strong>doy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Day of year, starting at 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>datetime.date instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.14)"><em>date</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dran.utils.time_utils.parse_doy_timestamp">
+<span class="sig-prename descclassname"><span class="pre">dran.utils.time_utils.</span></span><span class="sig-name descname"><span class="pre">parse_doy_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dran/utils/time_utils.html#parse_doy_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dran.utils.time_utils.parse_doy_timestamp" title="Link to this definition">#</a></dt>
+<dd><p>Parse a timestamp in the form YYYYdDOY_HHhMMmSSs.</p>
+<dl class="simple">
+<dt>Example input:</dt><dd><p>2023d281_00h01m59s</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.datetime instance in UTC-like naive time.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><em>datetime</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dran.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dran.utils" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.config">dran.utils.config module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.root_data_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.category</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.frequency</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.filename"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.filename</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.full_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.wavelength_cm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.beam</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathParts.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathParts.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.root_data_dir"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.root_data_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.category"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.category</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.source"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.source</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.frequency"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.frequency</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.foldername"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.foldername</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.full_path"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.full_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.wavelength_cm"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.wavelength_cm</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.beam"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.beam</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathPartsFolder.band_folder"><code class="docutils literal notranslate"><span class="pre">ObservationPathPartsFolder.band_folder</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths"><code class="docutils literal notranslate"><span class="pre">ProjectPaths</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.workdir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.workdir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.db_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.db_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.log_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.log_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.invalid_files_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.invalid_files_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.symlinks_path"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.symlinks_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.diagnostics_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ProjectPaths.plots_dir"><code class="docutils literal notranslate"><span class="pre">ProjectPaths.plots_dir</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.config.ObservationPathError"><code class="docutils literal notranslate"><span class="pre">ObservationPathError</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.frequency_utils">dran.utils.frequency_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.frequency_utils.get_band_from_frequency"><code class="docutils literal notranslate"><span class="pre">get_band_from_frequency()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.frequency_utils.get_frequency_range_from_band"><code class="docutils literal notranslate"><span class="pre">get_frequency_range_from_band()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.fs">dran.utils.fs module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.build_paths"><code class="docutils literal notranslate"><span class="pre">build_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.resolve_existing_path"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_source_directory_path"><code class="docutils literal notranslate"><span class="pre">parse_source_directory_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_source_frequency_band_from_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_source_frequency_band_from_path_if_folder()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_plot_path"><code class="docutils literal notranslate"><span class="pre">parse_plot_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.resolve_existing_path_without_logger"><code class="docutils literal notranslate"><span class="pre">resolve_existing_path_without_logger()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_observation_path"><code class="docutils literal notranslate"><span class="pre">parse_observation_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.parse_observation_path_if_folder"><code class="docutils literal notranslate"><span class="pre">parse_observation_path_if_folder()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.ensure_directory_exists"><code class="docutils literal notranslate"><span class="pre">ensure_directory_exists()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.ensure_output_directories"><code class="docutils literal notranslate"><span class="pre">ensure_output_directories()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.recreate_dir"><code class="docutils literal notranslate"><span class="pre">recreate_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.create_dir"><code class="docutils literal notranslate"><span class="pre">create_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.clear_diagnostics_dir"><code class="docutils literal notranslate"><span class="pre">clear_diagnostics_dir()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.compute_file_hash"><code class="docutils literal notranslate"><span class="pre">compute_file_hash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.load_invalid_paths"><code class="docutils literal notranslate"><span class="pre">load_invalid_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.load_symlink_paths"><code class="docutils literal notranslate"><span class="pre">load_symlink_paths()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.append_invalid_path"><code class="docutils literal notranslate"><span class="pre">append_invalid_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.append_symlink_path"><code class="docutils literal notranslate"><span class="pre">append_symlink_path()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.record_invalid_path_once"><code class="docutils literal notranslate"><span class="pre">record_invalid_path_once()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.fs.record_symlink_path_once"><code class="docutils literal notranslate"><span class="pre">record_symlink_path_once()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.port_utils">dran.utils.port_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.port_utils.find_pids_by_port"><code class="docutils literal notranslate"><span class="pre">find_pids_by_port()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.port_utils.kill_processes_on_port"><code class="docutils literal notranslate"><span class="pre">kill_processes_on_port()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils.time_utils">dran.utils.time_utils module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.time_utils.doy_to_date"><code class="docutils literal notranslate"><span class="pre">doy_to_date()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dran.utils.time_utils.parse_doy_timestamp"><code class="docutils literal notranslate"><span class="pre">parse_doy_timestamp()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-dran.utils">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

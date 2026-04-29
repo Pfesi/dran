@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.12.0)
+# CURRENT VERSION (0.13.0)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,7 @@
 
 ## MINOR REVISION
 
+- v0.13.0 (0405f1a) [2026-04-29] added sphinx-book-theme for docs
 - v0.12.0 (566143a) [2026-04-29] needed to add myst_parser for docs
 - v0.11.1 (88ccaa5) [2026-04-29] fixed issue with failing to process data on remote machine
 - v0.11.0 (c3ba3d4) [2026-04-29] added new files to docs

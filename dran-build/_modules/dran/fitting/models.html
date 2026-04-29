@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dran.fitting.models &#8212; DRAN Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=a1637f0b"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/dran/fitting/models';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">DRAN Documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/cli.html">The command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html">The graphical user interface (GUI)</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extras/CHANGELOG.html">CURRENT VERSION (0.13.0)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for dran.fitting.models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========================================================================== #</span>
+<span class="c1"># File: models.py                                                             #</span>
+<span class="c1"># Author: Pfesesani V. van Zyl                                                #</span>
+<span class="c1"># Email: pfesi24@gmail.com                                                    #</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<span class="c1"># Library imports</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plot_qc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScanQualityResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDArray</span>
+<span class="c1"># =========================================================================== #</span>
+
+
+<div class="viewcode-block" id="ResidualFit">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.ResidualFit">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResidualFit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container for Residual fit results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rms</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">residuals</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="CleanedScan">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.CleanedScan">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CleanedScan</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rms</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">residual</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">spline_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">spline</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">points_deleted</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">raw_rms</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">raw_residuals</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+    
+    
+<div class="viewcode-block" id="BeamFitResult">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.BeamFitResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BeamFitResult</span><span class="p">:</span>
+    
+    <span class="n">qc</span><span class="p">:</span> <span class="n">ScanQualityResult</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ScanQualityResult</span><span class="p">)</span>
+    <span class="c1"># Peak fit (quadratic over main-beam top fraction)</span>
+    <span class="n">peak_coeffs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">peak_model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ta_peak</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">ta_peak_err</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">peak_loc_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Baseline correction artefacts</span>
+    <span class="n">baseline_coeffs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">baseline_residual</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">baseline_rms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">baseline_window_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">y_corrected</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">y_corrected_spline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Cleaning artefacts</span>
+    <span class="n">clean_rms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Status</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+    <span class="c1"># qc: ScanQualityResult = ScanQualityResult(ok=True,flag=0,message=&quot;&quot;,metrics={})</span>
+
+
+<div class="viewcode-block" id="DualBeamQCResult">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.DualBeamQCResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DualBeamQCResult</span><span class="p">:</span>
+    <span class="c1"># Defaults represent &quot;QC not computed yet&quot;.</span>
+    <span class="n">is_bad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">reasons</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;QC not computed&quot;</span><span class="p">])</span>
+    <span class="n">step_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">step_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">max_gap_frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">snr_a</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">snr_b</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">resid_rms_a</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">resid_rms_b</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+<div class="viewcode-block" id="DualBeamQCResult.to_dict">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.DualBeamQCResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;is_bad&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;is_bad&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;flag&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;flag&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;reasons&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;reasons&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;step_max&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;step_max&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;step_count&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;step_count&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;max_gap_frac&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;metrics&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;snr_a&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;snr_a&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;snr_b&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;snr_b&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;resid_rms_a&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;resid_rms_a&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="s2">&quot;resid_rms_b&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;resid_rms_b&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+        
+        
+<div class="viewcode-block" id="DualBeamFitResult">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.DualBeamFitResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DualBeamFitResult</span><span class="p">:</span>
+    <span class="n">qc</span><span class="p">:</span> <span class="n">DualBeamQCResult</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DualBeamQCResult</span><span class="p">)</span>
+    <span class="c1"># Peak fit (quadratic over main-beam top fraction)</span>
+    <span class="c1"># apeak_coeffs: Optional[np.ndarray] = None</span>
+    <span class="c1"># apeak_model: Optional[np.ndarray] = None</span>
+    <span class="n">apeak_residuals</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">ata_peak</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">ata_peak_err</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">apeak_loc_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># bpeak_coeffs: Optional[np.ndarray] = None</span>
+    <span class="c1"># bpeak_model: Optional[np.ndarray] = None</span>
+    <span class="n">bpeak_residuals</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">bta_peak</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">bta_peak_err</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">bpeak_loc_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Baseline correction artefacts</span>
+    <span class="n">baseline_coeffs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">baseline_residuals</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">baseline_rms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+    <span class="n">baseline_window_indices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">y_corrected</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">y_corrected_spline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Cleaning artefacts</span>
+    <span class="n">clean_rms</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Status</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="IterativeCleaningResult">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.IterativeCleaningResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IterativeCleaningResult</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">rms</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">residual</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">spline_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">spline</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">points_deleted</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">flag</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="sig_to_noise">
+<a class="viewcode-back" href="../../../docs/dran.fitting.html#dran.fitting.models.sig_to_noise">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sig_to_noise</span><span class="p">(</span><span class="n">ta_peak</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">residual</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the signal to noise ratio. i.e. Amplitude / (stdDeviation of noise)</span>
+<span class="sd">    Taken from paper on &#39;Signal to Noise Ratio (SNR) Enhancement Comparison of Impulse-, </span>
+<span class="sd">    Coding- and Novel Linear-Frequency-Chirp-Based Optical Time Domain Reflectometry </span>
+<span class="sd">    (OTDR) for Passive Optical Network (PON) Monitoring Based on Unique Combinations of </span>
+<span class="sd">    Wavelength Selective Mirrors&#39;</span>
+
+<span class="sd">    Photonics 2014, 1, 33-46; doi:10.3390/photonics1010033</span>
+<span class="sd">    https://www.mdpi.com/2304-6732/1/1/33</span>
+<span class="sd">    https://www.mdpi.com/68484</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        signalPeak (float) : The maximum valueof a desired signal</span>
+<span class="sd">        noise (array): array of fit residuals</span>
+<span class="sd">        log(object): file logging object</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        sig2noise (float): signal to noise ratio</span>
+
+<span class="sd">    Returns SNR, or None if it cannot be computed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">ta_peak</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">ta_peak</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">residual</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;SNR skipped. residual is empty.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">rms</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">residual</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">rms</span><span class="p">)</span> <span class="ow">or</span> <span class="n">rms</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;SNR skipped. Invalid rms=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">rms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">ta_peak</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;SNR skipped. Invalid ta_peak=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ta_peak</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">ta_peak</span> <span class="o">/</span> <span class="n">rms</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pfesesani van Zyl
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pfesesani van Zyl.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
