@@ -20,10 +20,26 @@ dran.fitting.baseline\_windows module
    :show-inheritance:
    :undoc-members:
 
+dran.fitting.config module
+--------------------------
+
+.. automodule:: dran.fitting.config
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 dran.fitting.gaussian\_fit module
 ---------------------------------
 
 .. automodule:: dran.fitting.gaussian_fit
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.locate\_fitting\_blocks module
+-------------------------------------------
+
+.. automodule:: dran.fitting.locate_fitting_blocks
    :members:
    :show-inheritance:
    :undoc-members:

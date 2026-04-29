@@ -13,7 +13,7 @@ from typing import Any, Dict
 import numpy as np
 from dran.config.constants import (ARCSEC_TO_RAD, AU_TO_KM, 
                                   JUPITER_MEAN_DIAMETER_KM)
-from .ephemeris.jpl_horizons_table import (
+from dran.calibration.planets.ephemeris.jpl_horizons_table import (
     load_jpl_horizons_table)
 from dran.calibration.errors import (
     EphemerisDateOutOfRangeError,

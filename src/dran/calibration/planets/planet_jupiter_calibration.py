@@ -12,7 +12,7 @@ import math
 from typing import Any, Dict
 import numpy as np
 from dran.calibration.row_accessors import get_float
-from .planet_geometry import (
+from dran.calibration.planets.planet_geometry import (
     add_jupiter_distance_au, add_planet_angular_diameter)
 # =========================================================================== #
 
@@ -26,13 +26,9 @@ def apply_jupiter_atmospheric_calibration(row: Dict[str, Any],
     """
     log.debug("Applying Jupiter atmospheric calibration fields.")
 
-    # try:
-    # print('angular cals')
     add_planet_angular_diameter(row, log)
     add_jupiter_distance_au(row, log)
-    # except Exception as exc:
-    #     log.warning("Jupiter geometry skipped: %s", exc)
-    #     return
+
 
     jupiter_dist_au = get_float(row, "JUPITER_DIST_AU", default=np.nan)
     planet_ang_diam_rad = get_float(row, "PLANET_ANG_DIAM_RAD", default=np.nan)

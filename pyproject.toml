@@ -13,7 +13,8 @@ module-root = "src"
 
 source-include = [
   # "dran/src/docs/dran-build/**"
-  "src/dran/predefs"
+  "src/dran/calibration/predefs",
+  "src/dran/data"
 ]
 source-exclude = [
   "src/dran/dev/**",
@@ -22,7 +23,8 @@ source-exclude = [
   "src/dran/**/*.bak",
 
   "src/dran/server",
-  "src/dran/docs/readme_first.txt",
+  "src/dran/gui/remove",
+  "src/dran/docs/dev_readme_first.txt",
   "src/dran/docs/runMeToBuildDocs.py",
   "src/dran/docs/source",
   "src/dran/docs/build",
@@ -43,6 +45,7 @@ wheel-exclude = [
   "src/dran/**/*.bak",
 
   "src/dran/server",
+  "src/dran/gui/remove",
   "src/dran/docs/readme_first.txt",
   "src/dran/docs/runMeToBuildDocs.py",
   "src/dran/docs/source",
@@ -61,7 +64,7 @@ wheel-exclude = [
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
 maintainers = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
-version = "0.8.1"
+version = "0.9.0"
 license = "MIT"
 description = "Data reduction and analysis of HartRAO 26m telescope drift scans."
 keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators"]
@@ -79,6 +82,7 @@ dependencies = [
     "pyqt5>=5.15.11",
     "rich>=14.3.3",
     "scikit-learn>=1.8.0",
+    "twine>=6.2.0",
 ]
 
 docs = [
@@ -127,4 +131,5 @@ package = true
 [dependency-groups]
 dev = [
     "build>=1.2.2",
+    "nbsphinx>=0.9.8",
 ]

@@ -1,4 +1,4 @@
-# CURRENT VERSION (0.8.1)
+# CURRENT VERSION (0.9.0)
 
 ## MAJOR REVISION
 
@@ -6,6 +6,8 @@
 
 ## MINOR REVISION
 
+- v0.9.0 (ad56b5c) [2026-04-22] added a few more updates, path resolving etc.
+- v0.8.2 (095a18d) [2026-03-26] updated jupiter calibration process, code was failing to access predef files.
 - v0.8.1 (ca02340) [2026-03-19] updated docs building page,  it was creating the source file in the wrong path.
 - v0.8.0 (094c325) [2026-03-19] another file re-arrangement. added a new utility to kill the docs port if open.
 - v0.7.4 (8ee46b4) [2026-03-18] Moved files around to accommodate new path system. Updated docs webserver file loading operation.

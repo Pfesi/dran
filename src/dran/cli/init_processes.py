@@ -2,7 +2,7 @@
 # File: init_processes.py                                                     #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =========================================================================== #
+# =>========================================================================= #
 
 
 # Library imports
@@ -11,7 +11,7 @@ from typing import Callable, Dict
 import argparse
 from pathlib import Path
 
-from dran.config.paths import build_paths
+from dran.utils.fs import build_paths
 from dran.config.logging import setup_logger, logging, load_prog
 from dran.config.constants import (
     PROJECT_NAME, LOG_FILENAME, PLOTS_DIRNAME, DIAGNOSTICS_DIRNAME,
@@ -22,7 +22,7 @@ from dran.pipelines.gui_processing import run_gui_processing
 from dran.pipelines.web_processing import run_web_processing
 from dran.pipelines.docs_processing import run_docs_processing
 from dran.pipelines.analysis_processing import run_analysis_processing
-# =|========================================================================= #
+# =========================================================================== #
 
 
 def init_output_directories(
@@ -63,13 +63,13 @@ def run(
     init_output_directories(paths.workdir, log)
 
     def run_server(args,paths,log):
-        # try:
+        try:
             from dran.server.server_processing import run_server_side_processing
             run_server_side_processing(args,paths,log)
-        # except:
-        #     print("Server access not Implemented")
+        except:
+            print("Server access not Implemented. Contact author.")
         
-    dispatch: Dict[str, Callable[[argparse.Namespace, logging.Logger], None]] = {
+    dispatch: Dict[str, Callable[[argparse.Namespace, Path, logging.Logger], None]] = {
         "auto": run_fits_processing,
         "gui": run_gui_processing,
         "web": run_web_processing,

@@ -13,123 +13,123 @@ from pathlib import Path
 from typing import Iterable
 import logging
 from typing import Any, Dict, List
-from dran.config.paths import ProjectPaths
+from dran.utils.fs import ProjectPaths
 from dran.storage.sqlite_schema import ensure_table_from_dict
 from dran.storage.sqlite_connection import get_connection
 from dran.storage.sqlite_repository import insert_dict
 # =========================================================================== #
 
 
-_TABLE_FREQ_SUFFIX = re.compile(r"^(?P<prefix>.+)_(?P<freq>\d+)$")
+# _TABLE_FREQ_SUFFIX = re.compile(r"^(?P<prefix>.+)_(?P<freq>\d+)$")
 _PROCESSED_FILES_TABLE = "processed_files"
 
-def get_table_names(database_path: str) -> List[str]:
-    """
-    Return a sorted list of user-defined table names
-    from the given SQLite database file.
+# def get_table_names(database_path: str) -> List[str]:
+#     """
+#     Return a sorted list of user-defined table names
+#     from the given SQLite database file.
 
-    :param database_path: Path to the SQLite .db file
-    :return: List of table names
-    """
-    query: str = """
-        SELECT name
-        FROM sqlite_master
-        WHERE type = 'table'
-        AND name NOT LIKE 'sqlite_%'
-        ORDER BY name;
-    """
+#     :param database_path: Path to the SQLite .db file
+#     :return: List of table names
+#     """
+#     query: str = """
+#         SELECT name
+#         FROM sqlite_master
+#         WHERE type = 'table'
+#         AND name NOT LIKE 'sqlite_%'
+#         ORDER BY name;
+#     """
 
-    with sqlite3.connect(database_path) as connection:
-        cursor = connection.cursor()
-        cursor.execute(query)
-        rows = cursor.fetchall()
+#     with sqlite3.connect(database_path) as connection:
+#         cursor = connection.cursor()
+#         cursor.execute(query)
+#         rows = cursor.fetchall()
 
-    # Extract table names from returned tuples
-    return [row[0] for row in rows]
+#     # Extract table names from returned tuples
+#     return [row[0] for row in rows]
 
-def list_tables_in_frequency_range(
-    db_path: Path,
-    start_mhz: int,
-    end_mhz: int,
-) -> list[tuple[str, int]]:
-    """
-    Return (table_name, freq_mhz) for tables named <prefix>_<freq_mhz>
-    where freq_mhz is within [start_mhz, end_mhz].
-    """
-    conn = sqlite3.connect(str(db_path))
-    try:
-        return list_tables_in_frequency_range_conn(conn, start_mhz, end_mhz)
-    finally:
-        conn.close()
-
-
-def list_tables_in_frequency_range_conn(
-    conn: sqlite3.Connection,
-    start_mhz: int,
-    end_mhz: int,
-) -> list[tuple[str, int]]:
-    rows = conn.execute(
-        "SELECT name FROM sqlite_schema WHERE type='table';"
-    ).fetchall()
-
-    matches: list[tuple[str, int]] = []
-    for (name,) in rows:
-        m = _TABLE_FREQ_SUFFIX.match(name)
-        if not m:
-            continue
-
-        freq_mhz = int(m.group("freq"))
-        if start_mhz <= freq_mhz <= end_mhz:
-            matches.append((name, freq_mhz))
-
-    matches.sort(key=lambda x: (x[1], x[0]))
-    return matches
+# def list_tables_in_frequency_range(
+#     db_path: Path,
+#     start_mhz: int,
+#     end_mhz: int,
+# ) -> list[tuple[str, int]]:
+#     """
+#     Return (table_name, freq_mhz) for tables named <prefix>_<freq_mhz>
+#     where freq_mhz is within [start_mhz, end_mhz].
+#     """
+#     conn = sqlite3.connect(str(db_path))
+#     try:
+#         return list_tables_in_frequency_range_conn(conn, start_mhz, end_mhz)
+#     finally:
+#         conn.close()
 
 
-def fetch_existing_file_basenames_and_paths(
-        path_to_db:Path,
-        tables: Iterable[str],
-        log,
-        filepath_field: str = "FILEPATH",
-) -> tuple[set[str], dict[str, str]]:
-    """
-    Return:
-    - basenames: set of file basenames found in FILEPATH columns
-    - basename_to_path: dict mapping basename -> first seen stored path
+# def list_tables_in_frequency_range_conn(
+#     conn: sqlite3.Connection,
+#     start_mhz: int,
+#     end_mhz: int,
+# ) -> list[tuple[str, int]]:
+#     rows = conn.execute(
+#         "SELECT name FROM sqlite_schema WHERE type='table';"
+#     ).fetchall()
 
-    Notes:
-    - Identifier quoting is used for table and column names.
-    - NULL or empty values are skipped.
-    """
-    if filepath_field != "FILEPATH":
-        raise ValueError("Only filepath_field='FILEPATH' is supported.")
+#     matches: list[tuple[str, int]] = []
+#     for (name,) in rows:
+#         m = _TABLE_FREQ_SUFFIX.match(name)
+#         if not m:
+#             continue
 
-    basenames: set[str] = set()
+#         freq_mhz = int(m.group("freq"))
+#         if start_mhz <= freq_mhz <= end_mhz:
+#             matches.append((name, freq_mhz))
+
+#     matches.sort(key=lambda x: (x[1], x[0]))
+#     return matches
+
+
+# def fetch_existing_file_basenames_and_paths(
+#         path_to_db:Path,
+#         tables: Iterable[str],
+#         log,
+#         filepath_field: str = "FILEPATH",
+# ) -> tuple[set[str], dict[str, str]]:
+#     """
+#     Return:
+#     - basenames: set of file basenames found in FILEPATH columns
+#     - basename_to_path: dict mapping basename -> first seen stored path
+
+#     Notes:
+#     - Identifier quoting is used for table and column names.
+#     - NULL or empty values are skipped.
+#     """
+#     if filepath_field != "FILEPATH":
+#         raise ValueError("Only filepath_field='FILEPATH' is supported.")
+
+#     basenames: set[str] = set()
     
-    conn = get_connection(path_to_db, log)
-    try:
-        for table in tables:
-            table=table.upper()
-            try:
-                cursor = conn.execute(
-                    f'SELECT "{filepath_field}" FROM "{table}";'
-                )
-            except sqlite3.Error:
-                continue
+#     conn = get_connection(path_to_db, log)
+#     try:
+#         for table in tables:
+#             table=table.upper()
+#             try:
+#                 cursor = conn.execute(
+#                     f'SELECT "{filepath_field}" FROM "{table}";'
+#                 )
+#             except sqlite3.Error:
+#                 continue
 
-            for (filepath,) in cursor:
-                if not filepath:
-                    continue
+#             for (filepath,) in cursor:
+#                 if not filepath:
+#                     continue
 
-                basename = Path(filepath).name
-                basenames.add(basename)
+#                 basename = Path(filepath).name
+#                 basenames.add(basename)
 
-                # if basename not in basename_to_path:
-                #     basename_to_path[basename] = str(filepath)
-    finally:
-        conn.close()
+#                 # if basename not in basename_to_path:
+#                 #     basename_to_path[basename] = str(filepath)
+#     finally:
+#         conn.close()
 
-    return basenames#, basename_to_path
+#     return basenames#, basename_to_path
 
 
 def record_exists(
@@ -165,17 +165,10 @@ def record_exists(
             ORDER BY name;
         """
         cursor= conn.execute(query)
-        # rows = cursor.fetchall()
-        
-        # Extract table names from returned tuples
-        # tables= [row[0] for row in rows]
-        # print('=====',table in tables)
         
         print(f"Table : {table} not found")
-        # if cursor.fetchone() is None:
-        #     print('New observation ')
             
-        return None#cursor.fetchone() #is not None
+        return None
 
 
 def _ensure_and_insert(

@@ -2,7 +2,7 @@
 # File: gui_processing.py                                                     #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =|========================================================================= #
+# =========================================================================== #
 
 
 # Standard library imports
@@ -14,9 +14,9 @@ from typing import Optional
 from PyQt5 import QtWidgets
 import sys
 import os
-from dran.config.paths import ProjectPaths
+from dran.utils.fs import ProjectPaths
 from dran.gui.main import Main
-# =|========================================================================= #
+# =========================================================================== #
 
 
 def run_gui_processing(
@@ -28,14 +28,9 @@ def run_gui_processing(
     app = QtWidgets.QApplication(sys.argv)
 
     if args.path:
-
-        # Check if the provided path is a file
         is_file= os.path.isfile(args.path)
-
-        # load GUI with the given file
         gui=Main(log,is_file,args.path)
     else:
-        # load GUI without a given file
         gui=Main(log, args.path)
     
     gui.show()

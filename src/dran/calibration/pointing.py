@@ -95,18 +95,14 @@ def calc_pointing_correction(hps_ta, hps_err,
         denom = 16.0 * float(np.log(2.0))
         expo = (d**2) / denom
         pc = float(np.exp(expo))
-        # print(pc)
 
         # calculate the derivatives
         hps_der = pc * 2.0 * expo * (1.0/hps_ta)
         hpn_der = pc * 2.0 * expo * (-1.0/hpn_ta)
         err_ta_corrected = np.sqrt((hps_err**2)*(hps_der**2) + (hpn_err**2)*(hpn_der**2))
-        # print(err_ta_corrected)
         
-    # print(on_ta, pc)#, data)
     ta_corrected = calc_tcorr(on_ta, pc, data)
 
-    # print(pc, ta_corrected, err_ta_corrected)
     return pc, ta_corrected, err_ta_corrected
 
 
@@ -125,11 +121,11 @@ def calc_tcorr(Ta, pc, data):
 
     Ta= float(Ta)
     pc=float(pc)
-    # print('--- ', Ta, pc)
+    
     if data["FRONTEND"] == "01.3S" or data["EXTNAME"] == "01.3S":
         if data["OBJECT"].upper() == "JUPITER":
                 # Only applying a size correction factor and atmospheric correction to Jupiter
-                # See van Zyl (2023) - in Prep
+                # See van Zyl et al. (2026) - in Prep
                 abs=float(data["ATMOS_ABSORPTION_CORR"])
                 scf=float( data["SIZE_CORRECTION_FACTOR"])
                 corrTa = Ta * pc * abs * scf
@@ -138,7 +134,7 @@ def calc_tcorr(Ta, pc, data):
             # do we also apply a atmospheric correcttion factor directly to the target source ?
             # find out, for now I'm not applyin it
             # tests this ASAP
-            corrTa = Ta * pc #* data["ATMOS_ABSORPTION_CORR"]
+            corrTa = Ta * pc 
             return corrTa
     else:
         corrTa = Ta*pc
@@ -182,7 +178,7 @@ def pointing_gain_from_halfpower(
                                                on_ta,on_err, 
                                                data,
                                                missing_side)
-    # print(pc, ta, ta_corr)
+
     return PointingGainResult(pc=pc, 
                               ta_corr=ta, 
                               ta_corr_err=ta_corr, 

@@ -15,19 +15,71 @@ import numpy as np
 from dran.fits.hdu_rules import scan_hdu_indices
 from dran.fits.lazy_reader import LazyFITSReader
 from dran.fits.types import ObsRecord
-from dran.config.paths import ProjectPaths
+from dran.utils.config import ProjectPaths
 from dran.utils.frequency_utils import get_band_from_frequency
-from dran.obs.records import build_observation_record
-from dran.header import build_header_key_schema
-from dran.obs.populate import  populate_scan_arrays
+from dran.fits.schema import build_header_key_schema
+from dran.fits.populate import  populate_scan_arrays
 from dran.calibration.atmosphere.meteo_water_vapour import (
     add_water_vapour_fields)
 from dran.calibration.atmosphere.atmos_frontend_dispatch import (
     dispatch_atmospheric_correction)
 from dran.calibration.errors import UnsupportedFrontendError
 from dran.utils.fs import create_dir
-from dran.utils.invalid_path_registry import  record_invalid_path_once
 # =========================================================================== #
+
+
+def build_observation_record(
+    path: Path,
+    paths:ProjectPaths,
+    source_name: str,
+    frequency_mhz: float,
+    band: str,
+    hdu_len: int,
+    logger: logging.Logger,
+) -> Dict[str, Any]:
+    """
+    Build an observation result record with common file metadata fields.
+
+    Notes
+    - Keys are uppercase to match a "record schema" style used by CSV/DB 
+    exports.
+    - "band" is accepted for schema completeness, even if not used yet.
+
+    Parameters
+    ----------
+    path:
+        Input FITS file path.
+    source_name:
+        Source name. Stored in normalized form for folder conventions.
+    frequency_mhz:
+        Center frequency derived from directory or context. Rounded to int for 
+        folder naming.
+    band:
+        Band label (e.g., L/S/C/X). Stored for completeness.
+    hdu_len:
+        Number of HDUs in the FITS file.
+    logger:
+        Application logger.
+
+    """
+    
+    logger.debug("Building observation record with common file metadata fields.")
+
+    normalized_source = source_name.replace(" ", "").upper()
+    freq_int = int(frequency_mhz)
+
+    return {
+        "FILEPATH": str(path),
+        "FILENAME": path.name,
+        "OBSNAME":path.name[:18],
+        "DIR_FREQ": freq_int,  # convention: frequency folder name (MHz)
+        "DIR_NAME": normalized_source,  # convention: source folder name
+        "BAND": band,
+        "HDULEN": hdu_len,
+        "PLOT_SAVE_DIR": f"{str(paths.plots_dir)}/{normalized_source}/{freq_int}/",
+        # Populated when scan extraction fails; stored in DB for diagnostics.
+        "SCAN_ERROR": None,
+    }
 
 
 def extract_observation(path: Path, 
@@ -68,32 +120,11 @@ def extract_observation(path: Path,
                 f"HDU_LEN={hdu_len}, band(path)={band}, band(header)={derived_band}"
             )
             log.warning(msg)
-            # log.info('Stopped processing')
-            
-            
-            # if derived_band in {'L','S'}:
-            # _extract_scans(reader=reader, obs=obs, log=log)
-                # print(obs);sys.exit()
-                # for pol in {"L","R"}:
-                #     obs[f'ZC_{pol}CPDATA'] = np.array([])
-            # else:
-            #     for pos in {"N","S","O"}:
-            #         for pol in {"L","R"}:
-            #             if pos=="O":
-            #                 obs[f'ZC_{pol}CPDATA'] =np.array([])
-            #             else:
-            #                 obs[f'HP{pos}Z_{pol}CPDATA'] =np.array([])
-                
-            # obs['OFFSET']=np.array([])
-            
-            # record_invalid_path_once(path, paths, log, msg)
-            # sys.exit()
+
             obs["SCAN_ERROR"] = msg
-            
-            # return obs
+
         
         _extract_scans(reader=reader, obs=obs, log=log)
-        # if obs.get("SCAN_ERROR") is None:
         _apply_weather(obs=obs, log=log)
 
         return obs
@@ -194,7 +225,6 @@ def _populate_header_fields(
                     hzperk=['HZPERK1','HZKERR1','HZPERK2','HZKERR2']
                     keys_for_hdu+=hzperk
             else:
-                # print(row,hdu_len-1)
                 
                 if (band=="S" or band=="L") and hdu_len>5:
                     if row==2:
@@ -209,10 +239,9 @@ def _populate_header_fields(
                     pass
 
             for key in keys_for_hdu:
-                # print(key,header);sys.exit()
                 if key in header:
                     val = header.get(key)
-                    # print(key)
+                    
                     # Do not clobber existing valid values with None.
                     if val is None and obs.get(key) is not None:
                         continue
@@ -230,8 +259,6 @@ def _populate_header_fields(
                     if key not in obs or obs.get(key) is None:
                         obs[key] = None
                         
-                        # print(key)
-            # sys.exit()
         else:
             for key in keys_for_hdu:
                 if key in {"HUMIDITY", "TAMBIENT"}:
@@ -266,9 +293,6 @@ def _extract_scans(reader: LazyFITSReader,
         return
 
     for i in indices:
-        # if obs.get("SCAN_ERROR") is not None:
-        #     # Stop further scan extraction if a fatal scan error is recorded.
-        #     return
         _extract_single_scan(reader=reader, obs=obs, hdus=hdus, index=i, log=log)
 
 

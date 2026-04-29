@@ -38,14 +38,6 @@ dran.calibration.pointing module
    :show-inheritance:
    :undoc-members:
 
-dran.calibration.resource\_utils module
----------------------------------------
-
-.. automodule:: dran.calibration.resource_utils
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 dran.calibration.row\_accessors module
 --------------------------------------
 

@@ -13,8 +13,6 @@ Subpackages
    dran.fits
    dran.fitting
    dran.gui
-   dran.header
-   dran.obs
    dran.pipelines
    dran.storage
    dran.utils

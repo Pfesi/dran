@@ -12,18 +12,18 @@ import numpy as np
 # =========================================================================== #
 
 
-def require_keys(row: Mapping[str, Any], keys: Iterable[str], 
-                 context: str = "") -> None:
-    """
-    Ensure required keys exist in row.
+# def require_keys(row: Mapping[str, Any], keys: Iterable[str], 
+#                  context: str = "") -> None:
+#     """
+#     Ensure required keys exist in row.
 
-    Raises:
-        KeyError: If any key is missing.
-    """
-    missing = [k for k in keys if k not in row]
-    if missing:
-        prefix = f"{context}: " if context else ""
-        raise KeyError(f"{prefix} Missing required keys: {missing}")
+#     Raises:
+#         KeyError: If any key is missing.
+#     """
+#     missing = [k for k in keys if k not in row]
+#     if missing:
+#         prefix = f"{context}: " if context else ""
+#         raise KeyError(f"{prefix} Missing required keys: {missing}")
 
 
 def get_float(
@@ -44,10 +44,10 @@ def get_float(
         return default
 
 
-def set_if_finite(row: MutableMapping[str, Any], 
-                  key: str, value: float) -> None:
-    """
-    Set key to value only if value is finite.
-    """
-    if np.isfinite(value):
-        row[key] = value
+# def set_if_finite(row: MutableMapping[str, Any], 
+#                   key: str, value: float) -> None:
+#     """
+#     Set key to value only if value is finite.
+#     """
+#     if np.isfinite(value):
+#         row[key] = value

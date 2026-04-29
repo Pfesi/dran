@@ -12,10 +12,18 @@ dran.fits.backends module
    :show-inheritance:
    :undoc-members:
 
-dran.fits.dispatcher module
+dran.fits.computed\_columns module
+----------------------------------
+
+.. automodule:: dran.fits.computed_columns
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fits.conversion module
 ---------------------------
 
-.. automodule:: dran.fits.dispatcher
+.. automodule:: dran.fits.conversion
    :members:
    :show-inheritance:
    :undoc-members:
@@ -24,6 +32,22 @@ dran.fits.hdu\_rules module
 ---------------------------
 
 .. automodule:: dran.fits.hdu_rules
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fits.init\_fits\_processing module
+---------------------------------------
+
+.. automodule:: dran.fits.init_fits_processing
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fits.labels module
+-----------------------
+
+.. automodule:: dran.fits.labels
    :members:
    :show-inheritance:
    :undoc-members:
@@ -44,10 +68,18 @@ dran.fits.observation\_extractor module
    :show-inheritance:
    :undoc-members:
 
-dran.fits.path\_resolver module
+dran.fits.observed\_keys module
 -------------------------------
 
-.. automodule:: dran.fits.path_resolver
+.. automodule:: dran.fits.observed_keys
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fits.populate module
+-------------------------
+
+.. automodule:: dran.fits.populate
    :members:
    :show-inheritance:
    :undoc-members:
@@ -56,6 +88,14 @@ dran.fits.processing\_fit module
 --------------------------------
 
 .. automodule:: dran.fits.processing_fit
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fits.schema module
+-----------------------
+
+.. automodule:: dran.fits.schema
    :members:
    :show-inheritance:
    :undoc-members:

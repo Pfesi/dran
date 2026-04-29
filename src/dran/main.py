@@ -2,7 +2,7 @@
 # File: main.py                                                               #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =========================================================================== #
+# =>========================================================================= #
 
 
 # Library imports
@@ -18,7 +18,6 @@ if str(_ROOT) not in sys.path:
 from dran.cli.parser import parse_args
 from dran.cli.init_processes import run
 # =========================================================================== #
-
 
 def main(argv: list[str] | None = None) -> int:
     try:

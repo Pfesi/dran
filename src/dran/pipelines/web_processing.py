@@ -8,8 +8,9 @@
 # Standard library imports
 # --------------------------------------------------------------------------- #
 import logging
+from dran.utils.fs import ProjectPaths
 # =|========================================================================= #
 
 
-def run_web_processing(args, path, log: logging.Logger) -> None:
+def run_web_processing(args, path: ProjectPaths, log: logging.Logger) -> None:
     raise NotImplementedError("Web processing is not implemented yet.")

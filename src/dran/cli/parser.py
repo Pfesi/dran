@@ -2,7 +2,7 @@
 # File: parser.py                                                             #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =========================================================================== #
+# =>========================================================================= #
 
 
 # Library imports
@@ -10,7 +10,7 @@
 import argparse
 from pathlib import Path
 from dran.config.constants import VERSION
-from dran.utils.paths import resolve_existing_path_without_logger
+from dran.utils.fs import resolve_existing_path_without_logger
 # =========================================================================== #
 
 
@@ -36,6 +36,7 @@ def _positive_int(value: str) -> int:
         Designed for use as the `type` argument in argparse.add_argument(),
         enforcing positive integer constraints at parse time.
     """
+    
     try:
         parsed = int(value)
     except ValueError as exc:
@@ -52,7 +53,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     This parser defines all supported CLI options for running the DRAN
     (Drift-scan Reduction and Analysis) system. It configures processing
-    inputs, runtime behavior, operating modes, threading, logging,
+    inputs, runtime behavior, operating modes, logging,
     database interaction, and web serving parameters.
 
     Supported capabilities include:
@@ -66,8 +67,7 @@ def build_parser() -> argparse.ArgumentParser:
         web    : Launch web interface
         anal   : Run analysis-only mode
         docs   : Generate or serve documentation
-        serve  : Start backend service
-    - Thread pool configuration
+        serve  : Start backend service (private to author)
     - Web server port configuration
     - Custom working/results directory
     - Version reporting
@@ -114,13 +114,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Operating mode.",
     )
 
-    parser.add_argument(
-        "-threads",
-        "--threads",
-        type=_positive_int,
-        default=None,
-        help="Number of worker threads.",
-    )
 
     parser.add_argument(
         "-port",
@@ -157,7 +150,6 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
 
-
     return parser
 
 
@@ -177,11 +169,7 @@ def normalize_args(args: argparse.Namespace) -> argparse.Namespace:
 def validate_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
     """
     Validate command-line arguments and enforce required constraints.
-
-    This function ensures that:
-    1. When mode is set to "auto", a path argument is provided.
-    2. If a path is supplied, it exists on the filesystem.
-
+    
     Parameters
     ----------
     args : argparse.Namespace

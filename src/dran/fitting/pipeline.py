@@ -10,7 +10,9 @@
 import logging
 from typing import Optional,Any
 import numpy as np
-from dran.config.paths import ProjectPaths
+from dataclasses import dataclass
+from dran.utils.config import ProjectPaths
+from dran.fitting.config import DualBeamQCConfig
 from dran.fitting.baseline_correction import correct_baseline_linear
 from dran.fitting.baseline_windows import build_baseline_windows, filter_invalid_minima
 from dran.fitting.gaussian_fit import fit_gaussian_test
@@ -20,20 +22,8 @@ from dran.fitting.peak_fitting import fit_quadratic_peak, calc_residual, peak_lo
 from dran.fitting.rfi_cleaning import  clean_data
 from dran.fitting.validation import validate_xy
 from dran.fitting.plot_qc import check_scan_quality
-from dataclasses import dataclass
-# =========================================================================== #
 
-    
-@dataclass(frozen=True)
-class DualBeamQCConfig:
-    step_sigma_mult: float = 12.0
-    step_count_max: int = 6
-    max_gap_frac: float = 0.10
-    min_points_per_beam: int = 20
-    max_edge_frac: float = 0.20
-    max_resid_to_baseline_rms: float = 2.5
-    min_snr: float = 2.0
-    max_amp_ratio: float = 4.0
+# =========================================================================== #
 
 
 def find_step_locations(y: np.ndarray, sigma: float, sigma_mult: float
@@ -684,7 +674,7 @@ def fit_scan_db(
     clean = clean_data(x, y, log)
     result.clean_rms = clean.rms
 
-    from matplotlib import pyplot as plt
+    # from matplotlib import pyplot as plt
     # plt.plot(clean.x,clean.y)
     # plt.show()
     # sys.exit()
@@ -1265,7 +1255,7 @@ def fit_scan_db(
             peakLocb = (clean.x[rightMainBeamLocs])[plocb[0]]
 
 
-        log.info('fit passed')
+        log.debug('fit passed')
         # flag=0
         # plot_fail(x, y,paths,msg, log, save, flag=30, fmt="orange")
         # result.apeak_coeffs =
@@ -1585,7 +1575,7 @@ def fit_scan_db(
             peakLocb = (x[rightMainBeamLocs])[plocb[0]]
 
 
-        log.info('fit passed')
+        log.debug('fit passed')
         # plot_fail(x, y,paths,msg, log, save, flag=30, fmt="orange")
         # result.apeak_coeffs =
         flag=0

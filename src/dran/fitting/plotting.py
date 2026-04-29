@@ -11,8 +11,7 @@ import os
 from pathlib import Path
 from typing import Any, Sequence
 import matplotlib.pyplot as plt
-from dran.utils.paths import parse_plot_path
-from dran.config.paths import ProjectPaths
+from dran.utils.fs import parse_plot_path, ProjectPaths
 from dran.utils.time_utils import parse_doy_timestamp
 import numpy as np
 import logging

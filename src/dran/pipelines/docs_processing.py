@@ -1,3 +1,12 @@
+# =========================================================================== #
+# File: init_processes.py                                                     #
+# Author: Pfesesani V. van Zyl                                                #
+# Email: pfesi24@gmail.com                                                    #
+# =>========================================================================= #
+
+
+# Library imports
+# --------------------------------------------------------------------------- #
 import logging
 import threading
 import time
@@ -6,11 +15,12 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from importlib.resources import files
 from pathlib import Path
-
+from dran.utils.config import ProjectPaths
 from dran.utils.port_utils import kill_processes_on_port
+# =========================================================================== #
 
 
-def run_docs_processing(args, paths, log: logging.Logger) -> None:
+def run_docs_processing(args, paths: ProjectPaths, log: logging.Logger) -> None:
     """
     Serve the packaged built docs and open them in a browser.
     """

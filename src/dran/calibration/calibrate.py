@@ -2,17 +2,17 @@
 # File: calibrate.py                                                          #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =|========================================================================= #
+# =========================================================================== #
 
 
 # Library imports
 # ---------------------------------------------------------------------------- #
 from typing import Any, Mapping
 import numpy as np
-
-from .pointing import pointing_gain_from_halfpower, PointingGainResult
+from dran.calibration.pointing import (pointing_gain_from_halfpower, 
+                                       PointingGainResult)
 import logging
-# =|========================================================================= #
+# =========================================================================== #
 
 
 def calibrate_pointing_corrected_ta(
@@ -60,7 +60,9 @@ def calibrate_pointing_corrected_ta(
                                             #   log
                                               )
     else:
-        return PointingGainResult(pc=None, ta_corr=None, ta_corr_err=None, reason='Failed to estimate pointing')
+        return PointingGainResult(pc=None, ta_corr=None, 
+                                  ta_corr_err=None, 
+                                  reason='Failed to estimate pointing')
 
     # print(pc_res)
     return  PointingGainResult(pc=pc_res.pc, 

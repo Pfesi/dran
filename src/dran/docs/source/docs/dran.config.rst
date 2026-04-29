@@ -20,14 +20,6 @@ dran.config.logging module
    :show-inheritance:
    :undoc-members:
 
-dran.config.paths module
-------------------------
-
-.. automodule:: dran.config.paths
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 Module contents
 ---------------
 

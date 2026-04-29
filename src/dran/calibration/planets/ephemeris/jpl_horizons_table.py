@@ -9,7 +9,7 @@
 # --------------------------------------------------------------------------- #
 import logging
 from typing import Any
-from dran.calibration.resource_utils import get_jpl_results
+from dran.calibration.planets.ephemeris.resource_utils import get_jpl_results
 from dran.calibration.errors import MissingResourceError
 # =========================================================================== #
 

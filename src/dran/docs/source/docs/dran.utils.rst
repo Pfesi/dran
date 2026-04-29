@@ -4,6 +4,14 @@ dran.utils package
 Submodules
 ----------
 
+dran.utils.config module
+------------------------
+
+.. automodule:: dran.utils.config
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 dran.utils.frequency\_utils module
 ----------------------------------
 
@@ -16,22 +24,6 @@ dran.utils.fs module
 --------------------
 
 .. automodule:: dran.utils.fs
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-dran.utils.invalid\_path\_registry module
------------------------------------------
-
-.. automodule:: dran.utils.invalid_path_registry
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-dran.utils.paths module
------------------------
-
-.. automodule:: dran.utils.paths
    :members:
    :show-inheritance:
    :undoc-members:

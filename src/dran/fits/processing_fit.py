@@ -14,9 +14,9 @@ import logging
 import json
 from dataclasses import asdict, is_dataclass
 import math 
-from dran.config.constants import DIAGNOSTICS_DIRNAME
-from dran.utils.fs import clear_diagnostics_dir
-from dran.config.paths import ProjectPaths
+# from dran.config.constants import DIAGNOSTICS_DIRNAME
+# from dran.utils.fs import clear_diagnostics_dir
+from dran.utils.config import ProjectPaths
 from dran.fitting.pipeline import fit_scan, fit_scan_db
 from dran.fitting.models import sig_to_noise
 from dran.calibration.calibrate import calibrate_pointing_corrected_ta
@@ -350,6 +350,14 @@ def populate_row(
             out_path = _plot_base_path(row, src, fname_stub, paths)
             
             # print("here**")
+            # if "CIRX" in row.get("OBJECT") :
+            #     print("---> ",row)
+            #     try:
+            #         print(row["ANLQC"])
+            #     except:
+            #         row["ANLQC"]=None
+            #         print("ANLQC : ",row["ANLQC"])
+                
             scan = _fit_one_scan(row, value, band, out_path, paths, log)
             _populate_fit_fields(row=row, scan=scan, pol_key=pol_key, band=band, log=log,args=args)
             

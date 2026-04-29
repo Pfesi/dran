@@ -12,6 +12,14 @@ dran.calibration.planets.ephemeris.jpl\_horizons\_table module
    :show-inheritance:
    :undoc-members:
 
+dran.calibration.planets.ephemeris.resource\_utils module
+---------------------------------------------------------
+
+.. automodule:: dran.calibration.planets.ephemeris.resource_utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

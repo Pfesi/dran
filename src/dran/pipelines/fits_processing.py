@@ -10,9 +10,8 @@
 import argparse
 import logging
 from pathlib import Path
-from typing import Optional
-from dran.config.paths import ProjectPaths
-from dran.fits.dispatcher import process_fits_path
+from dran.utils.config import ProjectPaths
+from dran.fits.init_fits_processing import process_fits_path
 # =========================================================================== #
 
 
@@ -35,14 +34,11 @@ def run_fits_processing(
     
     input_path: Path = args.path
 
-    threads: Optional[int] = getattr(args, "threads", None)
-
     log.info("Starting FITS processing for: %s", input_path)
 
     # Collect extracted records (for a file or directory)
     process_fits_path(
         root_path=input_path,
-        threads=threads,
         log=log,
         paths=paths,
         args=args
