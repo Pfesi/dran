@@ -19,6 +19,7 @@ from dran.cli.parser import parse_args
 from dran.cli.init_processes import run
 # =========================================================================== #
 
+
 def main(argv: list[str] | None = None) -> int:
     try:
         args = parse_args(argv)

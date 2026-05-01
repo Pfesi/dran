@@ -9,8 +9,8 @@
 # --------------------------------------------------------------------------- #
 import sqlite3
 from typing import Any, Mapping, Optional
-from dran.storage.sqlite_schema import _quote_ident
-from dran.storage.sqlite_types import blob_to_array, normalize_for_storage
+from .sqlite_schema import _quote_ident
+from .sqlite_types import blob_to_array, normalize_for_storage
 # =========================================================================== #
 
 

@@ -2,7 +2,7 @@
 # File: parser.py                                                             #
 # Author: Pfesesani V. van Zyl                                                #
 # Email: pfesi24@gmail.com                                                    #
-# =>========================================================================= #
+# =========================================================================== #
 
 
 # Library imports
@@ -87,6 +87,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-path",
         "--path",
+        "-p",
         type=Path,
         required=False,
         help="Path to a FITS file or directory containing FITS files.",
@@ -94,6 +95,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     parser.add_argument(
         "--debug",
+        "-db",
         action="store_true",
         default=False,
         help="Enable debug logging.",
@@ -101,6 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
     
     parser.add_argument(
         "--saveplotstodb",
+        "-s",
         action="store_true",
         default=False,
         help="Save plot data / lightcurves in database. Bloats the database.",
@@ -109,11 +112,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-mode",
         "--mode",
+        "-m",
         choices=["auto", "gui", "web", "anal", "docs", "serve"],
         default="auto",
         help="Operating mode.",
     )
-
 
     parser.add_argument(
         "-port",
@@ -126,6 +129,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-workdir",
         "--workdir",
+        "-wd",
         type=Path,
         default=Path("DRAN_RESULTS"),
         help="Working/results directory.",
@@ -204,6 +208,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     Builds the argument parser, parses the provided argument list or 
     sys.argv, and applies post-processing to ensure consistent argument values.
     """
+    
     parser = build_parser()
     args = parser.parse_args(argv)
     args = normalize_args(args)

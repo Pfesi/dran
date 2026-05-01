@@ -62,12 +62,13 @@ def run(
     paths = build_paths(args.workdir)
     init_output_directories(paths.workdir, log)
 
+
     def run_server(args,paths,log):
-        try:
+        # try:
             from dran.server.server_processing import run_server_side_processing
             run_server_side_processing(args,paths,log)
-        except:
-            print("Server access not Implemented. Contact author.")
+        # except:
+        #     print("Server access not Implemented. Contact author.")
         
     dispatch: Dict[str, Callable[[argparse.Namespace, Path, logging.Logger], None]] = {
         "auto": run_fits_processing,

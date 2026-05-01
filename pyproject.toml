@@ -76,7 +76,7 @@ wheel-exclude = [
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
 maintainers = [{name = "Pfesesani van Zyl", email = "pvanzyl@sarao.ac.za"}]
-version = "0.13.0"
+version = "0.14.0"
 description = "Data reduction and analysis of HartRAO 26m telescope drift scan data."
 keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators", "Single-dish"]
 readme = {file = "README.md", content-type = "text/markdown"}
@@ -89,6 +89,7 @@ dependencies = [
     "myst-parser>=5.0.0",
     "numba>=0.65.0",
     "numpy>=2.4.2",
+    "openpyxl>=3.1.5",
     "pandas>=3.0.1",
     "paramiko>=4.0.0",
     "pyqt5>=5.15.11",

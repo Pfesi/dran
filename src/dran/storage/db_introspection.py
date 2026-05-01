@@ -7,45 +7,252 @@
 
 # Library imports
 # --------------------------------------------------------------------------- #
-import re
+# import re
+# from typing import Iterable
 import sqlite3
 from pathlib import Path
-from typing import Iterable
 import logging
+import os
+import numpy as np
 from typing import Any, Dict, List
+import pandas as pd
 from dran.utils.fs import ProjectPaths
 from dran.storage.sqlite_schema import ensure_table_from_dict
 from dran.storage.sqlite_connection import get_connection
 from dran.storage.sqlite_repository import insert_dict
+
+
 # =========================================================================== #
 
 
 # _TABLE_FREQ_SUFFIX = re.compile(r"^(?P<prefix>.+)_(?P<freq>\d+)$")
 _PROCESSED_FILES_TABLE = "processed_files"
 
-# def get_table_names(database_path: str) -> List[str]:
-#     """
-#     Return a sorted list of user-defined table names
-#     from the given SQLite database file.
+def get_table_names(database_path: Path) -> List[str]:
+    """
+    Return a sorted list of user-defined table names
+    from the given SQLite database file.
 
-#     :param database_path: Path to the SQLite .db file
-#     :return: List of table names
-#     """
-#     query: str = """
-#         SELECT name
-#         FROM sqlite_master
-#         WHERE type = 'table'
-#         AND name NOT LIKE 'sqlite_%'
-#         ORDER BY name;
-#     """
+    :param database_path: Path to the SQLite .db file
+    :return: List of table names
+    """
+    query: str = """
+        SELECT name
+        FROM sqlite_master
+        WHERE type = 'table'
+        AND name NOT LIKE 'sqlite_%'
+        ORDER BY name;
+    """
 
-#     with sqlite3.connect(database_path) as connection:
-#         cursor = connection.cursor()
-#         cursor.execute(query)
-#         rows = cursor.fetchall()
+    with sqlite3.connect(database_path) as connection:
+        cursor = connection.cursor()
+        cursor.execute(query)
+        rows = cursor.fetchall()
 
-#     # Extract table names from returned tuples
-#     return [row[0] for row in rows]
+    # Extract table names from returned tuples
+    return [row[0] for row in rows]
+
+
+def get_table_from_db(dbPath: str, tableName: str) -> pd.DataFrame:
+    """
+    """
+    
+    with sqlite3.connect(dbPath) as cnx:
+        df = pd.read_sql_query(f"SELECT * FROM '{tableName}'", cnx)
+    return df
+
+def prep_data(dataframe: pd.DataFrame, source_name: str) -> pd.DataFrame:
+    """
+    Preprocess the data in the DataFrame for analysis.
+
+    Args:
+        dataframe (pd.DataFrame): The input DataFrame containing observational data.
+        source_name (str): The name of the source being processed.
+
+    Returns:
+        pd.DataFrame: The processed DataFrame.
+    """
+
+    # --- Remove all data from Marisa's gain observations
+    dataframe=dataframe.loc[~dataframe.FILENAME.str.contains('marisa')]
+
+    # --- Sort the DataFrame by filename
+    dataframe.sort_values(by='FILENAME', inplace=True)
+
+    # --- Parse observation dates
+    dataframe = parse_observation_dates(dataframe)
+
+    # --- Identify columns to convert to numeric (excluding metadata columns)
+    exclude_keywords = [
+            'FILE', 'FRONT', 'OBJ', 'SRC', 'OBS', 'PRO', 'TELE', 'HDU', 'id', 'DATE',
+            'UPGR', 'TYPE', 'COOR', 'EQU', 'RADEC', 'SCAND', 'BMO', 'DICH', 'PHAS',
+            'POINTI', 'TIME', 'INSTRU', 'INSTFL', 'time', 'HABM'
+        ]
+    dataframe = convert_to_numeric(dataframe, exclude_keywords)
+
+    # Add source name to the DataFrame
+    dataframe['FILES'] = dataframe['FILENAME'].str[:18]
+    dataframe['OBJECT'] = source_name
+
+    # Ensure all error columns have positive values
+    dataframe = ensure_positive_errors(dataframe)
+    return dataframe
+
+def parse_time(timeCol: str) -> str:
+    """
+    """
+    
+    if 'T' in timeCol:
+        return timeCol.split('T')[0]
+    else:
+        return timeCol.split(' ')[0]
+    
+def parse_observation_dates(df: pd.DataFrame,form='m') -> pd.DataFrame:
+    """
+    Parse the observation date column into a datetime format.
+
+    Args:
+        df (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        pd.DataFrame: The DataFrame with parsed dates.
+    """
+    
+    df['time'] = df['OBSDATE'].astype(str)
+    df['OBSDATE'] = df['time'].apply(parse_time)
+    df['OBSDATE'] = pd.to_datetime(df['OBSDATE']).dt.date
+    df['OBSDATE'] = pd.to_datetime(df['OBSDATE'], format=f"%Y-%{form}-%d")
+    return df
+
+def convert_to_numeric(dataframe: pd.DataFrame, exclude_keywords: List[str]) -> pd.DataFrame:
+    """
+    Convert columns to numeric, excluding those containing specific keywords.
+
+    Args:
+        dataframe (pd.DataFrame): The input DataFrame.
+        exclude_keywords (List[str]): Keywords to exclude from numeric conversion.
+
+    Returns:
+        pd.DataFrame: The DataFrame with numeric columns.
+    """
+
+    colList=list(dataframe.columns)
+    floatList = [col for col in colList if not any(excl in col for excl in exclude_keywords)]
+    # --- Rather than fail, we might want 'pandas' to be considered a missing/bad numeric value. We can coerce invalid values to NaN as follows using the errors keyword argument:
+    dataframe[floatList] = dataframe[floatList].apply(pd.to_numeric, errors='coerce')
+
+    return dataframe
+
+def ensure_positive_errors(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Ensure all error columns have positive values.
+
+    Args:
+        dataframe (pd.DataFrame): The input DataFrame.
+
+    Returns:
+        pd.DataFrame: The DataFrame with positive error values.
+    """
+    err_cols = df.filter(like='ERR').columns
+    df[err_cols] = df[err_cols].map(make_positive)
+
+    return df
+
+def make_positive(value):
+    """
+    Ensure the input value is positive and convert it to a float. If the value is invalid or negative, return NaN.
+
+    Args:
+        value (Any): The input value to process.
+
+    Returns:
+        float: The positive float value or NaN if the value is invalid or negative.
+    """
+    # Check if the value is None or an empty string
+    if value is None or value == '':
+        return np.nan
+
+    try:
+        # Convert the value to a float
+        numeric_value = float(value)
+        # Return the value if it is non-negative, otherwise return NaN
+        return numeric_value if numeric_value >= 0 else np.nan
+    except (ValueError, TypeError):
+        # Handle invalid values (e.g., non-numeric strings)
+        return np.nan
+
+def get_data_from_db(processed_db_path,DB_PATH: Path, 
+                     freq: int,
+                     table_name: str,
+                     src: str,
+                     log=''):
+       
+    # Check if processed database exists
+    db_found = os.path.isfile(processed_db_path)
+
+    if db_found:
+        print(f'Database {src}.db already exists, appending new files to database')
+            
+        with sqlite3.connect(DB_PATH) as cnx:
+            df_original = pd.read_sql_query(f"SELECT * FROM {table_name}", cnx)
+            df_original.sort_values(by='FILENAME', inplace=True)
+            original_files = list(df_original['FILENAME'])
+
+        #     print('Reading from processed db')
+        with sqlite3.connect(processed_db_path) as cnx1:
+            
+            # print('\n',src_name, processed_db_path,'\n')
+            try:
+                if freq=='2280':
+                    df_processed = get_2ghz_data(table_name, cnx1)
+                else:
+                    df_processed = pd.read_sql_query(f"SELECT * FROM {table_name}", cnx1)
+                df_processed.sort_values(by='FILENAME', inplace=True)
+                processed_files = list(df_processed['FILENAME'])
+
+                # Identify new files
+                new_files = [file for file in original_files if file not in processed_files]
+
+                # Combine processed and missing data
+                df_missing = df_original[~df_original.FILENAME.isin(processed_files)]
+                print(f'Adding {len(df_missing)} new files to processed db')
+                print(len(new_files), len(processed_files), len(df_original), len(df_missing))
+                    
+                df = pd.concat([df_processed, df_missing])
+                # dbs[table_name] = df
+
+            except: # sqlite3.OperationalError:
+                print(f'\nTable {table_name} not found in processed db, processing from scratch')
+                # dbs[table_name] = df_original
+                df= df_original
+                
+    else:
+        if log:
+            print(f'\nDatabase {src}.db does not exist, processing from scratch')
+        with sqlite3.connect(DB_PATH) as cnx:
+            if freq=='2280':
+                df=get_2ghz_data(table_name, cnx)
+            else:
+                df = pd.read_sql_query(f"SELECT * FROM {table_name}", cnx)
+            # dbs[table_name] = df
+        return df            
+
+def get_2ghz_data(table_name: str, cnx):
+    if table_name.split('_')[-1].startswith('2280'):
+        df_original = pd.read_sql_query(f"SELECT * FROM {table_name}", cnx)
+        try:
+            df1=pd.read_sql_query(f"SELECT * FROM {table_name.replace('2280','2270')}", cnx)
+            df_original=pd.concat([df_original,df1])
+        except:
+            pass
+        df_original.sort_values(by='FILENAME', inplace=True)
+    else:
+        df_original = pd.read_sql_query(f"SELECT * FROM {table_name}", cnx)
+        df_original.sort_values(by='FILENAME', inplace=True)
+    return df
+   
+
+
 
 # def list_tables_in_frequency_range(
 #     db_path: Path,

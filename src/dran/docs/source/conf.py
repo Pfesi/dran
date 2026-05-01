@@ -12,7 +12,7 @@ project:str = "DRAN"
 author:str = "Pfesesani van Zyl"
 copyright: str = f"{datetime.now():%Y}, {author}"
 release: str = "0.1.0"
-VERSION: str = "0.13.0"
+VERSION: str = "0.14.0"
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -45,6 +45,6 @@ intersphinx_mapping = {
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 source_suffix = {".rst": "restructuredtext", ".md": "markdown"}
-html_theme = 'sphinx_book_theme' #"sphinx_book_theme" #'sphinx_rtd_theme' ##'alabaster' #pydata-sphinx-theme
+html_theme = 'sphinx_rtd_theme' #"sphinx_book_theme" #'sphinx_rtd_theme' ##'alabaster' #pydata-sphinx-theme
 html_title = "DRAN Documentation"
 html_static_path = ["_static"]
