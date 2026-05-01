@@ -549,7 +549,7 @@ wheels = [
 
 [[package]]
 name = "dran"
-version = "0.14.0"
+version = "0.14.1"
 source = { editable = "." }
 dependencies = [
     { name = "astropy" },
@@ -565,6 +565,7 @@ dependencies = [
     { name = "rich" },
     { name = "scikit-learn" },
     { name = "sphinx-book-theme" },
+    { name = "sphinx-rtd-theme" },
     { name = "twine" },
 ]
 
@@ -594,6 +595,7 @@ requires-dist = [
     { name = "rich", specifier = ">=14.3.3" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
     { name = "sphinx-book-theme", specifier = ">=1.2.0" },
+    { name = "sphinx-rtd-theme", specifier = ">=3.1.0" },
     { name = "sphinx-rtd-theme", marker = "extra == 'cli'", specifier = ">=3.1.0" },
     { name = "twine", specifier = ">=6.2.0" },
 ]

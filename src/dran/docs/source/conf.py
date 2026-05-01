@@ -12,7 +12,7 @@ project:str = "DRAN"
 author:str = "Pfesesani van Zyl"
 copyright: str = f"{datetime.now():%Y}, {author}"
 release: str = "0.1.0"
-VERSION: str = "0.14.0"
+VERSION: str = "0.14.1"
 
 extensions = [
     "sphinx.ext.autodoc",

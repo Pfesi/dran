@@ -1,4 +1,4 @@
-CURRENT VERSION (0.14.0)
+CURRENT VERSION (0.14.1)
 ========================
 
 MAJOR REVISION
@@ -7,6 +7,7 @@ MAJOR REVISION
 MINOR REVISION
 --------------
 
+- v0.14.1 (0da2bb8) [2026-05-01] editing the docs
 - v0.14.0 (23ff32d) [2026-04-29] added docs source files
 - v0.13.0 (0405f1a) [2026-04-29] added sphinx-book-theme for docs
 - v0.12.0 (566143a) [2026-04-29] needed to add myst_parser for docs
