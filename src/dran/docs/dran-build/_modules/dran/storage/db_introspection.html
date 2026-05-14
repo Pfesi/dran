@@ -15,6 +15,7 @@
       <script src="../../../_static/documentation_options.js?v=01f34227"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -42,6 +43,15 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
 <ul>
@@ -52,10 +62,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extras/CHANGELOG.html">CURRENT VERSION (0.14.2)</a></li>
 </ul>
 
         </div>
@@ -92,45 +104,282 @@
 
 <span class="c1"># Library imports</span>
 <span class="c1"># --------------------------------------------------------------------------- #</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="c1"># import re</span>
+<span class="c1"># from typing import Iterable</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">dran.utils.fs</span> <span class="kn">import</span> <span class="n">ProjectPaths</span>
 <span class="kn">from</span> <span class="nn">dran.storage.sqlite_schema</span> <span class="kn">import</span> <span class="n">ensure_table_from_dict</span>
 <span class="kn">from</span> <span class="nn">dran.storage.sqlite_connection</span> <span class="kn">import</span> <span class="n">get_connection</span>
 <span class="kn">from</span> <span class="nn">dran.storage.sqlite_repository</span> <span class="kn">import</span> <span class="n">insert_dict</span>
+
+
 <span class="c1"># =========================================================================== #</span>
 
 
 <span class="c1"># _TABLE_FREQ_SUFFIX = re.compile(r&quot;^(?P&lt;prefix&gt;.+)_(?P&lt;freq&gt;\d+)$&quot;)</span>
 <span class="n">_PROCESSED_FILES_TABLE</span> <span class="o">=</span> <span class="s2">&quot;processed_files&quot;</span>
 
-<span class="c1"># def get_table_names(database_path: str) -&gt; List[str]:</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Return a sorted list of user-defined table names</span>
-<span class="c1">#     from the given SQLite database file.</span>
+<div class="viewcode-block" id="get_table_names">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.get_table_names">[docs]</a>
+<span class="k">def</span> <span class="nf">get_table_names</span><span class="p">(</span><span class="n">database_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a sorted list of user-defined table names</span>
+<span class="sd">    from the given SQLite database file.</span>
 
-<span class="c1">#     :param database_path: Path to the SQLite .db file</span>
-<span class="c1">#     :return: List of table names</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     query: str = &quot;&quot;&quot;</span>
-<span class="c1">#         SELECT name</span>
-<span class="c1">#         FROM sqlite_master</span>
-<span class="c1">#         WHERE type = &#39;table&#39;</span>
-<span class="c1">#         AND name NOT LIKE &#39;sqlite_%&#39;</span>
-<span class="c1">#         ORDER BY name;</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="sd">    :param database_path: Path to the SQLite .db file</span>
+<span class="sd">    :return: List of table names</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT name</span>
+<span class="s2">        FROM sqlite_master</span>
+<span class="s2">        WHERE type = &#39;table&#39;</span>
+<span class="s2">        AND name NOT LIKE &#39;sqlite_%&#39;</span>
+<span class="s2">        ORDER BY name;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
 
-<span class="c1">#     with sqlite3.connect(database_path) as connection:</span>
-<span class="c1">#         cursor = connection.cursor()</span>
-<span class="c1">#         cursor.execute(query)</span>
-<span class="c1">#         rows = cursor.fetchall()</span>
+    <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">database_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
 
-<span class="c1">#     # Extract table names from returned tuples</span>
-<span class="c1">#     return [row[0] for row in rows]</span>
+    <span class="c1"># Extract table names from returned tuples</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="get_table_from_db">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.get_table_from_db">[docs]</a>
+<span class="k">def</span> <span class="nf">get_table_from_db</span><span class="p">(</span><span class="n">dbPath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tableName</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbPath</span><span class="p">)</span> <span class="k">as</span> <span class="n">cnx</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM &#39;</span><span class="si">{</span><span class="n">tableName</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="prep_data">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.prep_data">[docs]</a>
+<span class="k">def</span> <span class="nf">prep_data</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preprocess the data in the DataFrame for analysis.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataframe (pd.DataFrame): The input DataFrame containing observational data.</span>
+<span class="sd">        source_name (str): The name of the source being processed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: The processed DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --- Remove all data from Marisa&#39;s gain observations</span>
+    <span class="n">dataframe</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">dataframe</span><span class="o">.</span><span class="n">FILENAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;marisa&#39;</span><span class="p">)]</span>
+
+    <span class="c1"># --- Sort the DataFrame by filename</span>
+    <span class="n">dataframe</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># --- Parse observation dates</span>
+    <span class="n">dataframe</span> <span class="o">=</span> <span class="n">parse_observation_dates</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+
+    <span class="c1"># --- Identify columns to convert to numeric (excluding metadata columns)</span>
+    <span class="n">exclude_keywords</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;FILE&#39;</span><span class="p">,</span> <span class="s1">&#39;FRONT&#39;</span><span class="p">,</span> <span class="s1">&#39;OBJ&#39;</span><span class="p">,</span> <span class="s1">&#39;SRC&#39;</span><span class="p">,</span> <span class="s1">&#39;OBS&#39;</span><span class="p">,</span> <span class="s1">&#39;PRO&#39;</span><span class="p">,</span> <span class="s1">&#39;TELE&#39;</span><span class="p">,</span> <span class="s1">&#39;HDU&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;DATE&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;UPGR&#39;</span><span class="p">,</span> <span class="s1">&#39;TYPE&#39;</span><span class="p">,</span> <span class="s1">&#39;COOR&#39;</span><span class="p">,</span> <span class="s1">&#39;EQU&#39;</span><span class="p">,</span> <span class="s1">&#39;RADEC&#39;</span><span class="p">,</span> <span class="s1">&#39;SCAND&#39;</span><span class="p">,</span> <span class="s1">&#39;BMO&#39;</span><span class="p">,</span> <span class="s1">&#39;DICH&#39;</span><span class="p">,</span> <span class="s1">&#39;PHAS&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;POINTI&#39;</span><span class="p">,</span> <span class="s1">&#39;TIME&#39;</span><span class="p">,</span> <span class="s1">&#39;INSTRU&#39;</span><span class="p">,</span> <span class="s1">&#39;INSTFL&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;HABM&#39;</span>
+        <span class="p">]</span>
+    <span class="n">dataframe</span> <span class="o">=</span> <span class="n">convert_to_numeric</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">exclude_keywords</span><span class="p">)</span>
+
+    <span class="c1"># Add source name to the DataFrame</span>
+    <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;FILES&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">18</span><span class="p">]</span>
+    <span class="n">dataframe</span><span class="p">[</span><span class="s1">&#39;OBJECT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_name</span>
+
+    <span class="c1"># Ensure all error columns have positive values</span>
+    <span class="n">dataframe</span> <span class="o">=</span> <span class="n">ensure_positive_errors</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dataframe</span></div>
+
+
+<div class="viewcode-block" id="parse_time">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.parse_time">[docs]</a>
+<span class="k">def</span> <span class="nf">parse_time</span><span class="p">(</span><span class="n">timeCol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;T&#39;</span> <span class="ow">in</span> <span class="n">timeCol</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timeCol</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timeCol</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="parse_observation_dates">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.parse_observation_dates">[docs]</a>
+<span class="k">def</span> <span class="nf">parse_observation_dates</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="n">form</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parse the observation date column into a datetime format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): The input DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: The DataFrame with parsed dates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">parse_time</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;OBSDATE&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;%Y-%</span><span class="si">{</span><span class="n">form</span><span class="si">}</span><span class="s2">-%d&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="convert_to_numeric">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.convert_to_numeric">[docs]</a>
+<span class="k">def</span> <span class="nf">convert_to_numeric</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">exclude_keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert columns to numeric, excluding those containing specific keywords.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataframe (pd.DataFrame): The input DataFrame.</span>
+<span class="sd">        exclude_keywords (List[str]): Keywords to exclude from numeric conversion.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: The DataFrame with numeric columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">colList</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">floatList</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">colList</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">excl</span> <span class="ow">in</span> <span class="n">col</span> <span class="k">for</span> <span class="n">excl</span> <span class="ow">in</span> <span class="n">exclude_keywords</span><span class="p">)]</span>
+    <span class="c1"># --- Rather than fail, we might want &#39;pandas&#39; to be considered a missing/bad numeric value. We can coerce invalid values to NaN as follows using the errors keyword argument:</span>
+    <span class="n">dataframe</span><span class="p">[</span><span class="n">floatList</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">floatList</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataframe</span></div>
+
+
+<div class="viewcode-block" id="ensure_positive_errors">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.ensure_positive_errors">[docs]</a>
+<span class="k">def</span> <span class="nf">ensure_positive_errors</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure all error columns have positive values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dataframe (pd.DataFrame): The input DataFrame.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: The DataFrame with positive error values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">err_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s1">&#39;ERR&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">err_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">err_cols</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">make_positive</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="make_positive">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.make_positive">[docs]</a>
+<span class="k">def</span> <span class="nf">make_positive</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensure the input value is positive and convert it to a float. If the value is invalid or negative, return NaN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (Any): The input value to process.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        float: The positive float value or NaN if the value is invalid or negative.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the value is None or an empty string</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Convert the value to a float</span>
+        <span class="n">numeric_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="c1"># Return the value if it is non-negative, otherwise return NaN</span>
+        <span class="k">return</span> <span class="n">numeric_value</span> <span class="k">if</span> <span class="n">numeric_value</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="c1"># Handle invalid values (e.g., non-numeric strings)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span></div>
+
+
+<div class="viewcode-block" id="get_data_from_db">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.get_data_from_db">[docs]</a>
+<span class="k">def</span> <span class="nf">get_data_from_db</span><span class="p">(</span><span class="n">processed_db_path</span><span class="p">,</span><span class="n">DB_PATH</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> 
+                     <span class="n">freq</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                     <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                     <span class="n">log</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+       
+    <span class="c1"># Check if processed database exists</span>
+    <span class="n">db_found</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">processed_db_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">db_found</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Database </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1">.db already exists, appending new files to database&#39;</span><span class="p">)</span>
+            
+        <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span> <span class="k">as</span> <span class="n">cnx</span><span class="p">:</span>
+            <span class="n">df_original</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+            <span class="n">df_original</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">original_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_original</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">])</span>
+
+        <span class="c1">#     print(&#39;Reading from processed db&#39;)</span>
+        <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">processed_db_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">cnx1</span><span class="p">:</span>
+            
+            <span class="c1"># print(&#39;\n&#39;,src_name, processed_db_path,&#39;\n&#39;)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">freq</span><span class="o">==</span><span class="s1">&#39;2280&#39;</span><span class="p">:</span>
+                    <span class="n">df_processed</span> <span class="o">=</span> <span class="n">get_2ghz_data</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">cnx1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">df_processed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx1</span><span class="p">)</span>
+                <span class="n">df_processed</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">processed_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df_processed</span><span class="p">[</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">])</span>
+
+                <span class="c1"># Identify new files</span>
+                <span class="n">new_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">original_files</span> <span class="k">if</span> <span class="n">file</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed_files</span><span class="p">]</span>
+
+                <span class="c1"># Combine processed and missing data</span>
+                <span class="n">df_missing</span> <span class="o">=</span> <span class="n">df_original</span><span class="p">[</span><span class="o">~</span><span class="n">df_original</span><span class="o">.</span><span class="n">FILENAME</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">processed_files</span><span class="p">)]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Adding </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_missing</span><span class="p">)</span><span class="si">}</span><span class="s1"> new files to processed db&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_files</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">processed_files</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_original</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_missing</span><span class="p">))</span>
+                    
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_processed</span><span class="p">,</span> <span class="n">df_missing</span><span class="p">])</span>
+                <span class="c1"># dbs[table_name] = df</span>
+
+            <span class="k">except</span><span class="p">:</span> <span class="c1"># sqlite3.OperationalError:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Table </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s1"> not found in processed db, processing from scratch&#39;</span><span class="p">)</span>
+                <span class="c1"># dbs[table_name] = df_original</span>
+                <span class="n">df</span><span class="o">=</span> <span class="n">df_original</span>
+                
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Database </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1">.db does not exist, processing from scratch&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span> <span class="k">as</span> <span class="n">cnx</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">freq</span><span class="o">==</span><span class="s1">&#39;2280&#39;</span><span class="p">:</span>
+                <span class="n">df</span><span class="o">=</span><span class="n">get_2ghz_data</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+            <span class="c1"># dbs[table_name] = df</span>
+        <span class="k">return</span> <span class="n">df</span>            </div>
+
+
+<div class="viewcode-block" id="get_2ghz_data">
+<a class="viewcode-back" href="../../../docs/dran.storage.html#dran.storage.db_introspection.get_2ghz_data">[docs]</a>
+<span class="k">def</span> <span class="nf">get_2ghz_data</span><span class="p">(</span><span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cnx</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">table_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2280&#39;</span><span class="p">):</span>
+        <span class="n">df_original</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df1</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;2280&#39;</span><span class="p">,</span><span class="s1">&#39;2270&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+            <span class="n">df_original</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_original</span><span class="p">,</span><span class="n">df1</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">df_original</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_original</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cnx</span><span class="p">)</span>
+        <span class="n">df_original</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;FILENAME&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+   
+
+
 
 <span class="c1"># def list_tables_in_frequency_range(</span>
 <span class="c1">#     db_path: Path,</span>

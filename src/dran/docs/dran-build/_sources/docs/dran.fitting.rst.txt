@@ -52,6 +52,14 @@ dran.fitting.models module
    :show-inheritance:
    :undoc-members:
 
+dran.fitting.peak\_fitting module
+---------------------------------
+
+.. automodule:: dran.fitting.peak_fitting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 dran.fitting.pipeline module
 ----------------------------
 
@@ -68,10 +76,34 @@ dran.fitting.plot\_qc module
    :show-inheritance:
    :undoc-members:
 
+dran.fitting.plotting module
+----------------------------
+
+.. automodule:: dran.fitting.plotting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.rfi\_cleaning module
+---------------------------------
+
+.. automodule:: dran.fitting.rfi_cleaning
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 dran.fitting.spline\_models module
 ----------------------------------
 
 .. automodule:: dran.fitting.spline_models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+dran.fitting.validation module
+------------------------------
+
+.. automodule:: dran.fitting.validation
    :members:
    :show-inheritance:
    :undoc-members:

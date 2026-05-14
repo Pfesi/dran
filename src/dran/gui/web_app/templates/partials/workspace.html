@@ -1,0 +1,164 @@
+<section id="workspace" class="workspace panel">
+  {% if error %}
+    <div class="notice error">{{ error }}</div>
+  {% endif %}
+
+  {% if not session %}
+    <div class="empty-state">
+      <h2>Driftscan Editor</h2>
+      <p>No observation loaded.</p>
+    </div>
+  {% else %}
+    {% set scan = session.selected_scan %}
+    <div class="workspace-header">
+      <div>
+        <h2>{{ session.metadata.object_name or session.filename }}</h2>
+        <p>{{ session.filename }}</p>
+      </div>
+      <form hx-post="/drift/save-db" hx-target="#workspace" hx-swap="outerHTML">
+        <input type="hidden" name="session_id" value="{{ session.id }}">
+        <button type="submit">Save to DB</button>
+      </form>
+    </div>
+
+    <div class="editor-grid">
+      <section class="metadata-panel">
+        <h3>Scan Properties</h3>
+        <dl class="meta-grid">
+          <dt>Obs date</dt><dd>{{ session.metadata.obs_date or "" }}</dd>
+          <dt>Obs time</dt><dd>{{ session.metadata.obs_time or "" }}</dd>
+          <dt>Observer</dt><dd>{{ session.metadata.observer or "" }}</dd>
+          <dt>Frequency</dt><dd>{{ session.metadata.frequency_mhz|fmt }} MHz</dd>
+          <dt>MJD</dt><dd>{{ session.metadata.mjd|fmt }}</dd>
+          <dt>HA</dt><dd>{{ session.metadata.ha|fmt }}</dd>
+          <dt>ZA</dt><dd>{{ session.metadata.za|fmt }}</dd>
+          <dt>HPBW</dt><dd>{{ session.metadata.hpbw_deg|fmt }}</dd>
+          <dt>FNBW</dt><dd>{{ session.metadata.fnbw_deg|fmt }}</dd>
+          <dt>Ambient</dt><dd>{{ session.metadata.temperature_k|fmt }} K</dd>
+          <dt>Pressure</dt><dd>{{ session.metadata.pressure_hpa|fmt }}</dd>
+          <dt>Humidity</dt><dd>{{ session.metadata.humidity_pct|fmt }}%</dd>
+        </dl>
+
+        <div class="status-row">
+          {% for value in session.status %}
+            <span class="status-dot {% if value %}on{% endif %}"></span>
+          {% endfor %}
+        </div>
+
+        <div class="message-log">
+          {% for level, message in session.messages %}
+            <div class="notice {{ level }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="controls-panel">
+        <h3>Fit Window</h3>
+        <form hx-post="/drift/select-scan" hx-target="#workspace" hx-swap="outerHTML">
+          <input type="hidden" name="session_id" value="{{ session.id }}">
+          <label for="scan-select">Current plot selection</label>
+          <select id="scan-select" name="scan_id" hx-post="/drift/select-scan" hx-target="#workspace" hx-swap="outerHTML" hx-trigger="change" hx-include="closest form">
+            {% for scan_id in session.scan_order %}
+              <option value="{{ scan_id }}" {% if scan_id == session.selected_scan_id %}selected{% endif %}>{{ session.scans[scan_id].label }}</option>
+            {% endfor %}
+          </select>
+        </form>
+
+        <form class="compact-form" hx-post="/drift/filter" hx-target="#workspace" hx-swap="outerHTML">
+          <input type="hidden" name="session_id" value="{{ session.id }}">
+          <label>Filter</label>
+          <select name="filter_type">
+            <option>Rms cuts</option>
+            <option selected>Smoothing</option>
+          </select>
+          <label>Window</label>
+          <input name="window" type="number" min="3" step="2" value="9">
+          <button type="submit">Filter data</button>
+        </form>
+
+        <form class="compact-form" hx-post="/drift/fit" hx-target="#workspace" hx-swap="outerHTML">
+          <input type="hidden" name="session_id" value="{{ session.id }}">
+          <label>Fit type</label>
+          <select name="fit_type">
+            <option selected>Polynomial</option>
+            <option>Gaussian</option>
+          </select>
+          <label>Fit location</label>
+          <select name="fit_location">
+            <option selected>Base</option>
+            <option>Peak</option>
+          </select>
+          <label>Fit order</label>
+          <select name="fit_order">
+            {% for order in range(1, 11) %}
+              <option value="{{ order }}">{{ order }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">Fit data</button>
+        </form>
+
+        <form class="compact-form" hx-post="/drift/calculate-flux" hx-target="#workspace" hx-swap="outerHTML">
+          <input type="hidden" name="session_id" value="{{ session.id }}">
+          <label>PSS</label>
+          <input list="pss-options" name="pss" type="number" step="any" placeholder="K/Jy">
+          <datalist id="pss-options">
+            {% for pss in session.pss_options %}
+              <option value="{{ pss.value }}">{{ pss.source }} {{ pss.frequency|fmt }} MHz</option>
+            {% endfor %}
+          </datalist>
+          <button type="submit">Calculate</button>
+        </form>
+
+        <div class="button-row">
+          <form hx-post="/drift/clear-selection" hx-target="#workspace" hx-swap="outerHTML">
+            <input type="hidden" name="session_id" value="{{ session.id }}">
+            <button type="submit">Clear selection</button>
+          </form>
+          <form hx-post="/drift/reset-plot" hx-target="#workspace" hx-swap="outerHTML">
+            <input type="hidden" name="session_id" value="{{ session.id }}">
+            <button type="submit">Reset plot</button>
+          </form>
+          <form hx-post="/drift/reset-status" hx-target="#workspace" hx-swap="outerHTML">
+            <input type="hidden" name="session_id" value="{{ session.id }}">
+            <button type="submit">Reset status</button>
+          </form>
+          <form hx-post="/drift/save-fit" hx-target="#workspace" hx-swap="outerHTML">
+            <input type="hidden" name="session_id" value="{{ session.id }}">
+            <button type="submit">Save fit</button>
+          </form>
+        </div>
+
+        {% if scan %}
+          <div class="fit-summary">
+            <h3>View Fit</h3>
+            {% set fit = scan.active_fit() %}
+            {% if fit %}
+              <dl class="meta-grid">
+                <dt>Type</dt><dd>{{ fit.fit_location }} / {{ fit.fit_type }}</dd>
+                <dt>RMS</dt><dd>{{ fit.rms|fmt }}</dd>
+                <dt>Peak</dt><dd>{{ fit.peak_value|fmt }}</dd>
+                <dt>Peak x</dt><dd>{{ fit.peak_x|fmt }}</dd>
+                <dt>PSS</dt><dd>{{ fit.pss|fmt }}</dd>
+                <dt>Flux</dt><dd>{{ fit.flux_density|fmt }} Jy</dd>
+              </dl>
+            {% else %}
+              <p>No fit for the current scan.</p>
+            {% endif %}
+            <p>{{ session.saved_results|length }} saved result(s) in this session.</p>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="plot-panel-main">
+        {% if scan %}
+          {{ plot_svg|safe }}
+          <div class="selection-bar">
+            <span>{{ scan.point_count }} samples</span>
+            <span>{{ scan.selected_indices|length }} selected</span>
+            <span>{{ scan.filtered_indices|length }} filtered</span>
+          </div>
+        {% endif %}
+      </section>
+    </div>
+  {% endif %}
+</section>

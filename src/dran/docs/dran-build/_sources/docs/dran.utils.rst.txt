@@ -36,6 +36,14 @@ dran.utils.port\_utils module
    :show-inheritance:
    :undoc-members:
 
+dran.utils.time\_utils module
+-----------------------------
+
+.. automodule:: dran.utils.time_utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Module contents
 ---------------
 

@@ -27,6 +27,15 @@ the same port, that process is immediately killed to make space for the docs.
 This process however doesn't always work, I discovered a bug that may fail to load 
 the docs, if you encounter an error message to this effect, just re-run the command.
 
+**Data files used in tutorials**
+
+All data files used in the tutorials are located in the 
+SARAO/Hartebeesthoek DARA AVN school github repository. The 
+actual files may be rotated over time but should should still
+workk the same. Just ensure to check that the filenames in the 
+jupyter notebook match the names of the files you have downloaded.
+
+
 .. **Order of commands when running the program** 
 
 .. .. warning::

@@ -1,0 +1,40 @@
+<section id="timeseries-panel" class="panel">
+  <div class="panel-header">
+    <h2>Time Series</h2>
+    {% if timeseries %}<span>{{ timeseries.db_path.name }}</span>{% endif %}
+  </div>
+  {% if error %}
+    <div class="notice error">{{ error }}</div>
+  {% endif %}
+  {% if timeseries %}
+    <form class="inline-form" hx-post="/timeseries/plot" hx-target="#timeseries-panel" hx-swap="outerHTML">
+      <input type="hidden" name="session_id" value="{{ timeseries.id }}">
+      <select name="table">
+        {% for table in timeseries.tables %}
+          <option value="{{ table }}" {% if table == timeseries.selected_table %}selected{% endif %}>{{ table }}</option>
+        {% endfor %}
+      </select>
+      <select name="x_column">
+        {% for col in timeseries.numeric_columns %}
+          <option value="{{ col }}" {% if col == timeseries.x_column %}selected{% endif %}>{{ col }}</option>
+        {% endfor %}
+      </select>
+      <select name="y_column">
+        {% for col in timeseries.numeric_columns %}
+          <option value="{{ col }}" {% if col == timeseries.y_column %}selected{% endif %}>{{ col }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Plot</button>
+    </form>
+    {% if timeseries.message %}
+      <div class="notice info">{{ timeseries.message }}</div>
+    {% endif %}
+    {{ timeseries_svg|safe }}
+    <div class="selection-bar">
+      <span>{{ timeseries.rows|length }} rows</span>
+      <span>{{ timeseries.hidden_rows|length }} hidden</span>
+    </div>
+  {% else %}
+    <div class="empty-state">No database loaded.</div>
+  {% endif %}
+</section>

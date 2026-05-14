@@ -72,11 +72,16 @@ wheel-exclude = [
   "src/dran/**/.venv/**",
 ]
 
+[tool.uv.workspace]
+members = [
+    "src/dran/analysis/web",
+]
+
 [project]
 name = "dran"
 authors = [{name = "Pfesesani van Zyl", email = "pfesi24@gmail.com"}]
 maintainers = [{name = "Pfesesani van Zyl", email = "pvanzyl@sarao.ac.za"}]
-version = "0.14.1"
+version = "0.14.2"
 description = "Data reduction and analysis of HartRAO 26m telescope drift scan data."
 keywords = ["dran", "drift scan", "drift-scan", "data analysis", "hartrao", "sarao", "agn", "blazars", "calibrators", "Single-dish"]
 readme = {file = "README.md", content-type = "text/markdown"}
@@ -85,6 +90,7 @@ requires-python = ">=3.11"
 dependencies = [
     "astropy>=7.2.0",
     "dotenv>=0.9.9",
+    "fastapi>=0.136.1",
     "matplotlib>=3.10.8",
     "myst-parser>=5.0.0",
     "numba>=0.65.0",
@@ -98,6 +104,7 @@ dependencies = [
     "sphinx-book-theme>=1.2.0",
     "sphinx-rtd-theme>=3.1.0",
     "twine>=6.2.0",
+    "uvicorn>=0.46.0",
 ]
 
 docs = [

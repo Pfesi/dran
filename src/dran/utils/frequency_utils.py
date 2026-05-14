@@ -79,7 +79,8 @@ def get_band_from_frequency(frequency: float | int, log: logging.Logger) -> str:
     )
 
 
-def get_frequency_range_from_band(band: str, log: logging.Logger) -> tuple[int, int]:
+def get_frequency_range_from_band(band: str, 
+                                  log: logging.Logger ) -> tuple[int, int]:
     """
     Return the frequency range in MHz for a given band identifier.
 

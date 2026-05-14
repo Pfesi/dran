@@ -15,6 +15,7 @@
       <script src="../../../_static/documentation_options.js?v=01f34227"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -42,6 +43,15 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_sband.html">Calibrating S-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tuts/tut_xband.html">Calibrating X-band data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/baseline.html">Baseline and drift correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/calibration/rfi.html">Radio Frequency Interference (RFI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/peak.html">Peak fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/fitting/model_and_fit.html">Data modelling and beam fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/reduction/data_extraction_and_prep.html">Data extraction and reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/vis/stat_anal_and_vis.html">Statistical analysis and visualisation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Resources:</span></p>
 <ul>
@@ -52,10 +62,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#edit-time-series">Edit Time series</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/gui.html#view-plots">View plots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/interface/web.html">The web interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/resources/basics.html">Radio astronomy basics needed for DRAN</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Guidelines:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../caveats.html">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extras/CHANGELOG.html">CURRENT VERSION (0.14.2)</a></li>
 </ul>
 
         </div>
@@ -94,8 +106,8 @@
 <span class="c1"># --------------------------------------------------------------------------- #</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">dran.storage.sqlite_schema</span> <span class="kn">import</span> <span class="n">_quote_ident</span>
-<span class="kn">from</span> <span class="nn">dran.storage.sqlite_types</span> <span class="kn">import</span> <span class="n">blob_to_array</span><span class="p">,</span> <span class="n">normalize_for_storage</span>
+<span class="kn">from</span> <span class="nn">.sqlite_schema</span> <span class="kn">import</span> <span class="n">_quote_ident</span>
+<span class="kn">from</span> <span class="nn">.sqlite_types</span> <span class="kn">import</span> <span class="n">blob_to_array</span><span class="p">,</span> <span class="n">normalize_for_storage</span>
 <span class="c1"># =========================================================================== #</span>
 
 

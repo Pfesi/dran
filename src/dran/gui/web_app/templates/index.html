@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DRAN Web GUI</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>DRAN Web GUI</h1>
+        <p>{{ runtime_dir }}</p>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="side-panel">
+        <section class="panel">
+          <h2>Open Driftscan</h2>
+          <form hx-post="/drift/upload" hx-target="#workspace" hx-swap="outerHTML" hx-encoding="multipart/form-data">
+            <label for="fits-file">FITS upload</label>
+            <input id="fits-file" name="file" type="file" accept=".fits,.fit,.fts">
+            <button type="submit">Open upload</button>
+          </form>
+          <form hx-post="/drift/open-path" hx-target="#workspace" hx-swap="outerHTML">
+            <label for="fits-path">Server path</label>
+            <input id="fits-path" name="path" type="text" placeholder="/path/to/file.fits">
+            <button type="submit">Open path</button>
+          </form>
+          {% if samples %}
+            <div class="sample-list">
+              {% for sample in samples %}
+                <form hx-post="/drift/open-path" hx-target="#workspace" hx-swap="outerHTML">
+                  <input type="hidden" name="path" value="{{ sample }}">
+                  <button type="submit" class="link-button">{{ sample.name }}</button>
+                </form>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </section>
+
+        <section class="panel">
+          <h2>Time Series</h2>
+          <form hx-post="/timeseries/upload" hx-target="#timeseries-panel" hx-swap="outerHTML" hx-encoding="multipart/form-data">
+            <label for="db-file">Database upload</label>
+            <input id="db-file" name="file" type="file" accept=".sqlite,.sqlite3,.db">
+            <button type="submit">Open upload</button>
+          </form>
+          <form hx-post="/timeseries/open" hx-target="#timeseries-panel" hx-swap="outerHTML">
+            <label for="db-path">SQLite database</label>
+            <input id="db-path" name="path" type="text" placeholder="/path/to/results.sqlite">
+            <button type="submit">Open database</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2>Plot Gallery</h2>
+          <form hx-post="/gallery/open" hx-target="#gallery-panel" hx-swap="outerHTML">
+            <label for="plot-path">Plot directory</label>
+            <input id="plot-path" name="path" type="text" placeholder="/path/to/plots">
+            <button type="submit">Open directory</button>
+          </form>
+        </section>
+      </aside>
+
+      <section class="main-stack">
+        {% include "partials/workspace.html" %}
+        <div class="lower-grid">
+          {% include "partials/timeseries.html" %}
+          {% include "partials/gallery.html" %}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

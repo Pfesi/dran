@@ -13,7 +13,7 @@ import re
 # App configuration
 PROJECT_NAME: Final = "DRAN"
 
-VERSION: str = "0.14.1"
+VERSION: str = "0.14.2"
 
 RELEASE: Final = "1.0"
 YEAR: Final = str(datetime.now().year)
@@ -191,3 +191,17 @@ _WAVELENGTH_ONLY_RE = re.compile(
     r"^(?P<wavelength>\d+(?:\.\d+)?)(?:cm)?$",
     flags=re.IGNORECASE,
 )
+
+# LISTS
+HART_CALS=[
+    "PKS1934-638",
+    "HYDRAA",
+    "HYDA",
+    "3C123",
+    "JUPITER",
+    "TAURUS",
+    "VIRGOA",
+    "3C161",
+    "3C286",
+    "3C48",    
+]

@@ -1,4 +1,4 @@
-CURRENT VERSION (0.14.1)
+CURRENT VERSION (0.14.2)
 ========================
 
 MAJOR REVISION
@@ -7,6 +7,7 @@ MAJOR REVISION
 MINOR REVISION
 --------------
 
+- v0.14.2 (33b7ac6) [2026-05-01] fixing issue with sphinx_rtd_theme
 - v0.14.1 (0da2bb8) [2026-05-01] editing the docs
 - v0.14.0 (23ff32d) [2026-04-29] added docs source files
 - v0.13.0 (0405f1a) [2026-04-29] added sphinx-book-theme for docs

@@ -1,4 +1,4 @@
-The command line interface (CLI)
+Command line interface (CLI)
 ================================
 
 In this mode data can be processed in either automated or manual 

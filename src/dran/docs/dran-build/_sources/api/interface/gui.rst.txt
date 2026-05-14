@@ -1,5 +1,5 @@
-The graphical user interface (GUI)
-----------------------------------
+Graphical user interface (GUI)
+==============================
 
 The graphical user interface lets the user manually examine a drift scan. 
 This is done through a graphical interface that enables a user to select 
@@ -17,8 +17,8 @@ edit your timeseries (e.g. manually remove outliers) and view plots of the
 processed data. A brief summary of each of these options is given below.
 
 
-.. image:: tuts/landing.png
-  :alt: landing page image. 
+.. .. image:: tuts/landing.png
+..   :alt: landing page image. 
   
 Edit driftscan
 ---------------
@@ -35,8 +35,8 @@ plot window where the drift scan data is displayed. The next plot shows what the
 looks like once a drift scan file is opened.
 
 
-.. image:: tuts/home.png
-  :alt: drift scan editting page image.
+.. .. image:: tuts/home.png
+..   :alt: drift scan editting page image.
 
 
 Upon opening a file, the drift scan data is loaded onto the plot window. The top plot 
@@ -45,15 +45,15 @@ This operation also toggles the display to the "Fit window" mentioned previously
 window is the information we need to fit the beam/beams of the drift scan. To toggle between
 different drift scans we use the "curren plot selection" toggle.
 
-.. image:: tuts/loaded_scan.png 
-  :alt: loaded scan image.
+.. .. image:: tuts/loaded_scan.png 
+..   :alt: loaded scan image.
 
 
 To beginning fitting the drift scan, one can click on the drift scan at the location at 
 which the fit is to be done as shown in the following image. 
 
-.. image:: tuts/base_select.png 
-  :alt: base selection image.
+.. .. image:: tuts/base_select.png 
+..   :alt: base selection image.
 
 The code is hot wired to process fitting the baseline and peak differently. This is 
 controlled by the "Fit Location" toggle. If you want to fit the baseline, the toggle
@@ -63,8 +63,8 @@ fit to the baseline blocks selected in the previous step.  This creates a new pl
 with the baseline drift removed as shown below.
 
 
-.. image:: tuts/base_corrected.png 
-  :alt: base corrected image.
+.. .. image:: tuts/base_corrected.png 
+..   :alt: base corrected image.
 
 The default baseline fit is a 1st order polynomial, however, this can be adjusted accordingly
 using the "Fit order" toggle. There are also options to filter the data (smoothing/removing RFI)
@@ -76,8 +76,8 @@ that the "Fit Location" toggle is set to "Peak". Depending on where you want to 
 around the peak, you need to select peak fitting points as shown below. 
 
 
-.. image:: tuts/peak_select.png 
-  :alt: peak selection image.
+.. .. image:: tuts/peak_select.png 
+..   :alt: peak selection image.
 
 
 Once you are happy with the selection points, you press "Fit data" again so the program 
@@ -87,8 +87,8 @@ the PSS or the source flux depending on the target object under investigation.
 
 
 
-.. image:: tuts/peak_fit.png 
-  :alt: peak fit image.
+.. .. image:: tuts/peak_fit.png 
+..   :alt: peak fit image.
 
 
 When you are happy with the fit, you need to save it using the "Save" button. This saves the 
@@ -111,8 +111,8 @@ the observation from there, then run the code again in automated mode to re-proc
 the automated fit.
 
 
-.. image:: tuts/db_save.png 
-  :alt: save to db image.
+.. .. image:: tuts/db_save.png 
+..   :alt: save to db image.
 
 Edit Time series
 -----------------
@@ -125,16 +125,16 @@ on the time series data.
 Opening a database in "Edit Time series" lets you plot any timeseries on the data 
 provided. For this example I'm plotting observed date vs PSS. 
 
-.. image:: tuts/db.png 
-  :alt: edit timeseries plot.
+.. .. image:: tuts/db.png 
+..   :alt: edit timeseries plot.
 
 
 To view the drift scan plots that provided a specific point on the timeseries you 
 click on the point in the timeseries and a popup html will show up with all the 
 processed scans for that specific point.
 
-.. image:: tuts/insert.png 
-  :alt: html insert image of point clicked.
+.. .. image:: tuts/insert.png 
+..   :alt: html insert image of point clicked.
 
 
 .. note::
@@ -148,16 +148,16 @@ View plots lets you view the thumbnails of all the plots made by the code for ea
 observed object. 
 
 
-.. image:: tuts/plot_views.png 
-  :alt: html insert image of point clicked.
+.. .. image:: tuts/plot_views.png 
+..   :alt: html insert image of point clicked.
 
 
 Selecting the object name from a dropdown list provies a tile view 
 of all the plots made for that current object. Clickin on the tiles
 provides a zoomed in image of the thumbnail.
 
-.. image:: tuts/plots.png 
-  :alt: html insert image of point clicked.
+.. .. image:: tuts/plots.png 
+..   :alt: html insert image of point clicked.
 
 Currently this does not work well when there is a lot of data 
 because the page takes a long time to load. In future work this will be modified 

@@ -1,4 +1,4 @@
-The web interface
+Web interface
 -----------------
 
 Coming soon - Under construction.

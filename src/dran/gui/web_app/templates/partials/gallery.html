@@ -1,0 +1,24 @@
+<section id="gallery-panel" class="panel">
+  <div class="panel-header">
+    <h2>Plot Gallery</h2>
+    {% if gallery %}<span>{{ gallery.directory }}</span>{% endif %}
+  </div>
+  {% if error %}
+    <div class="notice error">{{ error }}</div>
+  {% endif %}
+  {% if gallery %}
+    {% if gallery.message %}
+      <div class="notice info">{{ gallery.message }}</div>
+    {% endif %}
+    <div class="gallery-grid">
+      {% for image in gallery.images %}
+        <a class="gallery-card" href="/gallery/image?session_id={{ gallery.id }}&index={{ loop.index0 }}" target="_blank">
+          <img src="/gallery/image?session_id={{ gallery.id }}&index={{ loop.index0 }}" alt="{{ image.name }}">
+          <span>{{ image.relative }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">No plot directory loaded.</div>
+  {% endif %}
+</section>

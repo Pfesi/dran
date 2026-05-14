@@ -5,7 +5,7 @@ Introduction
 ------------
 
 ``DRAN`` is a data reduction and 
-analysis python software package developed for the systematic processing of 
+analysis python package developed for the systematic processing of 
 single-dish drift scan data from `HartRAO's 26m telescope <http://www.hartrao.ac.za/hh26m_factsfile.html>`_. 
 It was developed to replace the legacy ``LINES`` software previously 
 used at the `Hartebeesthoek Radio Astronomy Observatory <http://www.hartrao.ac.za/>`_. 
@@ -13,12 +13,13 @@ used at the `Hartebeesthoek Radio Astronomy Observatory <http://www.hartrao.ac.z
 The package is implemented in `Python 3.11 <https://www.python.org/downloads/>`_ and provides 
 tools for simple data processing, including:
 
-- :doc:`api/reduction/data_extraction_and_prep`
-- :doc:`api/fitting/model_and_fit`
-- :doc:`api/vis/stat_anal_and_vis`
-
-``DRAN`` is intended for both calibrator and target source analysis, with an emphasis 
-on reproducibility, automation, and traceability of results. 
+- Data extraction and reduction
+- Modelling an beam fitting
+- Statistical analysis and visualization
+  
+.. - :doc:`api/reduction/data_extraction_and_prep`
+.. - :doc:`api/fitting/model_and_fit`
+.. - :doc:`api/vis/stat_anal_and_vis`
 
 
 .. Final fit parameters, diagnostics, and derived statistics are written to an 
@@ -28,16 +29,27 @@ on reproducibility, automation, and traceability of results.
 
 
 
-Interfaces
-----------
+.. Interfaces
+.. ----------
+DRAN uses a :doc:`api/interface/cli` driven workflow in which the 
+user runs processing, analysis, inspection, and reporting tasks 
+through terminal commands, allowing the data reduction process to 
+remain reproducible, scriptable, and easier to automate.
 
-DRAN supports 4 primary interfaces:
+For closer inspection of individual observations, DRAN also 
+provides a :doc:`api/interface/gui` for fitting, visual 
+inspection, and time-series analysis. 
 
-- :doc:`api/interface/cli`, intended for automated and batch processing.
-- :doc:`api/interface/gui`, intended for interactive inspection, fitting, 
-  and time-series analysis of individual observations.
-- :doc:`api/interface/web`, currently in development.
-- ``docs``, this documentation.
+A :doc:`api/interface/web` is 
+currently in development and is intended to provide browser-based 
+access to selected DRAN tools.
+
+.. DRAN supports 3 primary interfaces:
+
+.. - :doc:`api/interface/cli`, intended for automated and batch processing.
+.. - :doc:`api/interface/gui`, intended for interactive inspection, fitting, 
+..   and time-series analysis of individual observations.
+.. - :doc:`api/interface/web`, currently in development.
 
 
 .. Ports
@@ -54,17 +66,19 @@ DRAN supports 4 primary interfaces:
 ..    The new_port_number should be an integer.
 
 
-What's next ?
--------------
+Getting started
+---------------
 
-.. - For a basic understanding of the radio astronomy backgound for these observations, 
-.. see :doc:`extras/notes/radio_astro`.
+- For instructions in installing ``DRAN`` see the :doc:`installation` page.
 
-- To understand the workflow in practice, start with the tutorials in :doc:`tuts/index`.
+- For a short introduction to using ``DRAN`` see the :doc:`quickstart`.
 
-- Installation instructions are provided in :doc:`installation`.
+- For more detailed examples, refer to the :doc:`tuts/index`.
 
-- Before performing scientific analysis, users are strongly encouraged to review :doc:`caveats`, which outlines assumptions, limitations, and known constraints.
+
+Before performing scientific analysis, users are strongly 
+encouraged to review :doc:`caveats`, which outlines assumptions, 
+limitations, and known constraints.
 
 
 
@@ -78,7 +92,7 @@ Getting help
 ------------
 
 If you have any problems, questions, feature requests or suggestions, please 
-`OPEN AN ISSUE <https://github.com/Pfesi/dran/issues>`_.
+`open a github issue <https://github.com/Pfesi/dran/issues>`_ or `email the author <mailto:pvanzyl@sarao.ac.za>`_.
  
 
 .. toctree::
@@ -87,25 +101,29 @@ If you have any problems, questions, feature requests or suggestions, please
    :caption: Contents:
 
    installation
+   quickstart
+   api/interface/cli
+   api/interface/gui
+   api/interface/web
    tuts/index
-   tuts/tut_sband
-   tuts/tut_xband
-   api/calibration/baseline
-   api/calibration/rfi
-   api/fitting/peak
-   api/fitting/model_and_fit
-   api/reduction/data_extraction_and_prep
-   api/vis/stat_anal_and_vis
+
+   .. tuts/tut_sband
+   .. tuts/tut_xband
+   .. api/calibration/baseline
+   .. api/calibration/rfi
+   .. api/fitting/peak
+   .. api/fitting/model_and_fit
+   .. api/reduction/data_extraction_and_prep
+   .. api/vis/stat_anal_and_vis
 
 .. toctree::
    :hidden:
    :maxdepth: 2
    :caption: Resources:
 
-   api/interface/cli
-   api/interface/gui
-   api/interface/web
-   api/resources/basics
+   api/resources/hart26m
+..    api/interface/web
+..    api/resources/basics
 
 
 .. toctree::
@@ -114,6 +132,12 @@ If you have any problems, questions, feature requests or suggestions, please
    :caption: Guidelines:
 
    caveats
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Changelog:
+
    extras/CHANGELOG
 
 

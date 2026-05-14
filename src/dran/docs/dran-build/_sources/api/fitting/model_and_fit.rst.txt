@@ -1,4 +1,4 @@
 .. Baseline modelling and beam fitting page
 
-Baseline modelling and beam fitting
+Data modelling and beam fitting
 ===================================

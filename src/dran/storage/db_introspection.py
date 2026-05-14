@@ -52,7 +52,6 @@ def get_table_names(database_path: Path) -> List[str]:
     # Extract table names from returned tuples
     return [row[0] for row in rows]
 
-
 def get_table_from_db(dbPath: str, tableName: str) -> pd.DataFrame:
     """
     """

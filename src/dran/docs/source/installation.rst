@@ -1,22 +1,34 @@
 Installation 
 ============
 
-The DRAN program was developed using the `uv <https://docs.astral.sh/uv/>`_ package 
-management system. A copy of the program can be downoaded from the 
-python package manager repository `pypi <https://pypi.org/project/pip/>`_ using 
-the `pip <https://pypi.org/project/pip/>`_ command
+.. note::
+   ``DRAN`` has not been tested on any previous python versions. And 
+   there is no support for backwards compatibility.
 
-To install the dran package
+   `Please report any issues to github <https://github.com/Pfesi/dran/issues>`_
+
+These instructions will install ``DRAN`` as well as its dependencies.
+
+The recommended way to install ``DRAN`` is by using pypi or the `pip <https://pypi.org/project/pip/>`_ 
+package manager using the command
 
 .. code-block:: bash
 
-   # install with pip
-   $ pip install dran
+   pip install dran
+
+
+``DRAN`` can also be installed using the `uv <https://docs.astral.sh/uv/>`_ package 
+management system using the command
 
 .. code-block:: bash
    
-   # install with uv
    uv run dran
 
-Once DRAN is successfully loaded. You can head over to the 
-:doc:`tuts/index` to start using DRAN.
+Check the installation
+-----------------------
+
+After installation, check that the ``DRAN`` command is available:
+
+.. code-block:: bash
+
+   dran -help 

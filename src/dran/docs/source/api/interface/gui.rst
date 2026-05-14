@@ -1,5 +1,5 @@
-The graphical user interface (GUI)
-----------------------------------
+Graphical user interface (GUI)
+==============================
 
 The graphical user interface lets the user manually examine a drift scan. 
 This is done through a graphical interface that enables a user to select 

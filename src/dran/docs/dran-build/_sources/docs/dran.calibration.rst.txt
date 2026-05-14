@@ -9,6 +9,7 @@ Subpackages
 
    dran.calibration.atmosphere
    dran.calibration.planets
+   dran.calibration.predefs
 
 Submodules
 ----------
