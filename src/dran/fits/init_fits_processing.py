@@ -151,7 +151,7 @@ def _process_single_file(
         
         src=record["OBJECT"]
         band=record["BAND"]
-        freq_mhz=int(record["CENTFREQ"])
+        freq_mhz=round(record["CENTFREQ"]) #int
         table_name = f"{src}_{freq_mhz}".upper()
                   
         conn = get_connection(paths.db_path, log)
@@ -199,8 +199,9 @@ def _process_single_file(
         del scan
         
     else:
+        
         src=p.source
-        freq_mhz=int(p.frequency)
+        freq_mhz=round(p.frequency) #int(p.frequency)
         band=get_band_from_frequency(freq_mhz,log)
         band=band.upper()
         table_name = f"{src}_{freq_mhz}".upper()
@@ -232,7 +233,22 @@ def _process_single_file(
                                     "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
         row = {k: v for k, v in row.items() if k not in disallowed_keys}
 
-
+        # print(p.frequency, src)
+        # print(table_name)
+        # print('>>>>> ',round(row['CENTFREQ']))
+        
+        try:
+            save_freq=round(row['CENTFREQ'])
+            table_name=f"{row['OBJECT']}_{save_freq}".replace(" ", "")
+            row['DIR_FREQ']=save_freq
+            path=Path(row['PLOT_SAVE_DIR'])
+            row['PLOT_SAVE_DIR']=str(path.parent / str(save_freq)) + "/"
+            
+        except:
+            pass
+        
+        print(f'\n>>>>> Saving to table: {table_name}\n')
+        
         _ensure_and_insert(table_name,row,paths,log)
         _record_processed_file(
             fits_path,
@@ -324,7 +340,7 @@ def _process_directory(root_dir: Path,
                         
                         src=record["OBJECT"]
                         band=record["BAND"]
-                        freq_mhz=int(record["CENTFREQ"])
+                        freq_mhz=round(record["CENTFREQ"]) #int(record["CENTFREQ"])
                         table_name = f"{src}_{freq_mhz}".upper()
                                 
                         conn = get_connection(paths.db_path, log)

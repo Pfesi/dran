@@ -75,6 +75,7 @@ wheel-exclude = [
 [tool.uv.workspace]
 members = [
     "src/dran/analysis/web",
+    "src/dran/web-viewer",
 ]
 
 [project]

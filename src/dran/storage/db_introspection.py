@@ -87,6 +87,7 @@ def prep_data(dataframe: pd.DataFrame, source_name: str) -> pd.DataFrame:
             'UPGR', 'TYPE', 'COOR', 'EQU', 'RADEC', 'SCAND', 'BMO', 'DICH', 'PHAS',
             'POINTI', 'TIME', 'INSTRU', 'INSTFL', 'time', 'HABM'
         ]
+    
     dataframe = convert_to_numeric(dataframe, exclude_keywords)
 
     # Add source name to the DataFrame
@@ -180,7 +181,7 @@ def make_positive(value):
         # Handle invalid values (e.g., non-numeric strings)
         return np.nan
 
-def get_data_from_db(processed_db_path,DB_PATH: Path, 
+def get_data_from_db(processed_db_path, DB_PATH: Path, 
                      freq: int,
                      table_name: str,
                      src: str,
@@ -250,8 +251,6 @@ def get_2ghz_data(table_name: str, cnx):
         df_original.sort_values(by='FILENAME', inplace=True)
     return df
    
-
-
 
 # def list_tables_in_frequency_range(
 #     db_path: Path,

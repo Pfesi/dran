@@ -293,7 +293,7 @@ def _plot_base_path(
     full file path for the plot.
     """
     
-    centfreq_mhz = int(row["CENTFREQ"])
+    centfreq_mhz = round(row["CENTFREQ"]) #int
     plot_path_dir = paths.plots_dir / src / str(centfreq_mhz) 
     os.makedirs(plot_path_dir, exist_ok=True)
 
@@ -349,14 +349,18 @@ def populate_row(
             src = str(row.get("OBJECT") or "UNKNOWN").replace(" ", "")
             out_path = _plot_base_path(row, src, fname_stub, paths)
             
-            # print("here**")
-            # if "CIRX" in row.get("OBJECT") :
-            #     print("---> ",row)
-            #     try:
-            #         print(row["ANLQC"])
-            #     except:
-            #         row["ANLQC"]=None
-            #         print("ANLQC : ",row["ANLQC"])
+            # print(src, paths)
+            # print("here** ",out_path); sys.exit()
+            if "CIRX" in row.get("OBJECT") :
+                print("---> ",row)
+                try:
+                    print(row["ANLQC"])
+                except:
+                    row["ANLQC"]=None
+                    row["ASLQC"]=None
+                    row["ANRQC"]=None
+                    row["ASRQC"]=None
+                    print("*** Added ANLQC : ",row["ANLQC"])
                 
             scan = _fit_one_scan(row, value, band, out_path, paths, log)
             _populate_fit_fields(row=row, scan=scan, pol_key=pol_key, band=band, log=log,args=args)
