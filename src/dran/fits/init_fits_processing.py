@@ -18,7 +18,7 @@ from dran.storage.sqlite_connection import get_connection
 from dran.fits.observation_extractor import extract_observation
 from dran.utils.fs import (clear_diagnostics_dir, compute_file_hash,
     record_invalid_path_once,ProjectPaths,
-    parse_source_frequency_band_from_path_if_folder,
+    # parse_source_frequency_band_from_path_if_folder,
     resolve_existing_path, parse_observation_path,
     _validate_symlink
 )
@@ -143,6 +143,7 @@ def _process_single_file(
         return []
     
     p=parse_observation_path(fits_path)
+    print('>>>>>>> ',p)
     
     # print(p);sys.exit()
     if p.band_folder==None:
@@ -199,6 +200,65 @@ def _process_single_file(
         del scan
         
     else:
+        
+        if p.frequency==None:
+            record = extract_observation(fits_path, paths, p.band_folder, log)
+            
+            src=record['OBJECT'].replace(" ", "")
+            save_freq=round(record['CENTFREQ'])
+            band=get_band_from_frequency(save_freq,log)
+            band=band.upper()
+            table_name=f"{record['OBJECT']}_{save_freq}".replace(" ", "")
+
+            conn = get_connection(paths.db_path, log)
+            
+            already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
+            conn.close()
+
+            if already_done:
+                log.debug("Skipping already processed file: %s", fits_path)
+                return []
+
+            skip, file_hash, file_size, file_mtime = _should_skip_by_registry(
+                fits_path, paths, log
+            )
+            if skip:
+                log.debug("Skipping duplicate file by registry: %s", fits_path)
+                return []
+            
+        
+            scan = [record]
+            band = record['BAND']
+            row = populate_row(scan, band, paths, log,args)
+        
+            disallowed_keys: set[str] = {"UISER_LONG", 
+                                    "GAIN1", "GAIN2",
+                                    "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
+            row = {k: v for k, v in row.items() if k not in disallowed_keys}
+        
+            
+            
+            row['DIR_FREQ']=save_freq
+            path=Path(row['PLOT_SAVE_DIR'])
+            row['PLOT_SAVE_DIR']=str(path.parent / str(save_freq)) + "/"
+            
+            print(f'\n>>>>> Saving to table: {table_name}\n')
+            
+            # print(record['BAND'],record['OBJECT'], record['CENTFREQ']);sys.exit()
+            
+            _ensure_and_insert(table_name,row,paths,log)
+            _record_processed_file(
+                fits_path,
+                paths,
+                log,
+                args,
+                file_hash=file_hash,
+                file_size=file_size,
+                file_mtime=file_mtime,
+            )
+            clear_diagnostics_dir(paths.diagnostics_dir, log)
+            del row
+            del scan
         
         src=p.source
         freq_mhz=round(p.frequency) #int(p.frequency)
@@ -363,7 +423,7 @@ def _process_directory(root_dir: Path,
                         #     band=record["BAND"]
                         # if _freq_mhz==None:
                         #     _freq_mhz=int(record["CENTFREQ"])
-                        
+                        print(scan)
                         row = populate_row(scan, band, paths,log,args)
                         disallowed_keys: set[str] = {"UISER_LONG", 
                                                      "GAIN1", "GAIN2",
@@ -375,7 +435,8 @@ def _process_directory(root_dir: Path,
                         except:
                             pass
                         # table_name=f'{src}_{int(_freq_mhz)}'.upper()
-                        _ensure_and_insert(table_name,row,paths,log)
+                        
+                        _ensure_and_insert(table_name,row,paths,log)#;sys.exit()
                         _record_processed_file(
                             fits_path,
                             paths,
@@ -393,7 +454,7 @@ def _process_directory(root_dir: Path,
                 else:
                     log.info(f"Directory {base} has {len(paths_to_process)} files, skipping process")
             else:
-                log.info(f"Directory {base} has no `    fits files, skipping process")
+                log.info(f"\n<<< Directory {base} has no fits files, skipping process")
             
     
     return 

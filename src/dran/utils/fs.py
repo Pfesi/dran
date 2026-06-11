@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Iterable, Optional, Tuple
 import logging
 import shutil
+import numpy as np
 import sys
 import hashlib
 from typing import Set
@@ -342,7 +343,21 @@ def parse_observation_path(path_str: str) -> ObservationPathParts:
                 )
             except:
                 print('***',source_freq_folder)
-                raise ObservationPathError(f"Missing source_<band> pattern: {p}")
+                print(f"Missing source_<band> pattern: {p}")
+                # raise ObservationPathError(f"Missing source_<band> pattern: {p}")
+                
+                return ObservationPathParts(
+                    root_data_dir=Path(*parts[: data_idx + 1]),
+                    category=category,
+                    source=source,
+                    frequency=np.nan,
+                    filename=filename,
+                    full_path=p,
+                    wavelength_cm=None,
+                    beam=None,
+                    band_folder=None,
+                )
+                
 
     sf_tokens = [t for t in source_freq_folder.split("_") if t]
     if len(sf_tokens) < 2:

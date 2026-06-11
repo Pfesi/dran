@@ -14,6 +14,7 @@ import logging
 import json
 from dataclasses import asdict, is_dataclass
 import math 
+import sys
 # from dran.config.constants import DIAGNOSTICS_DIRNAME
 # from dran.utils.fs import clear_diagnostics_dir
 from dran.utils.config import ProjectPaths
@@ -109,6 +110,18 @@ def _populate_fit_fields(
     Write fit results into row fields that are currently None.
     """
 
+    # if band=='C' or band=='X':
+    #     # b = 'A' if scan.is_a else 'B'
+    #     for s in ["N","S","O"]:
+    #         for p in ["L","R"]:
+    #             # row[f'{b}{s}{p}QC']=None
+    #             print('---- here')
+    #             if s=='O':
+    #                 row[f'ZC_{p}CPDATA']=None
+    #             else:
+    #                 row[f'HP{s}Z_{p}CPDATA']=None
+                    
+   
     try:
         del row["ALT1"]
     except:
@@ -209,6 +222,7 @@ def _populate_fit_fields(
             qc={'ok':scan.qc.ok, 'flag':scan.qc.flag, 'message':scan.qc.message, 'metrics':scan.qc.metrics}
             row[field] = json.dumps(to_jsonable(qc), ensure_ascii=False)
     # print('made it')
+
 
 def _populate_pointing_single_beam(row: Dict[str, Any], log: logging.Logger) -> None:
     """
@@ -313,7 +327,7 @@ def populate_row(
     file_data, consistent with existing behavior).
     """
     
-    print(band)
+    # print(band)
     band = band.upper()
     for row in file_data:
         # if row.get("SCAN_ERROR") is not None:
@@ -328,15 +342,25 @@ def populate_row(
                 for s in ["N","S","O"]:
                     for p in ["L","R"]:
                         row[f'{b}{s}{p}QC']=None
+                        
+                        # if s=='O':
+                        #     row[f'ZC_{p}CPDATA']=None
+                        # else:
+                        #     row[f'HP{s}Z_{p}CPDATA']=None
         else:
             if band == "L" or band=="S":
                 
                 for p in ["L","R"]:
                     row[f"O{p}QC"]=None
+                    # row[f'ZC_{p}CPDATA']=None
             else:
                 for s in ["N","S","O"]:
                     for p in ["L","R"]:
                         row[f'{s}{p}QC']=None
+                        # if s=='O':
+                        #     row[f'ZC_{p}CPDATA']=None
+                        # else:
+                        #     row[f'HP{s}Z_{p}CPDATA']=None
                     
         # process data 
         data_keys = [k for k in row.keys() if "DATA" in k]
@@ -349,8 +373,7 @@ def populate_row(
             src = str(row.get("OBJECT") or "UNKNOWN").replace(" ", "")
             out_path = _plot_base_path(row, src, fname_stub, paths)
             
-            # print(src, paths)
-            # print("here** ",out_path); sys.exit()
+
             if "CIRX" in row.get("OBJECT") :
                 print("---> ",row)
                 try:
@@ -362,16 +385,17 @@ def populate_row(
                     row["ASRQC"]=None
                     print("*** Added ANLQC : ",row["ANLQC"])
                 
-            scan = _fit_one_scan(row, value, band, out_path, paths, log)
+            scan = _fit_one_scan(row, value, band, out_path, paths, log);
             _populate_fit_fields(row=row, scan=scan, pol_key=pol_key, band=band, log=log,args=args)
             
             del scan
+
 
     if band in {"CM", "KU", "K"}:
         _populate_pointing_single_beam(row, log)
 
     if band in {"X", "C"}:
         _populate_pointing_dual_beam(row, log)
-       
-    # print('wow') 
+
+
     return row

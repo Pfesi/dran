@@ -397,6 +397,9 @@ def _ensure_and_insert(
         log.debug("Inserted id=%s into %s", row_id, table_name)
     except sqlite3.IntegrityError:
         log.debug("Row already exists in %s. Skipping.", table_name)
+    except Exception as e:
+        print(e)
+        
     finally:
         conn.close()
 

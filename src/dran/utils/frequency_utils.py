@@ -135,10 +135,13 @@ def _resolve_band_to_frequency_mhz(band: str, source_freq_folder: str, p: Path) 
         # print('>>> key: ',key)
         mhz_str = FREQ_ALIASES.get(key)
         if mhz_str is None:
-            raise ObservationPathError(
-                f"Unknown wavelength '{key} cm' in folder '{source_freq_folder}'. "
-                f"Add it to FREQ_ALIASES: {p}"
-            )
+            print(f"Unknown wavelength '{key} cm' in folder '{source_freq_folder}'. "
+                )
+            # raise ObservationPathError(
+            #     f"Unknown wavelength '{key} cm' in folder '{source_freq_folder}'. "
+            #     f"Add it to FREQ_ALIASES: {p}"
+            # )
+            return None, None, None
         return int(mhz_str), wavelength_cm, beam
 
     # Case B: wavelength only like 35, 13, 3.5
