@@ -143,7 +143,7 @@ def _process_single_file(
         return []
     
     p=parse_observation_path(fits_path)
-    print('>>>>>>> ',p)
+    # print('>>>>>>> ',p)
     
     # print(p);sys.exit()
     if p.band_folder==None:
