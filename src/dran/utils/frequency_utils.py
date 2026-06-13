@@ -160,9 +160,10 @@ def _resolve_band_to_frequency_mhz(band: str, source_freq_folder: str, p: Path) 
     if band.isdigit():
         return int(band), None, None
 
-    raise ObservationPathError(
-        f"Unrecognized band token '{band}' in '{source_freq_folder}': {p}"
-    )
+    return None, None, None
+    # raise ObservationPathError(
+    #     f"Unrecognized band token '{band}' in '{source_freq_folder}': {p}"
+    # )
 
 
 def _read_frequency_from_fits_header(path: Path) -> tuple[str, str, str]:

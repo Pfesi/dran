@@ -184,7 +184,7 @@ def _process_single_file(
                                     "ALTGAIN1","ALTGAIN2","ALTGAIN3"}  
         row = {k: v for k, v in row.items() if k not in disallowed_keys}
 
-        # print('here')
+        print('here')
         _ensure_and_insert(table_name,row,paths,log)
         _record_processed_file(
             fits_path,
@@ -203,13 +203,22 @@ def _process_single_file(
         
         if p.frequency==None:
             record = extract_observation(fits_path, paths, p.band_folder, log)
+            # print('>>>>>>> ',record);sys.exit()
             
             src=record['OBJECT'].replace(" ", "")
-            save_freq=round(record['CENTFREQ'])
+            
+            if '2.5CM' in src or '3.5CM' in src or '13.0CM' in src or '18.0CM' in src or '2.5CM' in src or '6.0CM' in src:         
+                print(src)       
+                src=src.split(' ')[0]
+                print('****', src)
+                
+            save_freq=round(float(record['CENTFREQ']))
             band=get_band_from_frequency(save_freq,log)
             band=band.upper()
-            table_name=f"{record['OBJECT']}_{save_freq}".replace(" ", "")
+            table_name=f"{src}_{save_freq}".replace(" ", "")
 
+            print('>>> table_name: ',table_name)
+            print('>>> band: ',band, )
             conn = get_connection(paths.db_path, log)
             
             already_done = record_exists(conn, table_name, "FILEPATH", str(fits_path))
@@ -294,11 +303,11 @@ def _process_single_file(
         row = {k: v for k, v in row.items() if k not in disallowed_keys}
 
         # print(p.frequency, src)
-        # print(table_name)
-        # print('>>>>> ',round(row['CENTFREQ']))
+        print(table_name)
+        print('>>>>> ',round(row['CENTFREQ']))
         
         try:
-            save_freq=round(row['CENTFREQ'])
+            save_freq=round(float(record['CENTFREQ']))
             table_name=f"{row['OBJECT']}_{save_freq}".replace(" ", "")
             row['DIR_FREQ']=save_freq
             path=Path(row['PLOT_SAVE_DIR'])
